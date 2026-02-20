@@ -1,14 +1,19 @@
 from pydantic_settings import BaseSettings
+from pydantic import Field, AliasChoices
 from typing import List
-import os
 
 
 class Settings(BaseSettings):
     """Application settings with environment variable support"""
     
     # LLM Configuration (supports OpenAI, Grok, and Groq)
-    openai_api_key: str
-    openai_model: str = "llama-3.3-70b-versatile"
+    groq_api_key: str = Field(
+        validation_alias=AliasChoices("GROQ_API_KEY"),
+    )
+    openai_model: str = Field(
+        default="llama-3.3-70b-versatile",
+        validation_alias=AliasChoices("OPENAI_MODEL", "LLM_MODEL"),
+    )
     openai_max_tokens: int = 1000
     openai_temperature: float = 0.3
     llm_provider: str = "groq"

@@ -3,6 +3,7 @@ LLM Service - Unified interface for OpenAI and Mock LLM
 Automatically falls back to mock service if OpenAI is unavailable
 """
 import json
+import re
 from typing import Dict, List, Optional
 from openai import OpenAI
 from tenacity import retry, stop_after_attempt, wait_exponential
@@ -31,18 +32,18 @@ class LLMService:
                 # Configure for Groq, Grok, or OpenAI
                 if settings.llm_provider.lower() == "groq":
                     self.client = OpenAI(
-                        api_key=settings.openai_api_key,
+                        api_key=settings.groq_api_key,
                         base_url=settings.groq_base_url
                     )
                     logger.info(f"LLM Service initialized with Groq AI (model: {settings.openai_model})")
                 elif settings.llm_provider.lower() == "grok":
                     self.client = OpenAI(
-                        api_key=settings.openai_api_key,
+                        api_key=settings.groq_api_key,
                         base_url=settings.grok_base_url
                     )
                     logger.info(f"LLM Service initialized with Grok AI (model: {settings.openai_model})")
                 else:
-                    self.client = OpenAI(api_key=settings.openai_api_key)
+                    self.client = OpenAI(api_key=settings.groq_api_key)
                     logger.info(f"LLM Service initialized with OpenAI (model: {settings.openai_model})")
             except Exception as e:
                 logger.warning(f"LLM initialization failed: {e}. Using mock service.")
@@ -74,6 +75,24 @@ class LLMService:
         except Exception as e:
             logger.error(f"OpenAI API call failed: {e}")
             raise
+
+    def _parse_json_response(self, response_text: str) -> Dict:
+        cleaned = response_text.strip()
+
+        try:
+            return json.loads(cleaned)
+        except json.JSONDecodeError:
+            pass
+
+        fence_match = re.search(r"```(?:json)?\s*(\{.*?\})\s*```", cleaned, re.DOTALL | re.IGNORECASE)
+        if fence_match:
+            return json.loads(fence_match.group(1))
+
+        json_match = re.search(r"\{.*\}", cleaned, re.DOTALL)
+        if json_match:
+            return json.loads(json_match.group(0))
+
+        raise json.JSONDecodeError("No JSON object found in model response", cleaned, 0)
     
     def extract_symptoms(self, user_message: str) -> Dict:
         """
@@ -143,7 +162,7 @@ No additional text."""
         try:
             response_text = self._call_openai(messages, max_tokens=200)
             # Parse JSON response
-            result = json.loads(response_text)
+            result = self._parse_json_response(response_text)
             logger.info(f"OpenAI extracted symptoms: {result}")
             return result
         except Exception as e:
@@ -240,7 +259,7 @@ Maintain a calm, neutral, non-alarming tone."""
         try:
             response_text = self._call_openai(messages, max_tokens=500)
             # Parse JSON response
-            result = json.loads(response_text)
+            result = self._parse_json_response(response_text)
             logger.info(f"OpenAI assessment: urgency={result['urgency_level']}, emergency={result['emergency_flag']}")
             return result
         except Exception as e:

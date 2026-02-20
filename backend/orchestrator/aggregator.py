@@ -4,7 +4,7 @@ from typing import Any
 from backend.agents.mock_cost_agent import estimate_cost
 from backend.agents.mock_hospital_agent import find_hospitals
 from backend.agents.mock_review_agent import get_review_intel
-from backend.agents.mock_symptom_agent import analyze_symptoms
+from backend.agents.symptom_agent import analyze_symptoms
 
 
 def _clamp(value: float, minimum: float, maximum: float) -> float:

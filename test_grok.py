@@ -22,20 +22,20 @@ def test_grok_connection():
     print(f"   • Model: {settings.openai_model}")
     print(f"   • Base URL: {getattr(settings, 'grok_base_url', 'Not set')}")
     
-    if settings.openai_api_key == "your-grok-api-key-here":
+    if settings.groq_api_key == "your-grok-api-key-here":
         print("\n❌ ERROR: Grok API key not configured!")
         print("\nPlease update your .env file:")
-        print("   OPENAI_API_KEY=xai-your-actual-grok-key")
+        print("   GROQ_API_KEY=xai-your-actual-grok-key")
         return False
     
-    key_display = settings.openai_api_key[:8] + "..." + settings.openai_api_key[-6:]
+    key_display = settings.groq_api_key[:8] + "..." + settings.groq_api_key[-6:]
     print(f"   • API Key: {key_display}")
     
     # Test connection
     print(f"\n2. Testing Grok API:")
     try:
         client = OpenAI(
-            api_key=settings.openai_api_key,
+            api_key=settings.groq_api_key,
             base_url=settings.grok_base_url
         )
         

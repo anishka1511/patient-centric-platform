@@ -18,24 +18,24 @@ def test_openai_connection():
     
     # Check if API key is set
     print(f"\n1. API Key Check:")
-    if settings.openai_api_key == "sk-your-actual-openai-key-here":
+        if settings.groq_api_key == "sk-your-actual-openai-key-here":
         print("   ❌ API key not configured!")
-        print("   Please update OPENAI_API_KEY in .env file")
+            print("   Please update GROQ_API_KEY in .env file")
         return False
     
-    if not settings.openai_api_key.startswith("sk-"):
+        if not settings.groq_api_key.startswith("sk-"):
         print("   ❌ Invalid API key format!")
         print("   OpenAI keys should start with 'sk-'")
         return False
     
-    key_display = settings.openai_api_key[:10] + "..." + settings.openai_api_key[-4:]
+        key_display = settings.groq_api_key[:10] + "..." + settings.groq_api_key[-4:]
     print(f"   ✓ API key found: {key_display}")
     print(f"   ✓ Model: {settings.openai_model}")
     
     # Test API connection
     print(f"\n2. Testing API Connection:")
     try:
-        client = OpenAI(api_key=settings.openai_api_key)
+            client = OpenAI(api_key=settings.groq_api_key)
         
         logger.info("Making test API call to OpenAI...")
         response = client.chat.completions.create(
