@@ -1,7 +1,7 @@
 """
 API Routes for symptom assessment agent
 """
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlalchemy.orm import Session
 import uuid
 
@@ -13,6 +13,7 @@ from routers.schemas import (
 )
 from services.agent_orchestrator import agent_orchestrator
 from services.conversation_service import conversation_service
+from services.geolocation_service import geolocation_service
 from models.message import MessageRole
 from config.logging_config import logger
 
@@ -21,6 +22,7 @@ router = APIRouter(prefix="/api", tags=["symptom-assessment"])
 
 @router.post("/assess", response_model=SymptomAssessmentResponse)
 async def assess_symptoms(
+    http_request: Request,
     request: SymptomAssessmentRequest,
     db: Session = Depends(get_db)
 ):
@@ -29,6 +31,7 @@ async def assess_symptoms(
     
     - **message**: User's symptom description
     - **session_id**: Optional session ID for tracking conversations
+    - **location**: Optional location (auto-detects from IP if not provided)
     
     Returns assessment with:
     - Extracted symptoms
@@ -36,6 +39,7 @@ async def assess_symptoms(
     - Emergency flag
     - Recommended specialty
     - Care setting
+    - Auto-detected or provided location
     - Reasoning and safety advice
     """
     try:
@@ -45,18 +49,37 @@ async def assess_symptoms(
         # Get or create conversation
         conversation = conversation_service.get_or_create_conversation(db, session_id)
         
-        # Save user message
+        # Get location: Use provided location OR auto-detect from IP
+        location_dict = None
+        
+        if request.location:
+            # User provided location manually
+            location_dict = request.location.model_dump()
+            location_dict["source"] = "user_provided"
+            logger.info(f"Using user-provided location: {location_dict.get('city')}")
+        else:
+            # Auto-detect location from IP
+            auto_location = await geolocation_service.get_location_from_request(http_request)
+            if auto_location:
+                location_dict = auto_location
+                logger.info(f"Auto-detected location: {location_dict.get('city')} (source: {location_dict.get('source')})")
+        
+        # Save user message with location metadata
+        message_extra_data = {"location": location_dict} if location_dict else None
         conversation_service.add_message(
             db, 
             conversation.id, 
             MessageRole.USER, 
-            request.message
+            request.message,
+            extra_data=message_extra_data
         )
         
-        # Run assessment
+        # Run assessment with location and db for conversation history
         assessment_result = agent_orchestrator.assess_user_input(
             request.message,
-            session_id
+            session_id,
+            location=location_dict,
+            db=db
         )
         
         # Save assessment to database
@@ -66,18 +89,55 @@ async def assess_symptoms(
             assessment_result
         )
         
-        # Prepare response
-        response = SymptomAssessmentResponse(
-            symptoms_identified=assessment_result.get("symptoms_identified", []),
-            urgency_level=assessment_result.get("urgency_level", "medium"),
-            emergency_flag=assessment_result.get("emergency_flag", False),
-            recommended_specialty=assessment_result.get("recommended_specialty", "General Physician"),
-            care_setting=assessment_result.get("care_setting", "clinic"),
-            reasoning=assessment_result.get("reasoning", ""),
-            safety_advice=assessment_result.get("safety_advice"),
-            session_id=session_id,
-            disclaimer=agent_orchestrator.get_health_disclaimer()
-        )
+        # Handle INSUFFICIENT_INFO case - format clarifying questions
+        if assessment_result.get("category") == "INSUFFICIENT_INFO":
+            clarifying_questions = assessment_result.get("clarifying_questions", [])
+            questions_text = "\n\n🤔 Please provide more details:\n\n" + "\n".join(f"• {q}" for q in clarifying_questions)
+            reasoning = assessment_result.get("message", "I need more details.") + questions_text if clarifying_questions else assessment_result.get("reason", "")
+            
+            response = SymptomAssessmentResponse(
+                symptoms_identified=[],
+                urgency_level="low",
+                emergency_flag=False,
+                recommended_specialty="Awaiting clarification",
+                care_setting="clinic",
+                reasoning=reasoning,
+                safety_advice=None,
+                session_id=session_id,
+                user_location=request.location,
+                disclaimer=agent_orchestrator.get_health_disclaimer()
+            )
+        # Handle IRRELEVANT case - non-medical input
+        elif assessment_result.get("category") == "IRRELEVANT":
+            suggestions = assessment_result.get("suggestions", [])
+            suggestions_text = "\n\nSuggestions:\n" + "\n".join(f"• {s}" for s in suggestions) if suggestions else ""
+            
+            response = SymptomAssessmentResponse(
+                symptoms_identified=[],
+                urgency_level="low",
+                emergency_flag=False,
+                recommended_specialty="N/A",
+                care_setting="N/A",
+                reasoning=assessment_result.get("message", "Please describe your symptoms.") + suggestions_text,
+                safety_advice=None,
+                session_id=session_id,
+                user_location=request.location,
+                disclaimer=agent_orchestrator.get_health_disclaimer()
+            )
+        # Normal medical assessment
+        else:
+            response = SymptomAssessmentResponse(
+                symptoms_identified=assessment_result.get("symptoms_identified", []),
+                urgency_level=assessment_result.get("urgency_level", "medium"),
+                emergency_flag=assessment_result.get("emergency_flag", False),
+                recommended_specialty=assessment_result.get("recommended_specialty", "General Physician"),
+                care_setting=assessment_result.get("care_setting", "clinic"),
+                reasoning=assessment_result.get("reasoning", ""),
+                safety_advice=assessment_result.get("safety_advice"),
+                session_id=session_id,
+                user_location=request.location,
+                disclaimer=agent_orchestrator.get_health_disclaimer()
+            )
         
         # Save assistant response
         response_text = (

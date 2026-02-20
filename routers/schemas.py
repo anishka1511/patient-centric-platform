@@ -2,14 +2,40 @@
 Pydantic schemas for API request/response validation
 """
 from pydantic import BaseModel, Field
-from typing import List, Optional, Dict
+from typing import List, Optional, Dict, Any
 from datetime import datetime
+
+
+class UserLocation(BaseModel):
+    """User's geographical location"""
+    latitude: Optional[float] = Field(None, description="Latitude coordinate")
+    longitude: Optional[float] = Field(None, description="Longitude coordinate")
+    city: Optional[str] = Field(None, description="City name")
+    state: Optional[str] = Field(None, description="State/Province")
+    country: Optional[str] = Field(None, description="Country")
+    postal_code: Optional[str] = Field(None, description="ZIP/Postal code")
+    source: Optional[str] = Field(None, description="Location source: user_provided, ipapi.co, ipinfo.io, ip-api.com, default")
+    
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "latitude": 19.0760,
+                "longitude": 72.8777,
+                "city": "Mumbai",
+                "state": "Maharashtra",
+                "country": "India",
+                "postal_code": "400001",
+                "source": "auto_detected"
+            }
+        }
 
 
 class SymptomAssessmentRequest(BaseModel):
     """Request to assess symptoms"""
     message: str = Field(..., min_length=1, max_length=1000, description="User's symptom description")
     session_id: Optional[str] = Field(None, description="Optional session ID for conversation tracking")
+    location: Optional[UserLocation] = Field(None, description="User's location (optional - will auto-detect from IP if not provided)")
+    user_context: Optional[Dict[str, Any]] = Field(None, description="Additional user metadata")
     
     class Config:
         json_schema_extra = {
@@ -30,6 +56,7 @@ class SymptomAssessmentResponse(BaseModel):
     reasoning: str
     safety_advice: Optional[str] = None
     session_id: Optional[str] = None
+    user_location: Optional[UserLocation] = Field(None, description="User's location if provided")
     disclaimer: str
     
     class Config:
