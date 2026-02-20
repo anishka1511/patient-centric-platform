@@ -94,30 +94,108 @@ NEARBY_MAP = {
 }
 
 
-# Location coordinates map (lowercase keys)
+# Location coordinates map (lowercase keys) - Real coordinates from OpenStreetMap Nominatim API
 LOCATION_COORDS = {
-    "baner": (18.5590, 73.7890),
-    "baner road": (18.5594, 73.7876),
-    "aundh": (18.5604, 73.8071),
-    "balewadi": (18.5689, 73.7720),
-    "pashan": (18.5354, 73.7850),
-    "wakad": (18.5998, 73.7616),
-    "hinjewadi": (18.5913, 73.7389),
-    "pimpri-chinchwad": (18.6298, 73.7997),
-    "kothrud": (18.5074, 73.8077),
-    "karve nagar": (18.5024, 73.8166),
-    "paud road": (18.5095, 73.7986),
-    "warje": (18.4865, 73.8010),
-    "shivajinagar": (18.5308, 73.8475),
-    "kharadi": (18.5511, 73.9422),
-    "viman nagar": (18.5679, 73.9154),
+    "akurdi": (18.6486, 73.7647),
+    "alandi road": (18.5612, 73.8767),
+    "amnora park town": (18.5167, 73.9346),
+    "aundh": (18.5619, 73.8102),
+    "balewadi": (18.582, 73.769),
+    "baner": (18.5642, 73.7769),
+    "baner road": (18.5647, 73.7748),
+    "bavdhan": (18.521, 73.7781),
+    "bhosari": (18.621, 73.8501),
+    "bhugaon": (18.5, 73.7501),
+    "bibvewadi": (18.4782, 73.8621),
+    "bt kawade road": (18.5467, 73.8800),
+    "budhwar peth": (18.5176, 73.858),
+    "bund garden": (18.5406, 73.8834),
+    "camp": (18.5216, 73.8718),
+    "chakan": (18.7623, 73.8625),
+    "chandan nagar": (18.5571, 73.9281),
+    "chikhali": (18.6642, 73.8267),
+    "dapodi": (18.5817, 73.8327),
+    "deccan gymkhana": (18.5159, 73.8412),
+    "dhankawadi": (18.4653, 73.855),
+    "dhanori": (18.5907, 73.8913),
+    "dhayari": (18.4374, 73.819),
+    "dhole patil road": (18.5349, 73.8767),
+    "erandwane": (18.5087, 73.8318),
+    "fc road": (18.515, 73.8422),
+    "ganga dham": (18.4793, 73.8754),
+    "gultekdi": (18.4939, 73.8676),
+    "hinjewadi": (18.592, 73.7579),
     "hadapsar": (18.5089, 73.9260),
-    "wagholi": (18.5793, 73.9790),
-    "magarpatta": (18.5167, 73.9346),
-    "koregaon park": (18.5362, 73.8940),
-    "fc road": (18.5196, 73.8409),
-    "nibm": (18.4590, 73.8966),
-    "swargate": (18.5018, 73.8636),
+    "jm road": (18.525, 73.8496),
+    "junnar": (19.2007, 73.9768),
+    "kalyani nagar": (18.5481, 73.9026),
+    "karve nagar": (18.4894, 73.8213),
+    "kasba peth": (18.5219, 73.8583),
+    "katraj": (18.4537, 73.8563),
+    "keshav nagar": (18.5323, 73.9384),
+    "khadki": (18.5682, 73.8508),
+    "kharadi": (18.5513, 73.9417),
+    "kondhwa": (18.478, 73.8941),
+    "koregaon park": (18.5366, 73.8933),
+    "kothrud": (18.5071, 73.8051),
+    "law college road": (18.5166, 73.8294),
+    "lohegaon": (18.5804, 73.9182),
+    "lonavala": (18.7504, 73.4069),
+    "lulla nagar": (18.4590, 73.8966),
+    "magarpatta": (18.5112, 73.9274),
+    "magarpatta city": (18.5112, 73.9274),
+    "mahalunge": (19.0931, 73.7527),
+    "manik bag": (18.5400, 73.8300),
+    "market yard": (18.3367, 74.3814),
+    "marunji": (18.6117, 73.7156),
+    "model colony": (18.5314, 73.8375),
+    "mohammadwadi": (18.4733, 73.9238),
+    "mohamadwadi": (18.4733, 73.9238),
+    "moshi": (18.6523, 73.8442),
+    "mukund nagar": (18.4952, 73.8662),
+    "mundhwa": (18.5343, 73.9298),
+    "nagar road": (18.5629, 73.9301),
+    "nanded city": (18.4597, 73.786),
+    "narayan peth": (18.5156, 73.8511),
+    "navi peth": (18.5093, 73.8441),
+    "nibm": (18.4642, 73.9029),
+    "nigdi-pradhikaran": (18.6559, 73.7681),
+    "parvati gaon": (18.5018, 73.8636),
+    "parvati paytha": (18.4985, 73.8497),
+    "pashan": (18.5387, 73.7953),
+    "paud road": (18.5076, 73.7792),
+    "pimple nilakh": (18.5697, 73.7941),
+    "pimple saudagar": (18.5982, 73.7978),
+    "pimpri-chinchwad": (18.6279, 73.801),
+    "porwal road": (18.6086, 73.9111),
+    "prabhat road": (18.512, 73.8316),
+    "rahatani": (18.6025, 73.796),
+    "rasta peth": (18.5198, 73.865),
+    "ravet": (18.6433, 73.7451),
+    "sadashiv peth": (18.5108, 73.8502),
+    "salunke vihar": (18.4590, 73.8966),
+    "sasanenagar": (18.5167, 73.9346),
+    "senapati bapat marg": (18.5242, 73.8297),
+    "shaniwar peth": (18.5193, 73.8525),
+    "shankar shet road": (18.4952, 73.8662),
+    "shivajinagar": (18.5326, 73.8513),
+    "shukrawar peth": (18.5114, 73.854),
+    "sinhagad road": (18.5005, 73.8446),
+    "sopan baug": (18.5142, 73.9014),
+    "swargate": (18.4989, 73.8585),
+    "thergaon": (18.6093, 73.7729),
+    "tilak road": (18.5033, 73.8561),
+    "undri": (18.4516, 73.8927),
+    "vadgaon budruk": (18.4675, 73.8254),
+    "viman nagar": (18.5704, 73.9133),
+    "vishrantwadi": (18.5726, 73.8782),
+    "wadgaon sheri": (18.5436, 73.9241),
+    "wagholi": (18.5806, 73.9833),
+    "wakad": (18.6022, 73.7644),
+    "wanowrie": (18.4884, 73.8987),
+    "wanwadi": (18.4884, 73.8987),
+    "warje": (18.482, 73.8002),
+    "yerwada": (18.5453, 73.8867),
 }
 
 
@@ -166,15 +244,42 @@ def _convert_to_json_serializable(value):
     return value
 
 
+def _get_valid_contact_number(contact_number):
+    """
+    Validate and clean contact_number for JSON serialization.
+    
+    Args:
+        contact_number: Contact number from dataframe (can be str, None, NaN)
+    
+    Returns:
+        str: Valid contact number string, or None if empty/invalid
+    """
+    if contact_number is None:
+        return None
+    
+    # Convert to string and strip whitespace
+    contact_str = str(contact_number).strip()
+    
+    # Return None if empty or represents missing value
+    if not contact_str or contact_str.lower() in ['nan', 'none', '']:
+        return None
+    
+    return contact_str
+
+
 def load_doctors_data():
     """
     Load and clean the doctors data from CSV file.
     
+    Preprocesses doctors_master_sheet.csv with column renaming, data type conversions,
+    and cleaning operations.
+    
     Returns:
-        pd.DataFrame: Cleaned DataFrame with standardized column names.
+        pd.DataFrame: Cleaned DataFrame with standardized column names and types.
         
     Raises:
         FileNotFoundError: If the CSV file is not found.
+        ValueError: If missing LOCATION_COORDS entries or invalid data.
     """
     global _cached_data
     
@@ -182,7 +287,7 @@ def load_doctors_data():
     if _cached_data is not None:
         return _cached_data
     
-    file_path = Path("data/doctors.csv")
+    file_path = Path("data/doctors_master_sheet.csv")
     
     # Check if file exists
     if not file_path.exists():
@@ -192,26 +297,56 @@ def load_doctors_data():
         # Load the CSV file
         df = pd.read_csv(file_path)
         
-        # Map raw column names to standardized names
+        # 1. Rename columns to standardized names
         column_mapping = {
             'doctors_name': 'name',
-            'doctors_profession': 'specialty',
             'doctors_location': 'location',
-            'consultation_fee': 'consultation_fee',
-            'rating_score': 'rating_score'
+            'doctors_rating': 'rating_score',
+            'doctors_number': 'contact_number',
+            'doctors_cost': 'consultation_fee',
+            'specialty': 'specialty'
         }
-        
-        # Rename columns to standardized names
         df = df.rename(columns=column_mapping)
         
-        # Drop rows where consultation_fee or rating_score is null
-        df = df.dropna(subset=['consultation_fee', 'rating_score'])
-        
-        # Select only standardized columns
-        df = df[['name', 'specialty', 'location', 'consultation_fee', 'rating_score']]
-        
-        # Clean location column: strip whitespace, remove trailing commas, convert to lowercase
+        # 2. Clean location column: remove trailing commas, strip whitespace, convert to lowercase
         df['location'] = df['location'].str.strip().str.rstrip(',').str.lower()
+        
+        # 3. Clean rating_score: handle "unavailable", remove '%' symbol, convert to float, divide by 100
+        df['rating_score'] = df['rating_score'].replace('unavailable', pd.NA)
+        df['rating_score'] = df['rating_score'].astype(str).str.replace('%', '', regex=False)
+        df['rating_score'] = pd.to_numeric(df['rating_score'], errors='coerce') / 100
+        df['rating_score'] = df['rating_score'].fillna(0.0)
+        
+        # 4. Clean consultation_fee: remove '₹', convert to integer
+        df['consultation_fee'] = df['consultation_fee'].astype(str).str.replace('₹', '', regex=False)
+        df['consultation_fee'] = pd.to_numeric(df['consultation_fee'], errors='coerce').astype('Int64')
+        
+        # 5. Clean contact_number: handle "unavailable", convert to string, remove scientific notation and decimals
+        df['contact_number'] = df['contact_number'].replace('unavailable', pd.NA)
+        df['contact_number'] = df['contact_number'].astype(str)
+        # Remove .0 suffix if present
+        df['contact_number'] = df['contact_number'].str.replace(r'\.0$', '', regex=True)
+        # Replace 'nan' string with 'unavailable'
+        df.loc[df['contact_number'].str.lower() == 'nan', 'contact_number'] = 'unavailable'
+        
+        # 6. Convert specialty to lowercase
+        df['specialty'] = df['specialty'].str.lower()
+        
+        # 7. Drop rows where name, specialty, or location are missing
+        df = df.dropna(subset=['name', 'specialty', 'location'])
+        
+        # Select only standardized columns (remove profession duplicate)
+        df = df[['name', 'specialty', 'location', 'consultation_fee', 'rating_score', 'contact_number']]
+        
+        # 8. Fill missing consultation fees with 0 (for doctors with unavailable fees)
+        df['consultation_fee'] = df['consultation_fee'].fillna(0)
+        
+        # Ensure data types
+        df['consultation_fee'] = df['consultation_fee'].astype('int')
+        df['rating_score'] = df['rating_score'].astype('float')
+        df['contact_number'] = df['contact_number'].astype('str')
+        df['location'] = df['location'].astype('str')
+        df['specialty'] = df['specialty'].astype('str')
 
         # Validate LOCATION_COORDS covers all dataset locations
         dataset_locations = set(df['location'].dropna().unique())
@@ -298,23 +433,29 @@ def _generate_reason(rating_score, consultation_fee, location_score, percentile_
     return " • ".join(reasons) if reasons else "Balanced recommendation"
 
 
-def rank_doctors(df, user_location, top_k=5):
+def rank_doctors(df, user_location, severity="medium", top_k=5):
     """
-    Rank doctors based on a weighted scoring system.
+    Rank doctors based on a weighted scoring system adjusted by severity level.
     
     Args:
         df (pd.DataFrame): DataFrame containing doctor data with columns:
-            name, specialty, location, consultation_fee, rating_score.
+            name, specialty, location, consultation_fee, rating_score, contact_number.
         user_location (str): User's preferred location.
+        severity (str): Severity level - "low", "medium", "high". Default is "medium".
         top_k (int): Number of top results to return. Default is 5.
+    
+    Severity-based weighting:
+        - "low": Rating 0.5, Cost 0.3, Location 0.2 (standard)
+        - "medium": Rating 0.5, Cost 0.3, Location 0.2 (standard)
+        - "high": Rating 0.6, Cost 0.2, Location 0.2 (prioritizes quality)
     
     Returns:
         list: List of dictionaries with top_k doctors sorted by final_score.
               Each dict contains: name, specialty, location, 
-              consultation_fee, rating_score, final_score, reason.
+              consultation_fee, rating_score, final_score, reason, contact_number, latitude, longitude.
     """
     # Validate required columns
-    required_columns = {'name', 'specialty', 'location', 'consultation_fee', 'rating_score'}
+    required_columns = {'name', 'specialty', 'location', 'consultation_fee', 'rating_score', 'contact_number'}
     if not required_columns.issubset(df.columns):
         raise ValueError(f"DataFrame must contain columns: {required_columns}")
     
@@ -325,11 +466,21 @@ def rank_doctors(df, user_location, top_k=5):
     df['cost_score'] = _compute_cost_score(df['consultation_fee'])
     df['location_score'] = _compute_location_score(df['location'], user_location)
     
-    # Compute final score: 0.5 * rating + 0.3 * cost + 0.2 * location
+    # Determine weights based on severity
+    if severity == "high":
+        rating_weight = 0.6
+        cost_weight = 0.2
+        location_weight = 0.2
+    else:  # "low" and "medium" use same weights
+        rating_weight = 0.5
+        cost_weight = 0.3
+        location_weight = 0.2
+    
+    # Compute final score with severity-adjusted weights
     df['final_score'] = (
-        0.5 * df['rating_score'] +
-        0.3 * df['cost_score'] +
-        0.2 * df['location_score']
+        rating_weight * df['rating_score'] +
+        cost_weight * df['cost_score'] +
+        location_weight * df['location_score']
     )
     
     # Calculate 25th percentile of consultation fees for "Affordable" tag
@@ -361,6 +512,7 @@ def rank_doctors(df, user_location, top_k=5):
             'rating_score': round(float(_convert_to_json_serializable(row['rating_score'])), 2),
             'final_score': round(float(_convert_to_json_serializable(row['final_score'])), 4),
             'reason': reason,
+            'contact_number': _get_valid_contact_number(row['contact_number']),
             'latitude': latitude,
             'longitude': longitude
         })
@@ -370,22 +522,31 @@ def rank_doctors(df, user_location, top_k=5):
 
 def recommend_doctors(input_data: dict):
     """
-    Recommend doctors based on specialty and location preferences.
+    Recommend doctors based on specialty, location, and severity preferences.
+    
+    Fallback logic:
+    1. Try exact specialty + exact location
+    2. Try exact specialty + nearby locations (via NEARBY_MAP)
+    3. Try general_physician + exact location
+    4. Try general_physician + nearby locations
     
     Args:
         input_data (dict): Dictionary containing:
-            - "specialty" (str): Desired medical specialty
-            - "location" (str): Preferred location
+            - "specialty" (str): Desired medical specialty (required)
+            - "location" (str): Preferred location (required)
+            - "severity" (str): Severity level - "low", "medium", "high" (optional, default: "medium")
     
     Returns:
         dict: Dictionary with keys:
             - "recommended_doctors": List of recommended doctor dicts
             - "total_matches": Total doctors matching the specialty
+            - "metadata": Fallback information
             - "message": Optional message if no matches found
     """
     # Extract parameters
     specialty = input_data.get("specialty", "").strip().lower()
     location = input_data.get("location", "").strip().lower()
+    severity = input_data.get("severity", "medium").strip().lower()
     
     # Validate inputs
     if not specialty or not location:
@@ -394,41 +555,65 @@ def recommend_doctors(input_data: dict):
     # Load dataset
     df = load_doctors_data()
     
-    # Filter by specialty (case insensitive)
-    filtered_df = df[df['specialty'].str.lower() == specialty]
+    # Normalize specialty: convert singular to plural if needed
+    # Handle common singular/plural variations
+    if specialty.endswith('ist') and not specialty.endswith('ists'):
+        specialty_variants = [specialty, specialty + 's']
+    else:
+        specialty_variants = [specialty]
+    
+    # Filter by specialty - try all variants
+    filtered_df = df[df['specialty'].isin(specialty_variants)]
 
     fallback_applied = False
     fallback_location = None
     fallback_type = None
     original_specialty = specialty
 
-    # First attempt: exact location match
-    location_filtered = filtered_df[filtered_df['location'].str.lower() == location]
+    if filtered_df.empty:
+        # No exact specialty match - this could be valid if it genuinely doesn't exist
+        # Don't auto-fallback here, let the location filtering handle it
+        pass
+    else:
+        # First attempt: exact location match
+        location_filtered = filtered_df[filtered_df['location'].str.lower() == location]
 
-    # If no exact results, try nearby locations in order
-    if location_filtered.empty:
-        nearby_locations = NEARBY_MAP.get(location, [])
-        for nearby in nearby_locations:
-            nearby_filtered = filtered_df[filtered_df['location'].str.lower() == nearby]
-            if not nearby_filtered.empty:
-                location_filtered = nearby_filtered
-                fallback_applied = True
-                fallback_location = nearby
-                fallback_type = "nearby"
-                break
+        # If no exact results, try nearby locations in order
+        if location_filtered.empty:
+            nearby_locations = NEARBY_MAP.get(location, [])
+            for nearby in nearby_locations:
+                nearby_filtered = filtered_df[filtered_df['location'].str.lower() == nearby]
+                if not nearby_filtered.empty:
+                    location_filtered = nearby_filtered
+                    fallback_applied = True
+                    fallback_location = nearby
+                    fallback_type = "nearby"
+                    break
+        
+        filtered_df = location_filtered
     
-    # Final tier: fallback to general physician in original location
-    if location_filtered.empty:
-        gp_filtered = df[
-            (df['specialty'].str.lower() == "general_physician") &
-            (df['location'].str.lower() == location)
-        ]
-        if not gp_filtered.empty:
-            location_filtered = gp_filtered
-            fallback_applied = True
+    # If still no matches, try general_physician fallback
+    if filtered_df.empty:
+        gp_df = df[df['specialty'].str.lower() == "general physician"]
+        
+        # Try exact location first
+        gp_location_filtered = gp_df[gp_df['location'].str.lower() == location]
+        
+        # If no GPs in exact location, try nearby
+        if gp_location_filtered.empty:
+            nearby_locations = NEARBY_MAP.get(location, [])
+            for nearby in nearby_locations:
+                nearby_gp = gp_df[gp_df['location'].str.lower() == nearby]
+                if not nearby_gp.empty:
+                    gp_location_filtered = nearby_gp
+                    fallback_applied = True
+                    fallback_location = nearby
+                    fallback_type = "general_physician_nearby"
+                    break
+        
+        if not gp_location_filtered.empty:
+            filtered_df = gp_location_filtered
             fallback_type = "general_physician"
-
-    filtered_df = location_filtered
     
     # Handle no matches
     if filtered_df.empty:
@@ -447,8 +632,8 @@ def recommend_doctors(input_data: dict):
     # Get total matches before trimming
     total_matches = len(filtered_df)
     
-    # Rank doctors
-    recommended = rank_doctors(filtered_df, location, top_k=DEFAULT_TOP_K)
+    # Rank doctors based on severity
+    recommended = rank_doctors(filtered_df, location, severity=severity, top_k=DEFAULT_TOP_K)
     
     # Return structured response
     return {
@@ -529,85 +714,495 @@ def generate_cost_insights(input_data: dict):
     }
 
 
-def generate_recommendation_response(input_data: dict):
+def hospital_recommendation_engine(location: str, specialty: str = None):
     """
-    Generate a comprehensive recommendation response combining doctor recommendations
-    and cost insights.
+    Recommend hospitals based on location and optional specialty requirement.
     
     Args:
-        input_data (dict): Dictionary containing:
-            - "specialty" (str): Desired medical specialty
-            - "location" (str): Preferred location
+        location (str): Preferred location (required, case-insensitive)
+        specialty (str): Optional medical specialty to filter hospitals by capabilities
     
     Returns:
         dict: Dictionary with keys:
-            - "metadata": Query and fallback information
-            - "recommended_doctors": List of recommended doctor dicts
-            - "cost_summary": Dict with average_fee, min_fee, max_fee, cost_band
-            - "message": Optional message if no doctors found
-            - "error": Error message if validation fails
+            - "recommended_hospitals": List of hospital dicts
+            - "total_matches": Total hospitals found
+            - "message": Optional message if no hospitals found
+    
+    Hospital dict contains:
+        - hospital_name, location, hospital_type, emergency_available, 
+          icu_available, specialties_available, latitude, longitude, contact_number
     """
-    # Validate input is a dictionary
+    try:
+        file_path = Path("data/hospitals.csv")
+        
+        if not file_path.exists():
+            return {
+                "recommended_hospitals": [],
+                "total_matches": 0,
+                "message": "Hospital data not available."
+            }
+        
+        # Load hospitals data
+        hospitals_df = pd.read_csv(file_path)
+        
+        # Standardize location to lowercase
+        location = location.strip().lower()
+        
+        # Filter by location (case insensitive)
+        location_filtered = hospitals_df[hospitals_df['location'].str.lower() == location]
+        
+        if location_filtered.empty:
+            return {
+                "recommended_hospitals": [],
+                "total_matches": 0,
+                "message": f"No hospitals found in {location}."
+            }
+        
+        # Optional: filter by specialty if provided
+        if specialty:
+            specialty = specialty.strip().lower()
+            # Filter hospitals that have the specialty in their specialties_available
+            location_filtered = location_filtered[
+                location_filtered['specialties_available'].str.lower().str.contains(specialty, na=False)
+            ]
+        
+        if location_filtered.empty:
+            return {
+                "recommended_hospitals": [],
+                "total_matches": 0,
+                "message": f"No hospitals found in {location} with {specialty} specialty."
+            }
+        
+        # Format results
+        results = []
+        for _, row in location_filtered.iterrows():
+            results.append({
+                'hospital_name': row['hospital_name'],
+                'location': row['location'],
+                'hospital_type': row['hospital_type'],
+                'emergency_available': bool(row['emergency_available']),
+                'icu_available': bool(row['icu_available']),
+                'specialties_available': row['specialties_available'],
+                'contact_number': _get_valid_contact_number(row['contact_number']),
+                'latitude': float(_convert_to_json_serializable(row['latitude'])),
+                'longitude': float(_convert_to_json_serializable(row['longitude']))
+            })
+        
+        return {
+            "recommended_hospitals": results,
+            "total_matches": len(results)
+        }
+    
+    except Exception as e:
+        return {
+            "recommended_hospitals": [],
+            "total_matches": 0,
+            "message": f"Error retrieving hospital data: {str(e)}"
+        }
+
+
+def recommend_hospitals(input_data: dict):
+    """
+    Recommend hospitals based on location, specialty, and emergency requirements.
+    
+    Filtering logic:
+    1. Load hospital dataset
+    2. Filter by location (exact match first, then NEARBY_MAP fallback)
+    3. Filter by emergency_available == True for high severity
+    4. Filter by specialty (must be in specialties_available list)
+    5. Rank hospitals by location proximity (exact match first) and hospital_type preference
+    6. Return top DEFAULT_TOP_K hospitals
+    
+    Args:
+        input_data (dict): Dictionary containing:
+            - "location" (str): Preferred location (required)
+            - "specialty" (str): Medical specialty (required)
+            - "severity" (str): Severity level - "low", "medium", "high" (optional, default: "medium")
+    
+    Returns:
+        dict: Dictionary with keys:
+            - "care_setting": "hospital"
+            - "recommended_hospitals": List of hospital dicts sorted by score
+            - "total_matches": Total hospitals found
+            - "metadata": Fallback and filtering information
+            - "message": Optional message if no hospitals found
+    
+    Hospital dict contains:
+        - hospital_name, location, hospital_type, emergency_available, 
+          icu_available, specialties_available, latitude, longitude, contact_number, score
+    """
+    try:
+        # Extract parameters
+        location = input_data.get("location", "").strip().lower()
+        specialty = input_data.get("specialty", "").strip().lower()
+        severity = input_data.get("severity", "medium").strip().lower()
+        
+        # Validate inputs
+        if not location or not specialty:
+            raise ValueError("Both 'location' and 'specialty' are required.")
+        
+        file_path = Path("data/hospitals.csv")
+        
+        if not file_path.exists():
+            return {
+                "care_setting": "hospital",
+                "recommended_hospitals": [],
+                "total_matches": 0,
+                "message": "Hospital data not available.",
+                "metadata": {
+                    "fallback_applied": False,
+                    "fallback_location": None
+                }
+            }
+        
+        # Load hospitals data
+        hospitals_df = pd.read_csv(file_path)
+        
+        # Convert location to lowercase for comparison
+        hospitals_df['location_lower'] = hospitals_df['location'].str.lower()
+        
+        fallback_applied = False
+        fallback_location = None
+        
+        # Step 1: Filter by location (exact match first)
+        location_filtered = hospitals_df[hospitals_df['location_lower'] == location]
+        
+        # If no exact results, try nearby locations
+        if location_filtered.empty:
+            nearby_locations = NEARBY_MAP.get(location, [])
+            for nearby in nearby_locations:
+                nearby_filtered = hospitals_df[hospitals_df['location_lower'] == nearby]
+                if not nearby_filtered.empty:
+                    location_filtered = nearby_filtered
+                    fallback_applied = True
+                    fallback_location = nearby
+                    break
+        
+        if location_filtered.empty:
+            return {
+                "care_setting": "hospital",
+                "recommended_hospitals": [],
+                "total_matches": 0,
+                "message": f"No hospitals found in {location} or nearby locations.",
+                "metadata": {
+                    "fallback_applied": False,
+                    "fallback_location": None
+                }
+            }
+        
+        # Step 2: Filter by emergency_available if high severity
+        if severity == "high":
+            location_filtered = location_filtered[location_filtered['emergency_available'].astype(str) == 'True']
+            
+            if location_filtered.empty:
+                return {
+                    "care_setting": "hospital",
+                    "recommended_hospitals": [],
+                    "total_matches": 0,
+                    "message": f"No hospitals with emergency services found in {location}.",
+                    "metadata": {
+                        "fallback_applied": fallback_applied,
+                        "fallback_location": fallback_location
+                    }
+                }
+        
+        # Step 3: Filter by specialty (must be in specialties_available)
+        location_filtered = location_filtered[
+            location_filtered['specialties_available'].str.lower().str.contains(specialty, na=False)
+        ]
+        
+        if location_filtered.empty:
+            return {
+                "care_setting": "hospital",
+                "recommended_hospitals": [],
+                "total_matches": 0,
+                "message": f"No hospitals found with {specialty} specialty.",
+                "metadata": {
+                    "fallback_applied": fallback_applied,
+                    "fallback_location": fallback_location
+                }
+            }
+        
+        # Get total matches before ranking
+        total_matches = len(location_filtered)
+        
+        # Step 4: Rank hospitals by location proximity and hospital_type preference
+        location_filtered = location_filtered.copy()
+        
+        # Score for location proximity (exact match = 1.0, nearby = 0.7)
+        location_filtered['location_score'] = location_filtered['location_lower'].apply(
+            lambda x: 1.0 if x == location else 0.7
+        )
+        
+        # Score for hospital type (private = 1.0, public = 0.8, others = 0.6)
+        def get_hospital_type_score(h_type):
+            h_type_lower = str(h_type).lower() if h_type else ""
+            if "private" in h_type_lower:
+                return 1.0
+            elif "public" in h_type_lower or "government" in h_type_lower:
+                return 0.8
+            else:
+                return 0.6
+        
+        location_filtered['hospital_type_score'] = location_filtered['hospital_type'].apply(
+            get_hospital_type_score
+        )
+        
+        # Score for emergency services (true = 0.3 boost, false = 0)
+        location_filtered['emergency_score'] = location_filtered['emergency_available'].astype(str).apply(
+            lambda x: 0.3 if x == 'True' else 0.0
+        )
+        
+        # Score for ICU availability (true = 0.2 boost, false = 0)
+        location_filtered['icu_score'] = location_filtered['icu_available'].astype(str).apply(
+            lambda x: 0.2 if x == 'True' else 0.0
+        )
+        
+        # Compute final score: location (0.5) + hospital_type (0.3) + emergency (0.1) + icu (0.1)
+        location_filtered['score'] = (
+            0.5 * location_filtered['location_score'] +
+            0.3 * location_filtered['hospital_type_score'] +
+            0.1 * location_filtered['emergency_score'] +
+            0.1 * location_filtered['icu_score']
+        )
+        
+        # Step 5: Get top DEFAULT_TOP_K hospitals sorted by score descending
+        top_hospitals = location_filtered.nlargest(DEFAULT_TOP_K, 'score')
+        
+        # Step 6: Format results
+        results = []
+        for _, row in top_hospitals.iterrows():
+            results.append({
+                'hospital_name': row['hospital_name'],
+                'location': row['location'],
+                'hospital_type': row['hospital_type'],
+                'emergency_available': bool(row['emergency_available'] == 'True'),
+                'icu_available': bool(row['icu_available'] == 'True'),
+                'specialties_available': row['specialties_available'],
+                'contact_number': _get_valid_contact_number(row['contact_number']),
+                'latitude': float(_convert_to_json_serializable(row['latitude'])),
+                'longitude': float(_convert_to_json_serializable(row['longitude'])),
+                'score': round(float(_convert_to_json_serializable(row['score'])), 4)
+            })
+        
+        # Return structured response
+        return {
+            "care_setting": "hospital",
+            "recommended_hospitals": results,
+            "total_matches": total_matches,
+            "metadata": {
+                "fallback_applied": fallback_applied,
+                "fallback_location": fallback_location,
+                "emergency_filter_applied": severity == "high",
+                "specialty_requested": specialty
+            }
+        }
+    
+    except Exception as e:
+        return {
+            "care_setting": "hospital",
+            "recommended_hospitals": [],
+            "total_matches": 0,
+            "message": f"Error processing hospital recommendations: {str(e)}",
+            "metadata": {
+                "fallback_applied": False,
+                "fallback_location": None
+            }
+        }
+
+
+def generate_recommendation_response(input_data: dict):
+    """
+    Generate a comprehensive recommendation response with severity-based routing.
+    
+    Routes requests based on severity level:
+    - "high": Hospital-only with strict emergency filtering (no fallback)
+    - "medium": Hospitals first, fallback to doctors if no hospitals available
+    - "low": Doctor recommendations only for routine checkups
+    
+    Args:
+        input_data (dict): Dictionary containing:
+            - "specialty" (str): Desired medical specialty (required)
+            - "location" (str): Preferred location (required)
+            - "severity" (str): Severity level - "low", "medium", or "high" (optional, default: "medium")
+    
+    Returns:
+        dict: Dictionary with either recommended_doctors or recommended_hospitals
+              based on severity-based routing logic, or error dict
+    """
+    # INPUT VALIDATION
     if not isinstance(input_data, dict):
         return {"error": "Invalid input format."}
     
-    # Extract and validate specialty
     specialty = input_data.get("specialty", "").strip().lower()
     if not specialty:
         return {"error": "Specialty is required."}
     
-    # Extract and validate location
     location = input_data.get("location", "").strip().lower()
     if not location:
         return {"error": "Location is required."}
     
-    # Prepare cleaned input for processing
+    # SEVERITY VALIDATION
+    severity = input_data.get("severity", "medium").strip().lower()
+    if severity not in ["low", "medium", "high"]:
+        return {"error": "Invalid severity. Must be low, medium, or high."}
+    
+    # Prepare cleaned input for downstream functions
     cleaned_input = {
         "specialty": specialty,
-        "location": location
+        "location": location,
+        "severity": severity
     }
     
-    # Get doctor recommendations
-    recommendations = recommend_doctors(cleaned_input)
-    
-    # Get cost insights
-    cost_insights = generate_cost_insights(cleaned_input)
-    
-    # Extract returned count and total matches
-    returned_count = len(recommendations.get("recommended_doctors", []))
-    total_matches = recommendations.get("total_matches", 0)
-    fallback_metadata = recommendations.get("metadata", {})
-    fallback_type = fallback_metadata.get("fallback_type")
-    
-    # Build metadata with simplified fields
-    metadata = {
-        "query_specialty": specialty,
-        "query_location": location,
-        "total_doctors_available": total_matches,
-        "returned_count": returned_count,
-        "fallback_applied": fallback_metadata.get("fallback_applied", False),
-        "fallback_location": fallback_metadata.get("fallback_location"),
-        "fallback_type": fallback_type
-    }
-    
-    # Include original_specialty only when fallback_type is general_physician
-    if fallback_type == "general_physician":
-        metadata["original_specialty"] = fallback_metadata.get("original_specialty", specialty)
-    
-    # Build response structure
-    response = {
-        "metadata": metadata,
-        "recommended_doctors": recommendations.get("recommended_doctors", []),
-        "cost_summary": {
-            "average_fee": cost_insights.get("average_fee"),
-            "min_fee": cost_insights.get("min_fee"),
-            "max_fee": cost_insights.get("max_fee"),
-            "cost_band": cost_insights.get("cost_band")
+    # SEVERITY-BASED ROUTING
+    if severity == "high":
+        # HIGH: Strict emergency filtering via hospital engine
+        hospital_results = recommend_hospitals(cleaned_input)
+        hospital_count = hospital_results.get("total_matches", 0)
+        
+        # Strict requirement: no fallback if no emergency hospitals found
+        if hospital_count == 0:
+            return {"error": "No emergency-capable hospital found in this area."}
+        
+        return {
+            "care_setting": "hospital",
+            "metadata": {
+                "query_specialty": specialty,
+                "query_location": location,
+                "query_severity": severity,
+                "severity": severity,
+                "recommendation_type": "hospital_only",
+                "emergency_filter_applied": True
+            },
+            "recommended_hospitals": hospital_results.get("recommended_hospitals", []),
+            "total_hospitals_available": hospital_count
         }
-    }
     
-    # Include message if present
-    if "message" in recommendations:
-        response["message"] = recommendations["message"]
+    elif severity == "medium":
+        # MEDIUM: Try hospitals first, fallback to doctors if empty
+        hospital_results = recommend_hospitals(cleaned_input)
+        hospital_count = hospital_results.get("total_matches", 0)
+        
+        if hospital_count > 0:
+            # Hospitals found - return hospital recommendations
+            return {
+                "care_setting": "hospital",
+                "metadata": {
+                    "query_specialty": specialty,
+                    "query_location": location,
+                    "query_severity": severity,
+                    "severity": severity,
+                    "recommendation_type": "hospital_primary"
+                },
+                "recommended_hospitals": hospital_results.get("recommended_hospitals", []),
+                "total_hospitals_available": hospital_count
+            }
+        else:
+            # No hospitals found - fallback to doctors
+            doctor_recommendations = recommend_doctors(cleaned_input)
+            cost_insights = generate_cost_insights(cleaned_input)
+            
+            returned_count = len(doctor_recommendations.get("recommended_doctors", []))
+            total_matches = doctor_recommendations.get("total_matches", 0)
+            fallback_metadata = doctor_recommendations.get("metadata", {})
+            fallback_type = fallback_metadata.get("fallback_type")
+            
+            metadata = {
+                "query_specialty": specialty,
+                "query_location": location,
+                "query_severity": severity,
+                "severity": severity,
+                "recommendation_type": "doctor_fallback",
+                "total_doctors_available": total_matches,
+                "returned_count": returned_count,
+                "fallback_applied": fallback_metadata.get("fallback_applied", False),
+                "fallback_location": fallback_metadata.get("fallback_location"),
+                "fallback_type": fallback_type
+            }
+            
+            if fallback_type == "general_physician":
+                metadata["original_specialty"] = fallback_metadata.get("original_specialty", specialty)
+            
+            response = {
+                "care_setting": "clinic",
+                "metadata": metadata,
+                "recommended_doctors": doctor_recommendations.get("recommended_doctors", []),
+                "cost_summary": {
+                    "average_fee": cost_insights.get("average_fee"),
+                    "min_fee": cost_insights.get("min_fee"),
+                    "max_fee": cost_insights.get("max_fee"),
+                    "cost_band": cost_insights.get("cost_band")
+                }
+            }
+            
+            if "message" in doctor_recommendations:
+                response["message"] = doctor_recommendations["message"]
+            
+            return response
     
-    return response
+    else:  # severity == "low"
+        # LOW: Doctor engine only, with hospital fallback if no doctors found
+        doctor_recommendations = recommend_doctors(cleaned_input)
+        doctor_count = len(doctor_recommendations.get("recommended_doctors", []))
+        
+        # If no doctors found, fallback to hospitals
+        if doctor_count == 0:
+            hospital_results = recommend_hospitals(cleaned_input)
+            hospital_count = hospital_results.get("total_matches", 0)
+            
+            if hospital_count > 0:
+                # Return hospital recommendations as fallback
+                return {
+                    "care_setting": "hospital",
+                    "metadata": {
+                        "query_specialty": specialty,
+                        "query_location": location,
+                        "query_severity": severity,
+                        "severity": severity,
+                        "recommendation_type": "hospital_fallback",
+                        "reason": "No doctors available, suggesting hospitals instead"
+                    },
+                    "recommended_hospitals": hospital_results.get("recommended_hospitals", []),
+                    "total_hospitals_available": hospital_count
+                }
+        
+        # Otherwise, continue with doctor recommendations
+        cost_insights = generate_cost_insights(cleaned_input)
+        
+        returned_count = len(doctor_recommendations.get("recommended_doctors", []))
+        total_matches = doctor_recommendations.get("total_matches", 0)
+        fallback_metadata = doctor_recommendations.get("metadata", {})
+        fallback_type = fallback_metadata.get("fallback_type")
+        
+        metadata = {
+            "query_specialty": specialty,
+            "query_location": location,
+            "query_severity": severity,
+            "severity": severity,
+            "recommendation_type": "doctor_only",
+            "total_doctors_available": total_matches,
+            "returned_count": returned_count,
+            "fallback_applied": fallback_metadata.get("fallback_applied", False),
+            "fallback_location": fallback_metadata.get("fallback_location"),
+            "fallback_type": fallback_type
+        }
+        
+        if fallback_type == "general_physician" or fallback_type == "general_physician_nearby":
+            metadata["original_specialty"] = fallback_metadata.get("original_specialty", specialty)
+        
+        response = {
+            "care_setting": "clinic",
+            "metadata": metadata,
+            "recommended_doctors": doctor_recommendations.get("recommended_doctors", []),
+            "cost_summary": {
+                "average_fee": cost_insights.get("average_fee"),
+                "min_fee": cost_insights.get("min_fee"),
+                "max_fee": cost_insights.get("max_fee"),
+                "cost_band": cost_insights.get("cost_band")
+            }
+        }
+        
+        if "message" in doctor_recommendations:
+            response["message"] = doctor_recommendations["message"]
+        
+        return response

@@ -1,0 +1,53 @@
+hospital_name,contact_number,location,hospital_type,emergency_available,icu_available,specialties_available,latitude,longitude
+Jupiter Hospital,,baner,private,True,True,cardiology|orthopedic|neurology|general physician,18.559,73.789
+Sahyadri Hospitals Baner,,baner,private,True,True,cardiology|orthopedic|general physician|pediatrics,18.5585,73.7865
+Lifepoint Multispecialty Hospital,,baner,private,True,True,cardiology|orthopedic|gynecology|general physician,18.56,73.784
+Sahyadri Super Speciality Hospital,,baner road,private,True,True,cardiology|neurology|orthopedic|gastroenterology,18.5594,73.7876
+Elite Healthcare Baner Road,,baner road,private,True,False,general physician|dermatology|gynecology,18.5589,73.788
+Aditya Birla Memorial Hospital Aundh,,aundh,private,True,True,cardiology|orthopedic|neurology|urology|oncology,18.5604,73.8071
+National Institute of Ophthalmology,,aundh,private,False,False,ophthalmology,18.561,73.805
+Sanjeevan Hospital Aundh,,aundh,private,True,True,general physician|orthopedic|gynecology,18.562,73.8065
+Surya Mother and Child Hospital,,balewadi,private,True,True,gynecology|pediatrics|general physician,18.5689,73.772
+Lifepoint Hospital Balewadi,,balewadi,private,True,True,cardiology|orthopedic|neurology,18.5695,73.773
+Sahyadri Hospital Balewadi,,balewadi,private,True,True,general physician|cardiology|orthopedic,18.5675,73.7715
+Chellaram Hospital,,pashan,private,True,True,general physician|orthopedic|cardiology,18.5354,73.785
+Vitalife Clinic Pashan,,pashan,private,False,False,general physician|dermatology,18.536,73.784
+Lifepoint Multispecialty Hospital Wakad,,wakad,private,True,True,cardiology|orthopedic|neurology|general physician,18.5998,73.7616
+Aditya Birla Memorial Hospital Wakad,,wakad,private,True,True,cardiology|oncology|orthopedic,18.602,73.762
+Polaris Healthcare,,wakad,private,True,False,general physician|gynecology,18.5985,73.7605
+Ruby Hall Clinic Hinjewadi,,hinjewadi,private,True,True,cardiology|neurology|orthopedic|gastroenterology,18.5913,73.7389
+Golden Care Hospital,,hinjewadi,private,True,True,general physician|orthopedic|cardiology,18.59,73.7375
+Ayushree Hospital,,hinjewadi,private,True,False,general physician|gynecology,18.592,73.7395
+Aditya Birla Memorial Hospital,,pimpri-chinchwad,private,True,True,cardiology|oncology|neurology|orthopedic,18.6298,73.7997
+Yashwantrao Chavan Memorial Hospital,,pimpri-chinchwad,public,True,True,general physician|orthopedic|gynecology,18.628,73.8005
+Lokmanya Hospital,,pimpri-chinchwad,private,True,True,cardiology|orthopedic|general physician,18.6305,73.798
+Deenanath Mangeshkar Hospital,02040151000,kothrud,private,True,True,cardiology|neurology|orthopedic|oncology,18.5074,73.8077
+Sahyadri Hospital Kothrud,02067213000,kothrud,private,True,True,general physician|cardiology|orthopedic,18.508,73.806
+City Hospital Kothrud,,kothrud,private,True,False,general physician|gynecology,18.5065,73.8085
+Ruby Hall Clinic,,shivajinagar,private,True,True,cardiology|neurology|orthopedic|gastroenterology|oncology,18.5308,73.8475
+Jehangir Hospital,02066819999,shivajinagar,private,True,True,cardiology|oncology|orthopedic|urology,18.5315,73.846
+Sassoon General Hospital,02026127370,shivajinagar,public,True,True,general physician|orthopedic|gynecology|cardiology,18.5295,73.8485
+Noble Hospital,02066285000,hadapsar,private,True,True,cardiology|orthopedic|neurology|gynecology,18.5089,73.926
+Sahyadri Hospital Hadapsar,,hadapsar,private,True,True,general physician|cardiology|orthopedic,18.5095,73.925
+Villoo Poonawalla Memorial Hospital,02030539000,hadapsar,private,True,False,general physician|pediatrics,18.5075,73.927
+Manipal Hospital Kharadi,02071222222,kharadi,private,True,True,cardiology|orthopedic|neurology|urology|oncology,18.5511,73.9422
+Cloudnine Hospital Viman Nagar,02044667777,viman nagar,private,False,False,gynecology|pediatrics,18.5679,73.9154
+Medipoint Hospital,02026683999,viman nagar,private,True,True,cardiology|orthopedic|general physician|gynecology,18.5685,73.9145
+Imax Multispeciality Hospital,02027036666,wagholi,private,True,True,cardiology|orthopedic|general physician|gynecology,18.5793,73.979
+Care Multispeciality Hospital Wagholi,,wagholi,private,True,False,general physician|orthopedic|gynecology,18.5805,73.978
+Noble Hospital Magarpatta,,magarpatta,private,True,True,cardiology|orthopedic|neurology|gynecology,18.5167,73.9346
+Villoo Poonawalla Memorial Hospital Magarpatta,,magarpatta,private,True,True,general physician|pediatrics|orthopedic,18.5175,73.9355
+Jehangir Hospital Koregaon Park,,koregaon park,private,True,True,cardiology|oncology|orthopedic|urology|neurology,18.5362,73.894
+Inlaks and Budhrani Hospital,02066099999,koregaon park,private,True,True,cardiology|orthopedic|general physician|gynecology,18.535,73.8955
+Deenanath Mangeshkar Hospital FC Road,,fc road,private,True,True,cardiology|neurology|orthopedic|oncology|gastroenterology,18.5196,73.8409
+Sassoon General Hospital FC Road,,fc road,public,True,True,general physician|orthopedic|gynecology|cardiology|neurology,18.5205,73.842
+Ruby Hall Clinic Wanowrie,02066455100,nibm,private,True,True,cardiology|neurology|orthopedic|gastroenterology,18.459,73.8966
+Inamdar Multispeciality Hospital,02066812222,nibm,private,True,True,general physician|cardiology|orthopedic|gynecology,18.4605,73.8955
+Poona Hospital and Research Centre,02066096000,swargate,private,True,True,cardiology|orthopedic|neurology|gynecology,18.5018,73.8636
+Bharati Hospital Swargate,,swargate,private,True,True,cardiology|orthopedic|general physician|gynecology,18.5005,73.8645
+Deenanath Mangeshkar Hospital Karve Nagar,,karve nagar,private,True,True,cardiology|neurology|orthopedic|oncology,18.5024,73.8166
+Sahyadri Hospital Karve Road,02067213000,karve nagar,private,True,True,general physician|cardiology|orthopedic,18.5035,73.8155
+Sahyadri Hospital Kothrud Paud Road,,paud road,private,True,True,cardiology|orthopedic|general physician|neurology,18.5095,73.7986
+City Hospital Paud Road,02025462000,paud road,private,True,False,general physician|gynecology|orthopedic,18.5105,73.7975
+Sahyadri Hospital Warje,02067213000,warje,private,True,True,cardiology|orthopedic|general physician|neurology,18.4865,73.801
+Mai Mangeshkar Hospital,02025340000,warje,private,True,True,cardiology|orthopedic|general physician|gynecology,18.4875,73.8
