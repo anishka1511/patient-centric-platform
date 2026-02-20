@@ -8,6 +8,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from datetime import datetime
 from pathlib import Path
+from sqlalchemy import text
 
 from config.settings import settings
 from config.logging_config import logger
@@ -86,7 +87,7 @@ async def health_check():
     try:
         from config.database import SessionLocal
         db = SessionLocal()
-        db.execute("SELECT 1")
+        db.execute(text("SELECT 1"))
         db.close()
     except Exception as e:
         logger.error(f"Database health check failed: {e}")
