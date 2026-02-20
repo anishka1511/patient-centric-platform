@@ -67,7 +67,7 @@ class ConversationService:
             conversation = self.create_conversation(db, session_id, user_id)
         return conversation
     
-    def add_message(self, db: Session, conversation_id: str, role: MessageRole, content: str) -> Message:
+    def add_message(self, db: Session, conversation_id: str, role: MessageRole, content: str, extra_data: Optional[Dict] = None) -> Message:
         """
         Add a message to conversation
         
@@ -76,6 +76,7 @@ class ConversationService:
             conversation_id: Conversation ID
             role: Message role (user/assistant/system)
             content: Message content
+            extra_data: Optional extra data (e.g., location, timestamps, context)
             
         Returns:
             Created Message object
@@ -83,12 +84,15 @@ class ConversationService:
         message = Message(
             conversation_id=conversation_id,
             role=role,
-            content=content
+            content=content,
+            extra_data=extra_data
         )
         db.add(message)
         db.commit()
         db.refresh(message)
         logger.info(f"Added {role.value} message to conversation {conversation_id}")
+        if extra_data:
+            logger.debug(f"Message extra_data: {extra_data}")
         return message
     
     def save_assessment(
@@ -123,6 +127,33 @@ class ConversationService:
         db.refresh(assessment)
         logger.info(f"Saved assessment {assessment.id} for conversation {conversation_id}")
         return assessment
+    
+    def get_recent_messages(self, db: Session, session_id: str, limit: int = 5) -> List[Dict]:
+        """
+        Get recent messages from conversation for context
+        
+        Args:
+            db: Database session
+            session_id: Session identifier
+            limit: Maximum number of recent messages to retrieve
+            
+        Returns:
+            List of recent messages (oldest first)
+        """
+        conversation = self.get_conversation(db, session_id)
+        if not conversation:
+            return []
+        
+        # Get last N messages, ordered chronologically
+        recent_messages = conversation.messages[-limit:] if len(conversation.messages) > limit else conversation.messages
+        
+        return [
+            {
+                "role": msg.role.value,
+                "content": msg.content
+            }
+            for msg in recent_messages
+        ]
     
     def get_conversation_history(self, db: Session, session_id: str) -> Optional[Dict]:
         """

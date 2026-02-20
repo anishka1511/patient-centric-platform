@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare Symptom Assessment</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 600px;
+            width: 100%;
+            padding: 40px;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        
+        .location-status {
+            background: #f0f7ff;
+            border: 1px solid #bde0ff;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .location-icon {
+            font-size: 20px;
+        }
+        
+        .location-text {
+            font-size: 13px;
+            color: #1a73e8;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 100px;
+            transition: border-color 0.3s;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .result {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            display: none;
+        }
+        
+        .result.success {
+            background: #e8f5e9;
+            border: 1px solid #a5d6a7;
+        }
+        
+        .result.warning {
+            background: #fff3e0;
+            border: 1px solid #ffcc80;
+        }
+        
+        .result.emergency {
+            background: #ffebee;
+            border: 1px solid #ef9a9a;
+        }
+        
+        .result h3 {
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        .result-item {
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        
+        .result-label {
+            font-weight: 600;
+            color: #555;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .error {
+            color: #d32f2f;
+            background: #ffebee;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-size: 14px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏥 Healthcare Symptom Assessment</h1>
+        <p class="subtitle">AI-powered symptom analysis with location-based care recommendations</p>
+        
+        <div class="location-status" id="locationStatus">
+            <span class="location-icon">📍</span>
+            <span class="location-text" id="locationText">Detecting your location...</span>
+        </div>
+        
+        <form id="symptomForm">
+            <div class="input-group">
+                <label for="symptoms">Describe your symptoms:</label>
+                <textarea 
+                    id="symptoms" 
+                    name="symptoms" 
+                    placeholder="Example: Headache for 3 days, fever, mild cough..."
+                    required
+                ></textarea>
+            </div>
+            
+            <button type="submit" class="btn" id="submitBtn">
+                Assess Symptoms
+            </button>
+        </form>
+        
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Analyzing your symptoms...</p>
+        </div>
+        
+        <div class="error" id="error"></div>
+        
+        <div class="result" id="result">
+            <h3 id="resultTitle">Assessment Results</h3>
+            <div class="result-item">
+                <span class="result-label">Symptoms Identified:</span>
+                <span id="symptomsIdentified"></span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">Urgency Level:</span>
+                <span id="urgencyLevel"></span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">Recommended Specialty:</span>
+                <span id="specialty"></span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">Care Setting:</span>
+                <span id="careSetting"></span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">Reasoning:</span>
+                <p id="reasoning"></p>
+            </div>
+            <div class="result-item" id="safetyAdviceContainer" style="display: none;">
+                <span class="result-label">⚠️ Safety Advice:</span>
+                <p id="safetyAdvice" style="font-weight: 600;"></p>
+            </div>
+            <div class="result-item">
+                <span class="result-label">📍 Your Location:</span>
+                <span id="userLocation"></span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let userLocation = null;
+        let sessionId = `session_${Date.now()}_${Math.random().toString(36).substring(7)}`;
+
+        // Request geolocation on page load
+        function requestGeolocation() {
+            const locationStatus = document.getElementById('locationStatus');
+            const locationText = document.getElementById('locationText');
+            
+            if (!navigator.geolocation) {
+                locationText.textContent = 'Geolocation not supported by your browser';
+                locationStatus.style.background = '#fff3e0';
+                return;
+            }
+
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    userLocation = {
+                        latitude: parseFloat(position.coords.latitude.toFixed(6)),
+                        longitude: parseFloat(position.coords.longitude.toFixed(6))
+                    };
+                    
+                    locationText.textContent = `Location detected: ${userLocation.latitude}, ${userLocation.longitude}`;
+                    locationStatus.style.background = '#e8f5e9';
+                    locationStatus.style.borderColor = '#a5d6a7';
+                    
+                    console.log('Location obtained:', userLocation);
+                },
+                (error) => {
+                    console.error('Geolocation error:', error);
+                    let errorMsg = 'Unable to detect location';
+                    
+                    switch(error.code) {
+                        case error.PERMISSION_DENIED:
+                            errorMsg = 'Location permission denied. Using IP-based location.';
+                            break;
+                        case error.POSITION_UNAVAILABLE:
+                            errorMsg = 'Location unavailable. Using IP-based location.';
+                            break;
+                        case error.TIMEOUT:
+                            errorMsg = 'Location request timeout. Using IP-based location.';
+                            break;
+                    }
+                    
+                    locationText.textContent = errorMsg;
+                    locationStatus.style.background = '#fff3e0';
+                    locationStatus.style.borderColor = '#ffcc80';
+                }
+            );
+        }
+
+        // Request location on page load
+        requestGeolocation();
+
+        // Handle form submission
+        document.getElementById('symptomForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const symptoms = document.getElementById('symptoms').value.trim();
+            if (!symptoms) return;
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const loading = document.getElementById('loading');
+            const result = document.getElementById('result');
+            const error = document.getElementById('error');
+            
+            // Hide previous results
+            result.style.display = 'none';
+            error.style.display = 'none';
+            
+            // Show loading
+            submitBtn.disabled = true;
+            loading.style.display = 'block';
+            
+            try {
+                // Build request payload
+                const payload = {
+                    message: symptoms,
+                    session_id: sessionId
+                };
+                
+                // Add location if available
+                if (userLocation) {
+                    payload.location = {
+                        latitude: userLocation.latitude,
+                        longitude: userLocation.longitude
+                    };
+                }
+                
+                // Call API
+                const response = await fetch('http://localhost:8000/api/assess', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(payload)
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                // Display results
+                displayResults(data);
+                
+            } catch (err) {
+                console.error('Assessment error:', err);
+                error.textContent = `Error: ${err.message}. Make sure the server is running on http://localhost:8000`;
+                error.style.display = 'block';
+            } finally {
+                submitBtn.disabled = false;
+                loading.style.display = 'none';
+            }
+        });
+
+        function displayResults(data) {
+            const result = document.getElementById('result');
+            
+            // Handle different response types
+            if (data.category === 'IRRELEVANT' || data.category === 'INSUFFICIENT_INFO') {
+                document.getElementById('resultTitle').textContent = data.message || 'Need More Information';
+                document.getElementById('symptomsIdentified').textContent = 'N/A';
+                document.getElementById('urgencyLevel').textContent = 'N/A';
+                document.getElementById('specialty').textContent = 'N/A';
+                document.getElementById('careSetting').textContent = 'N/A';
+                
+                let reasoning = data.reason || '';
+                if (data.clarifying_questions && data.clarifying_questions.length > 0) {
+                    reasoning += '\n\n🤔 Please provide more details:\n\n' + 
+                        data.clarifying_questions.map(q => `• ${q}`).join('\n');
+                }
+                if (data.suggestions && data.suggestions.length > 0) {
+                    reasoning += '\n\n💡 Suggestions:\n\n' + 
+                        data.suggestions.map(s => `• ${s}`).join('\n');
+                }
+                document.getElementById('reasoning').style.whiteSpace = 'pre-line';
+                document.getElementById('reasoning').textContent = reasoning;
+                
+                document.getElementById('safetyAdviceContainer').style.display = 'none';
+                result.className = 'result warning';
+            } else {
+                // Full medical assessment
+                document.getElementById('resultTitle').textContent = 'Assessment Results';
+                document.getElementById('symptomsIdentified').textContent = 
+                    (data.symptoms_identified || []).join(', ') || 'None identified';
+                document.getElementById('urgencyLevel').textContent = 
+                    (data.urgency_level || 'N/A').toUpperCase();
+                document.getElementById('specialty').textContent = 
+                    data.recommended_specialty || 'General Physician';
+                document.getElementById('careSetting').textContent = 
+                    (data.care_setting || 'clinic').replace('_', ' ').toUpperCase();
+                document.getElementById('reasoning').textContent = 
+                    data.reasoning || 'No reasoning provided';
+                
+                // Safety advice
+                if (data.safety_advice) {
+                    document.getElementById('safetyAdvice').textContent = data.safety_advice;
+                    document.getElementById('safetyAdviceContainer').style.display = 'block';
+                } else {
+                    document.getElementById('safetyAdviceContainer').style.display = 'none';
+                }
+                
+                // Set result style based on urgency
+                if (data.emergency_flag) {
+                    result.className = 'result emergency';
+                } else if (data.urgency_level === 'high') {
+                    result.className = 'result warning';
+                } else {
+                    result.className = 'result success';
+                }
+            }
+            
+            // Display location
+            if (data.user_location) {
+                const loc = data.user_location;
+                const locText = loc.city 
+                    ? `${loc.city}, ${loc.state || loc.country} (${loc.source})`
+                    : `${loc.latitude}, ${loc.longitude}`;
+                document.getElementById('userLocation').textContent = locText;
+            } else {
+                document.getElementById('userLocation').textContent = 'Not detected';
+            }
+            
+            result.style.display = 'block';
+            result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+    </script>
+</body>
+</html>

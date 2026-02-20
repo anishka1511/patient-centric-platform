@@ -41,7 +41,8 @@ class InputClassifier:
         # Stroke symptoms
         "stroke", "face drooping", "face droop", "arm weakness", "arm weak",
         "slurred speech", "can't move arm", "cant move", "paralysis", "paralyzed",
-        "face numb", "arm numb", "half body weak",
+        "face numb", "arm numb", "half body weak", "drooping", "face is drooping",
+        "arm feels weak", "arm weakness", "weak arm",
         
         # Severe bleeding
         "severe bleeding", "heavy bleeding", "blood loss", "bleeding bad",
@@ -103,6 +104,17 @@ class InputClassifier:
         'symptom', 'sick', 'ill', 'unwell', 'feeling bad',
         'drooping', 'droop', 'weak', 'numb', 'paralyzed',
         # Body parts (for follow-up responses)
+        'head', 'neck', 'back', 'spine', 'shoulder', 'arm', 'elbow', 'wrist', 'hand', 'finger',
+        'chest', 'abdomen', 'stomach', 'belly', 'side', 'hip', 'leg', 'knee', 'ankle', 'foot', 'toe',
+        'eye', 'ear', 'nose', 'mouth', 'throat', 'tooth', 'jaw',
+        'heart', 'lung', 'kidney', 'liver', 'skin',
+    ]
+    
+    # Vague symptoms that need more context when standalone
+    VAGUE_SYMPTOMS = ['pain', 'ache', 'hurt', 'sick', 'ill', 'unwell', 'bad', 'feel', 'feeling']
+    
+    # Body parts
+    BODY_PARTS = [
         'head', 'neck', 'back', 'spine', 'shoulder', 'arm', 'elbow', 'wrist', 'hand', 'finger',
         'chest', 'abdomen', 'stomach', 'belly', 'side', 'hip', 'leg', 'knee', 'ankle', 'foot', 'toe',
         'eye', 'ear', 'nose', 'mouth', 'throat', 'tooth', 'jaw',
@@ -182,10 +194,31 @@ class InputClassifier:
         
         # PRIORITY 4: Check if medical input has sufficient detail
         word_count = len(user_input_lower.split())
+        words = set(user_input_lower.split())
         
-        # ANY medical symptom is valid - let triage agent handle details
+        # Check if input is too vague (single symptom word without details)
+        has_vague_only = any(vague in user_input_lower for vague in self.VAGUE_SYMPTOMS)
+        has_body_part = any(part in user_input_lower for part in self.BODY_PARTS)
+        has_specific_symptom = any(keyword in user_input_lower for keyword in 
+            ['headache', 'fever', 'cough', 'nausea', 'vomiting', 'diarrhea', 'rash', 'migraine'])
+        
+        # If ONLY vague symptoms without body parts, context, or specific symptoms
+        if has_vague_only and not has_body_part and not has_context and not has_specific_symptom and word_count <= 4:
+            logger.info("Vague symptom detected - needs more detail")
+            return (
+                "INSUFFICIENT_INFO",
+                "Symptom mentioned but lacks detail",
+                [
+                    "Where is the symptom located?",
+                    "How long have you had this symptom?",
+                    "How severe is it? (mild/moderate/severe)",
+                    "Are there any other symptoms?"
+                ]
+            )
+        
+        # ANY medical symptom with some detail is valid - let triage agent handle full assessment
         # Per safety-first principle: don't block valid symptoms
-        # Examples: "fever", "cough", "pain", "dizzy", "stomach pain"
+        # Examples: "fever", "cough", "headache", "stomach pain"
         if has_medical_keywords:
             logger.info("Valid medical symptom detected")
             return (
@@ -217,6 +250,16 @@ class InputClassifier:
         for keyword in self.EMERGENCY_KEYWORDS:
             if keyword in text_lower:
                 return True, f"Emergency keyword detected: '{keyword}'"
+        
+        # Check for combined stroke symptoms (multiple indicators)
+        stroke_indicators = ['droop', 'weak', 'numb', 'paralyz', 'slurred']
+        body_parts = ['face', 'arm', 'leg', 'speech']
+        stroke_count = sum(1 for indicator in stroke_indicators if indicator in text_lower)
+        body_part_count = sum(1 for part in body_parts if part in text_lower)
+        
+        # If multiple stroke symptoms mentioned together -> emergency
+        if stroke_count >= 2 or (stroke_count >= 1 and body_part_count >= 1):
+            return True, f"Emergency: Multiple stroke symptoms detected"
         
         # Second pass: Fuzzy matching for typos (if rapidfuzz installed)
         if not FUZZY_MATCHING_AVAILABLE:

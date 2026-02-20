@@ -4,7 +4,10 @@ FastAPI application for AI-powered symptom assessment and care navigation
 """
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from datetime import datetime
+from pathlib import Path
 
 from config.settings import settings
 from config.logging_config import logger
@@ -12,6 +15,7 @@ from config.database import engine, Base
 from routers import agent_routes
 from routers.schemas import HealthCheckResponse
 from api.routes import router as api_router  # Orchestrator routes
+from fix_database_schema import fix_schema
 
 # Create FastAPI app
 app = FastAPI(
@@ -31,6 +35,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Mount static files
+static_path = Path(__file__).parent / "static"
+if static_path.exists():
+    app.mount("/static", StaticFiles(directory=str(static_path)), name="static")
+    logger.info(f"Static files mounted from {static_path}")
+
 # Include routers - Both input-agents and orchestrator
 app.include_router(agent_routes.router)  # Symptom assessment routes
 app.include_router(api_router)           # Hospital orchestration routes
@@ -47,6 +57,13 @@ async def startup_event():
     try:
         Base.metadata.create_all(bind=engine)
         logger.info("Database tables verified")
+        
+        # Auto-fix database schema (add missing columns)
+        logger.info("Checking database schema...")
+        if fix_schema(silent=True):
+            logger.info("Database schema up to date")
+        else:
+            logger.warning("Database schema fix encountered issues")
     except Exception as e:
         logger.error(f"Database initialization error: {e}")
 
@@ -87,11 +104,30 @@ async def health_check():
         llm_service=llm_type
     )
 
-# Root endpoint
-@app.get("/", tags=["system"])
+# Root endpoint - Serve web interface
+@app.get("/", include_in_schema=False)
 async def root():
     """
-    Root endpoint with API information
+    Serve the web interface
+    """
+    index_path = Path(__file__).parent / "static" / "index.html"
+    if index_path.exists():
+        return FileResponse(index_path)
+    else:
+        return {
+            "name": settings.app_name,
+            "version": settings.app_version,
+            "status": "running",
+            "message": "Web interface not found. Visit /docs for API documentation.",
+            "docs": "/docs",
+            "health": "/health"
+        }
+
+# API Info endpoint
+@app.get("/api-info", tags=["system"])
+async def api_info():
+    """
+    API information and available endpoints
     """
     return {
         "name": settings.app_name,

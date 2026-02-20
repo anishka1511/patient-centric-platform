@@ -151,17 +151,172 @@ No additional text."""
             self.use_mock = True
             return mock_llm_service.extract_symptoms(user_message)
     
-    def assess_symptoms(self, symptoms: List[str]) -> Dict:
+    def classify_input(self, user_message: str, history: Optional[List[Dict]] = None) -> Dict:
+        """
+        Classify user input into categories using LLM
+        Combines classification + extraction in one call for efficiency
+        
+        Args:
+            user_message: User's raw input text
+            history: Optional conversation history for context (list of {role, content} dicts)
+            
+        Returns:
+            Dict with category, symptoms, emergency flag, and guidance
+        """
+        logger.info(f"Classifying input with LLM: '{user_message[:50]}...'")
+        if history:
+            logger.info(f"Using conversation history with {len(history)} messages")        
+        if self.use_mock:
+            # Mock classification doesn't exist, use simple rules
+            if any(word in user_message.lower() for word in ['hi', 'hello', 'hey', 'thanks', 'bye']):
+                return {
+                    "category": "IRRELEVANT",
+                    "symptoms": [],
+                    "emergency": False,
+                    "message": "I'm here to help with medical symptoms.",
+                    "reason": "Non-medical greeting or social conversation"
+                }
+            # Default to valid medical for mock
+            return {
+                "category": "VALID_MEDICAL",
+                "symptoms": [user_message],
+                "emergency": False,
+                "message": "Processing your medical concern",
+                "reason": "Medical input detected"
+            }
+        
+        system_prompt = """You are a medical input classifier and symptom extractor.
+
+Analyze the user's message and determine:
+1. Is it medical-related or just conversation?
+2. Does it contain actionable symptom information?
+3. Is it an emergency?
+4. Extract any symptoms mentioned
+
+CATEGORIES:
+- IRRELEVANT: Greetings, small talk, non-medical content (e.g., "hi", "thanks", "bye")
+- INSUFFICIENT_INFO: Medical but too vague, needs clarification (e.g., "pain", "sick", "mild", "severe", single-word adjectives without symptoms)
+- VALID_MEDICAL: Clear symptom description, actionable (e.g., "headache 3 days", "fever", "cherry angioma", "mild headache")
+- EMERGENCY: Life-threatening symptoms requiring immediate care
+
+CRITICAL CLASSIFICATION RULES:
+1. Single adjectives without symptoms = INSUFFICIENT_INFO
+   Examples: "mild", "severe", "bad", "terrible", "painful" alone
+2. Single vague words = INSUFFICIENT_INFO  
+   Examples: "pain", "sick", "ill", "unwell" without location/context
+3. Single body part words without symptom = INSUFFICIENT_INFO
+   Examples: "head", "chest", "stomach", "back", "leg" without describing what's wrong
+4. Only mark as VALID_MEDICAL if there's a SPECIFIC symptom mentioned
+   Examples: "headache", "fever", "rash", "cough", "toothache", "chest pain"
+
+EMERGENCY INDICATORS:
+- Chest pain, heart attack, difficulty breathing, stroke symptoms
+- Severe bleeding, unconsciousness, seizures
+- Suicidal thoughts, overdose, poisoning
+- Severe trauma, choking
+
+EXAMPLES (FOLLOW THESE EXACTLY):
+
+Input: "hi"
+Output: {"category": "IRRELEVANT", "symptoms": [], "emergency": false, "message": "I'm here to help with medical symptoms.", "reason": "Non-medical greeting"}
+
+Input: "mild"
+Output: {"category": "INSUFFICIENT_INFO", "symptoms": [], "emergency": false, "message": "I need more details.", "reason": "Severity word without specific symptom", "clarifying_questions": ["What symptom are you experiencing?", "Where do you feel this?", "How long have you had it?"]}
+
+Input: "severe"
+Output: {"category": "INSUFFICIENT_INFO", "symptoms": [], "emergency": false, "message": "I need more details.", "reason": "Severity word without specific symptom", "clarifying_questions": ["What is severe?", "What symptom are you describing?", "Where is this located?"]}
+
+Input: "pain"
+Output: {"category": "INSUFFICIENT_INFO", "symptoms": ["pain"], "emergency": false, "message": "I need more details.", "reason": "Too vague - no location or context", "clarifying_questions": ["Where is the pain?", "How long have you had it?", "How severe is it?"]}
+
+Input: "sick"
+Output: {"category": "INSUFFICIENT_INFO", "symptoms": [], "emergency": false, "message": "I need more details.", "reason": "Too vague - no specific symptoms", "clarifying_questions": ["What specific symptoms are you experiencing?", "Do you have fever, pain, nausea, or other symptoms?", "How long have you felt this way?"]}
+
+Input: "not feeling well"
+Output: {"category": "INSUFFICIENT_INFO", "symptoms": [], "emergency": false, "message": "I need more details.", "reason": "Too vague", "clarifying_questions": ["What specific symptoms do you have?", "Any pain, fever, or discomfort?", "When did this start?"]}
+
+Input: "head"
+Output: {"category": "INSUFFICIENT_INFO", "symptoms": [], "emergency": false, "message": "I need more details.", "reason": "Body part mentioned without specific symptom", "clarifying_questions": ["What is wrong with your head?", "Do you have a headache, injury, or other issue?", "When did it start?"]}
+
+Input: "chest"
+Output: {"category": "INSUFFICIENT_INFO", "symptoms": [], "emergency": false, "message": "I need more details.", "reason": "Body part mentioned without specific symptom", "clarifying_questions": ["What are you feeling in your chest?", "Is it pain, discomfort, or something else?", "How long have you had this?"]}
+
+Input: "headache"
+Output: {"category": "VALID_MEDICAL", "symptoms": ["headache"], "emergency": false, "message": "Medical concern identified", "reason": "Specific symptom mentioned"}
+
+Input: "mild headache"
+Output: {"category": "VALID_MEDICAL", "symptoms": ["mild headache"], "emergency": false, "message": "Medical concern identified", "reason": "Specific symptom with severity"}
+
+Input: "cherry angioma"
+Output: {"category": "VALID_MEDICAL", "symptoms": ["cherry angioma"], "emergency": false, "message": "Medical concern identified", "reason": "Specific skin condition"}
+
+Input: "face pimple"
+Output: {"category": "VALID_MEDICAL", "symptoms": ["facial acne"], "emergency": false, "message": "Medical concern identified", "reason": "Dermatological symptom"}
+
+Input: "chest pain cant breathe"
+Output: {"category": "EMERGENCY", "symptoms": ["chest pain", "difficulty breathing"], "emergency": true, "message": "URGENT: Seek immediate medical attention", "reason": "Life-threatening cardiac/respiratory symptoms"}
+
+Input: "face drooping arm weak"
+Output: {"category": "EMERGENCY", "symptoms": ["facial drooping", "arm weakness"], "emergency": true, "message": "URGENT: Possible stroke", "reason": "Stroke warning signs"}
+
+OUTPUT FORMAT (JSON only):
+{
+  "category": "IRRELEVANT | INSUFFICIENT_INFO | VALID_MEDICAL | EMERGENCY",
+  "symptoms": ["extracted symptom1", "symptom2"],
+  "emergency": true/false,
+  "message": "brief user message",
+  "reason": "why this category",
+  "clarifying_questions": ["q1", "q2"] (only if INSUFFICIENT_INFO)
+}
+
+CONVERSATION CONTEXT:
+If previous conversation history is provided, use it to understand context and resolve ambiguities.
+For example:
+- If user previously said "chest pain" and now says "for 2 hours, severe", combine into "severe chest pain for 2 hours"
+- If follow-up provides location, severity, or duration, combine with previous symptoms
+- Maintain medical context across turns
+"""
+
+        messages = [{"role": "system", "content": system_prompt}]
+        
+        # Add conversation history if available
+        if history:
+            for msg in history:
+                messages.append({"role": msg["role"], "content": msg["content"]})
+        
+        # Add current user message
+        messages.append({"role": "user", "content": f"Classify and extract: {user_message}"})
+        
+        try:
+            response_text = self._call_openai(messages, max_tokens=300)
+            result = json.loads(response_text)
+            logger.info(f"LLM classification: {result.get('category')} - {result.get('reason')}")
+            return result
+        except Exception as e:
+            logger.error(f"LLM classification failed: {e}")
+            # Safe fallback - assume medical and let assessment handle it
+            return {
+                "category": "VALID_MEDICAL",
+                "symptoms": [user_message],
+                "emergency": False,
+                "message": "Processing your input",
+                "reason": "Classification failed, proceeding with assessment"
+            }
+    
+    def assess_symptoms(self, symptoms: List[str], history: Optional[List[Dict]] = None) -> Dict:
         """
         Assess symptoms and provide care navigation
         
         Args:
             symptoms: List of extracted symptoms
+            history: Optional conversation history for additional context
             
         Returns:
             Dict with assessment results
         """
         logger.info(f"Assessing symptoms: {symptoms}")
+        if history:
+            logger.info(f"Using conversation history with {len(history)} messages")
         
         if self.use_mock:
             result = mock_llm_service.assess_symptoms(symptoms)
@@ -228,14 +383,24 @@ Return ONLY valid JSON in the following structure:
 
 If emergency_flag is true, safety_advice must instruct immediate medical attention.
 If information is insufficient, choose the safest reasonable recommendation.
-Maintain a calm, neutral, non-alarming tone."""
+Maintain a calm, neutral, non-alarming tone.
+
+CONVERSATION CONTEXT:
+If previous conversation history is provided, use it to understand the full context of the patient's condition.
+Consider details mentioned in earlier messages when making your assessment.
+"""
 
         symptoms_text = ", ".join(symptoms) if symptoms else "No specific symptoms mentioned"
         
-        messages = [
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": f"Please assess these symptoms: {symptoms_text}"}
-        ]
+        messages = [{"role": "system", "content": system_prompt}]
+        
+        # Add conversation history if available
+        if history:
+            for msg in history:
+                messages.append({"role": msg["role"], "content": msg["content"]})
+        
+        # Add current assessment request
+        messages.append({"role": "user", "content": f"Please assess these symptoms: {symptoms_text}"})
         
         try:
             response_text = self._call_openai(messages, max_tokens=500)

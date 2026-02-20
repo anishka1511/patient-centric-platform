@@ -1,5 +1,5 @@
 from pydantic_settings import BaseSettings
-from typing import List
+from typing import List, Optional
 import os
 
 
@@ -29,6 +29,10 @@ class Settings(BaseSettings):
     
     # Rate Limiting
     max_requests_per_minute: int = 10
+    
+    # Geolocation Configuration
+    ipinfo_api_key: Optional[str] = ""
+    enable_auto_location: bool = True
     
     # Application Settings
     app_name: str = "Healthcare Symptom Assessment Agent"
