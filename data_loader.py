@@ -648,6 +648,45 @@ def recommend_doctors(input_data: dict):
     }
 
 
+def _map_specialty_to_hospital_format(specialty: str) -> list:
+    """
+    Map doctor specialty names to hospital specialty names.
+    Handles conversion like 'cardiologist' -> 'cardiology'.
+    
+    Args:
+        specialty (str): Doctor specialty name (lowercase)
+    
+    Returns:
+        list: List of possible hospital specialty names to search for
+    """
+    # Mapping from doctor specialties to hospital specialties
+    specialty_map = {
+        'cardiologist': ['cardiology'],
+        'dentist': ['dentistry', 'dental'],
+        'dentists': ['dentistry', 'dental'],
+        'dermatologist': ['dermatology'],
+        'endocrinologist': ['endocrinology'],
+        'ent specialist': ['ent', 'ear nose throat'],
+        'gastroenterologist': ['gastroenterology'],
+        'general physician': ['general physician', 'general medicine'],
+        'gynac': ['gynecology', 'obstetrics and gynaecology'],
+        'internal medicine': ['internal medicine'],
+        'nephrologist': ['nephrology'],
+        'obsstetrician': ['obstetrics'],
+        'oncologist': ['oncology'],
+        'ophthalmologist': ['ophthalmology', 'eye'],
+        'orthopedic': ['orthopedic', 'orthopedics'],
+        'pediatrician': ['pediatrics', 'paediatrics'],
+        'psychiatrist': ['psychiatry'],
+        'pulmonologist': ['pulmonology', 'respiratory'],
+        'urologist': ['urology'],
+    }
+    
+    # Get mapped specialties, or use original if no mapping found
+    mapped = specialty_map.get(specialty, [specialty])
+    return mapped
+
+
 def generate_cost_insights(input_data: dict):
     """
     Generate cost insights for doctors matching specialty and location.
@@ -864,52 +903,106 @@ def recommend_hospitals(input_data: dict):
         fallback_applied = False
         fallback_location = None
         
-        # Step 1: Filter by location (exact match first)
+        # Step 1: Filter by location (exact match first, then nearby)
         location_filtered = hospitals_df[hospitals_df['location_lower'] == location]
+        fallback_applied = False
+        fallback_location = None
         
         # If no exact results, try nearby locations
         if location_filtered.empty:
             nearby_locations = NEARBY_MAP.get(location, [])
             for nearby in nearby_locations:
                 nearby_filtered = hospitals_df[hospitals_df['location_lower'] == nearby]
-                if not nearby_filtered.empty:
-                    location_filtered = nearby_filtered
-                    fallback_applied = True
-                    fallback_location = nearby
-                    break
+                
+                # If high severity, check if this nearby location has emergency hospitals
+                if severity == "high":
+                    nearby_emergency = nearby_filtered[nearby_filtered['emergency_available'].astype(bool)]
+                    if not nearby_emergency.empty:
+                        location_filtered = nearby_emergency
+                        fallback_applied = True
+                        fallback_location = nearby
+                        break
+                else:
+                    # For non-high severity, accept any hospitals
+                    if not nearby_filtered.empty:
+                        location_filtered = nearby_filtered
+                        fallback_applied = True
+                        fallback_location = nearby
+                        break
         
         if location_filtered.empty:
-            return {
-                "care_setting": "hospital",
-                "recommended_hospitals": [],
-                "total_matches": 0,
-                "message": f"No hospitals found in {location} or nearby locations.",
-                "metadata": {
-                    "fallback_applied": False,
-                    "fallback_location": None
-                }
-            }
-        
-        # Step 2: Filter by emergency_available if high severity
-        if severity == "high":
-            location_filtered = location_filtered[location_filtered['emergency_available'].astype(str) == 'True']
-            
-            if location_filtered.empty:
+            # Try one more time: for high severity, check if there are ANY emergency hospitals
+            # in nearby locations (not just the specialty filter)
+            if severity == "high":
                 return {
                     "care_setting": "hospital",
                     "recommended_hospitals": [],
                     "total_matches": 0,
-                    "message": f"No hospitals with emergency services found in {location}.",
+                    "message": "No emergency-capable hospitals found in this area or nearby locations.",
                     "metadata": {
-                        "fallback_applied": fallback_applied,
-                        "fallback_location": fallback_location
+                        "fallback_applied": False,
+                        "fallback_location": None
+                    }
+                }
+            else:
+                return {
+                    "care_setting": "hospital",
+                    "recommended_hospitals": [],
+                    "total_matches": 0,
+                    "message": f"No hospitals found in {location} or nearby locations.",
+                    "metadata": {
+                        "fallback_applied": False,
+                        "fallback_location": None
                     }
                 }
         
+        # Step 2: Filter by emergency_available if high severity (for exact location match)
+        # For nearby locations, we've already applied this filter above
+        if severity == "high" and not fallback_applied:
+            location_filtered = location_filtered[location_filtered['emergency_available'].astype(bool)]
+            
+            if location_filtered.empty:
+                # No emergency hospitals in exact location, try nearby
+                nearby_locations = NEARBY_MAP.get(location, [])
+                for nearby in nearby_locations:
+                    nearby_filtered = hospitals_df[hospitals_df['location_lower'] == nearby]
+                    nearby_emergency = nearby_filtered[nearby_filtered['emergency_available'].astype(bool)]
+                    if not nearby_emergency.empty:
+                        location_filtered = nearby_emergency
+                        fallback_applied = True
+                        fallback_location = nearby
+                        break
+                
+                if location_filtered.empty:
+                    return {
+                        "care_setting": "hospital",
+                        "recommended_hospitals": [],
+                        "total_matches": 0,
+                        "message": "No emergency-capable hospitals found in this area or nearby locations.",
+                        "metadata": {
+                            "fallback_applied": False,
+                            "fallback_location": None
+                        }
+                    }
+        
         # Step 3: Filter by specialty (must be in specialties_available)
-        location_filtered = location_filtered[
-            location_filtered['specialties_available'].str.lower().str.contains(specialty, na=False)
+        # Map doctor specialty names to hospital specialty names (e.g., 'cardiologist' -> 'cardiology')
+        hospital_specialties = _map_specialty_to_hospital_format(specialty)
+        specialty_pattern = '|'.join(hospital_specialties)
+        specialty_filtered = location_filtered[
+            location_filtered['specialties_available'].str.lower().str.contains(specialty_pattern, na=False, regex=True)
         ]
+        
+        # If no hospitals with specialty found, allow any emergency hospitals for high severity
+        # (for emergency cases, having an emergency-capable hospital is more important than specialty match)
+        if specialty_filtered.empty and severity == "high":
+            location_filtered = location_filtered  # Use location_filtered (which already has emergency hospitals)
+        elif specialty_filtered.empty and fallback_applied and severity == "high":
+            # No specialty match even in fallback location, use all emergency hospitals from fallback
+            location_filtered = hospitals_df[hospitals_df['location_lower'] == fallback_location]
+            location_filtered = location_filtered[location_filtered['emergency_available'].astype(bool)]
+        else:
+            location_filtered = specialty_filtered
         
         if location_filtered.empty:
             return {
@@ -949,13 +1042,13 @@ def recommend_hospitals(input_data: dict):
         )
         
         # Score for emergency services (true = 0.3 boost, false = 0)
-        location_filtered['emergency_score'] = location_filtered['emergency_available'].astype(str).apply(
-            lambda x: 0.3 if x == 'True' else 0.0
+        location_filtered['emergency_score'] = location_filtered['emergency_available'].astype(bool).apply(
+            lambda x: 0.3 if x else 0.0
         )
         
         # Score for ICU availability (true = 0.2 boost, false = 0)
-        location_filtered['icu_score'] = location_filtered['icu_available'].astype(str).apply(
-            lambda x: 0.2 if x == 'True' else 0.0
+        location_filtered['icu_score'] = location_filtered['icu_available'].astype(bool).apply(
+            lambda x: 0.2 if x else 0.0
         )
         
         # Compute final score: location (0.5) + hospital_type (0.3) + emergency (0.1) + icu (0.1)
@@ -976,8 +1069,8 @@ def recommend_hospitals(input_data: dict):
                 'hospital_name': row['hospital_name'],
                 'location': row['location'],
                 'hospital_type': row['hospital_type'],
-                'emergency_available': bool(row['emergency_available'] == 'True'),
-                'icu_available': bool(row['icu_available'] == 'True'),
+                'emergency_available': bool(row['emergency_available']),
+                'icu_available': bool(row['icu_available']),
                 'specialties_available': row['specialties_available'],
                 'contact_number': _get_valid_contact_number(row['contact_number']),
                 'latitude': float(_convert_to_json_serializable(row['latitude'])),
