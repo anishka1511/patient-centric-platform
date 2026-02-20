@@ -6,11 +6,14 @@ import os
 class Settings(BaseSettings):
     """Application settings with environment variable support"""
     
-    # OpenAI Configuration
+    # LLM Configuration (supports OpenAI, Grok, and Groq)
     openai_api_key: str
-    openai_model: str = "gpt-4-turbo-preview"
+    openai_model: str = "llama-3.3-70b-versatile"
     openai_max_tokens: int = 1000
     openai_temperature: float = 0.3
+    llm_provider: str = "groq"
+    grok_base_url: str = "https://api.x.ai/v1"
+    groq_base_url: str = "https://api.groq.com/openai/v1"
     
     # Database Configuration
     database_url: str
