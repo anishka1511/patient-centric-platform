@@ -6,6 +6,14 @@ import re
 from typing import Dict, List, Tuple
 from config.logging_config import logger
 
+# Optional: RapidFuzz for typo tolerance (graceful degradation if not installed)
+try:
+    from rapidfuzz import fuzz
+    FUZZY_MATCHING_AVAILABLE = True
+except ImportError:
+    FUZZY_MATCHING_AVAILABLE = False
+    logger.warning("RapidFuzz not installed - typo detection disabled. Run: pip install rapidfuzz")
+
 
 class InputClassifier:
     """
@@ -198,11 +206,47 @@ class InputClassifier:
         )
     
     def _check_emergency(self, text: str) -> Tuple[bool, str]:
-        """Check if input contains emergency keywords - simple substring matching"""
+        """
+        Check if input contains emergency keywords using fuzzy matching
+        Handles typos, misspellings, and variations
+        Threshold: 85% similarity (catches most typos while avoiding false positives)
+        """
         text_lower = text.lower()
+        
+        # First pass: Exact substring matching (always works)
         for keyword in self.EMERGENCY_KEYWORDS:
             if keyword in text_lower:
                 return True, f"Emergency keyword detected: '{keyword}'"
+        
+        # Second pass: Fuzzy matching for typos (if rapidfuzz installed)
+        if not FUZZY_MATCHING_AVAILABLE:
+            return False, ""
+        
+        # Split text into words and phrases for matching
+        words = text_lower.split()
+        
+        # Check single words and 2-word phrases
+        for i in range(len(words)):
+            # Single word
+            word = words[i]
+            for keyword in self.EMERGENCY_KEYWORDS:
+                # Only do fuzzy match on keywords without spaces (single words)
+                if ' ' not in keyword and len(word) >= 4 and len(keyword) >= 4:
+                    similarity = fuzz.ratio(word, keyword)
+                    if similarity >= 85:
+                        logger.warning(f"Fuzzy emergency match: '{word}' ~= '{keyword}' ({similarity}%)")
+                        return True, f"Emergency keyword detected (typo): '{word}' → '{keyword}'"
+            
+            # Two-word phrases
+            if i < len(words) - 1:
+                phrase = f"{words[i]} {words[i+1]}"
+                for keyword in self.EMERGENCY_KEYWORDS:
+                    if ' ' in keyword and len(phrase) >= 8:
+                        similarity = fuzz.ratio(phrase, keyword)
+                        if similarity >= 85:
+                            logger.warning(f"Fuzzy emergency match: '{phrase}' ~= '{keyword}' ({similarity}%)")
+                            return True, f"Emergency keyword detected (typo): '{phrase}' → '{keyword}'"
+        
         return False, ""
     
     def _check_irrelevant(self, text: str) -> Tuple[bool, str]:
