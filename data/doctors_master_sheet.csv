@@ -1,0 +1,708 @@
+doctors_name,doctors_location,doctors_profession,doctors_rating,doctors_number,doctors_cost,specialty
+Dr. Bhushan Bari,"Wanowrie,",Cardiologist,100%,912048556145.0,₹900,Cardiologist
+Dr. Prashant Sadashiv Shinde,"Bhosari,",Cardiologist,100%,917949108205.0,₹1000,Cardiologist
+Dr. Akshay Kashid,"Baner,",Cardiologist,100%,912048556927.0,₹1000,Cardiologist
+Dr. Abhay Somani,"Wanowrie,",Cardiologist,92%,912048556145.0,₹1200,Cardiologist
+Dr. Rajesh Kaushish,"Wanowrie,",Cardiologist,unavailable,912048556145.0,₹1200,Cardiologist
+Dr. Sonam Shinde,"Bhosari,",Cardiologist,75%,917949108205.0,₹1000,Cardiologist
+Dr. Yuvaraj Bhosale,"Pimple Saudagar,",Cardiologist,unavailable,912048553738.0,₹1200,Cardiologist
+Dr. Sujit Sawadatkar,"Hadapsar,",Cardiologist,unavailable,912048556097.0,₹950,Cardiologist
+Dr. Gaurav Ganeshwala,"Wanowrie,",Cardiologist,unavailable,912048556145.0,₹900,Cardiologist
+Dr. Ashish S Khanijo,"Wanowrie,",Cardiologist,unavailable,912048556145.0,₹1200,Cardiologist
+Dr. Dhananjay Zutshi,"Pimpri-Chinchwad,",Cardiologist,89%,912071173182.0,₹700,Cardiologist
+Dr. Annapoorna A. Kalia,"Pimpri-Chinchwad,",Cardiologist,64%,912071177306.0,₹1000,Cardiologist
+Dr. Priya Palimkar,"Nagar Road,",Cardiologist,94%,917969141502.0,₹1100,Cardiologist
+Dr. Mangesh B Danej,"Baner,",Cardiologist,98%,912248977836.0,₹800,Cardiologist
+Dr. Kanhaiya Jeswani,"Hadapsar,",Cardiologist,100%,912071173267.0,₹750,Cardiologist
+Dr. Sachin Hundekari,"Wakad,",Cardiologist,88%,912048553065.0,₹1000,Cardiologist
+Dr. Manohar Sakhare,"Kharadi,",Cardiologist,96%,917969141739.0,₹900,Cardiologist
+Dr. Ashish Trivedi,"Chakan,",Cardiologist,96%,912071533850.0,₹750,Cardiologist
+Dr. Rajesh Badani,"Pimpri-Chinchwad,",Cardiologist,unavailable,912248932701.0,₹1000,Cardiologist
+Dr. Saleena Vaidya,"Shankar Shet Road,",Cardiologist,unavailable,912248932701.0,₹1000,Cardiologist
+Dr. Mahesh Sampat Kharade,"Wakad,",Cardiologist,100%,917971261693.0,₹800,Cardiologist
+Dr. Jagjeet Deshmukh,"Hadapsar,",Cardiologist,50%,917971261693.0,₹845,Cardiologist
+Dr. Akash Motgi,"Kharadi,",Cardiologist,unavailable,912071187164.0,₹1000,Cardiologist
+Dr. Hindaria Smruti Sunil,"Shankar Shet Road,",Cardiologist,unavailable,912071171359.0,₹1000,Cardiologist
+Dr. Avinash Inamdar,"Aundh,",Cardiologist,99%,918037312919.0,₹1500,Cardiologist
+Dr. Pramod Narkhede,"Kharadi,",Cardiologist,91%,918037298996.0,₹700,Cardiologist
+Dr. More Hardik Satyawan,"Wanowrie,",Cardiologist,unavailable,912048552992.0,₹1000,Cardiologist
+Dr. Vikrant khese,"Kharadi,",Cardiologist,86%,917971115168.0,₹1000,Cardiologist
+Dr. Praveen Badrinarayan Pawal,"Baner,",Cardiologist,unavailable,914049174245.0,₹1000,Cardiologist
+Dr. Amol Thorat Dinkar,"Kharadi,",Dentist,85%,918047162233.0,₹300,Dentists
+Dr. Ganesh,"Aundh,",Dentist,98%,917969141788.0,₹200,Dentists
+Dr. Rahul Kathariya,"Baner,",Dentist,96%,917969141639.0,₹400,Dentists
+Dr. Rohit Jethale,"Kharadi,",Dentist,100%,912048556092.0,₹199,Dentists
+Dr. Mandar Ketkar,"Koregaon Park,",Dentist,99%,917969141940.0,₹600,Dentists
+Dr. Apoorva Sahu,"Hadapsar,",Dentist,100%,912048556168.0,₹300,Dentists
+Dr. Syed Shibli Quazi,"Kharadi,",Dentist,98%,918047162233.0,₹300,Dentists
+Dr. Abhinav Misuriya,"Hadapsar,",Dentist,97%,917969141641.0,₹400,Dentists
+Dr. Irshad Chaudary,"Kharadi,",Dentist,94%,918047162233.0,₹300,Dentists
+Dr. Hemant Patil,"Pimple Saudagar,",Dentist,93%,917971114606.0,₹500,Dentists
+Dr. Pradeepti,"Wakad,",Dentist,98%,912271873701.0,₹300,Dentists
+Dr. Disha Shah,"Kothrud,",Dentist,100%,912071177302.0,₹300,Dentists
+Dr. Rohan R Nakhole,"Kothrud,",Dentist,98%,912071171359.0,₹300,Dentists
+Dr. Supriya Patil,"Baner,",Dentist,98%,912071171335.0,₹500,Dentists
+Dr. Preyas Gaikwad,"Dhanori,",Dentist,99%,917971262054.0,₹150,Dentists
+Dr. Prashant Babar,"Kothrud,",Dentist,96%,912071179090.0,₹300,Dentists
+Dr. Rahul R. Bagrecha,"Kharadi,",Dentist,98%,917971172161.0,₹500,Dentists
+Dr. Rachita Domale,"Koregaon Park,",Dentist,100%,912071189378.0,₹300,Dentists
+Dr. Gaurang Patil,"Baner,",Dentist,96%,912071173225.0,₹500,Dentists
+Dr. Neha Chandan,"Viman Nagar,",Dentist,98%,912071534178.0,₹500,Dentists
+Dr. Priti Munde,"Model Colony,",Dentist,97%,912048552992.0,₹500,Dentists
+Dr. Swati Saraf,"Pashan,",Dentist,100%,912249398290.0,₹400,Dentists
+Dr. Siddharth Swarup,"Magarpatta City,",Dentist,98%,912248903971.0,₹500,Dentists
+Dr. Gargi Patil,"Moshi,",Dentist,98%,917971262903.0,₹200,Dentists
+Dr. Priyanka Kawade,"Shivajinagar,",Dentist,99%,912071177422.0,₹300,Dentists
+Dr. Amit Domale,"Koregaon Park,",Dentist,100%,912248977836.0,₹300,Dentists
+Dr. Nishant Vyavahare,"Balewadi,",Dentist,100%,912071177420.0,₹700,Dentists
+Dr. Aashish A Mathesul,"Kalyani Nagar,",Dentist,94%,912071189378.0,₹500,Dentists
+Dr. Heena Sonawane Sharma,"Viman Nagar,",Dentist,100%,912048552983.0,₹300,Dentists
+Dr. Prashant Gupta,"Kalyani Nagar,",Dentist,98%,912071173263.0,₹400,Dentists
+Dr. Prithvi Asknani Bonde,"Kharadi,",Dentist,100%,918037321124.0,₹300,Dentists
+Dr. Piyush Biyani,"Aundh,",Dentist,98%,912248902319.0,₹400,Dentists
+Dr. Gaurav Mali,"Hinjewadi,",Dentist,100%,912071173190.0,₹400,Dentists
+Dr. Nilima Borkar,"Pimpri-Chinchwad,",Dentist,100%,912048553252.0,₹300,Dentists
+Dr. Prajakta Tingne,"Kharadi,",Dentist,98%,912071177436.0,₹300,Dentists
+Dr. Shital Kawale Dharmadhikari,"Kharadi,",Dentist,96%,914049174245.0,₹300,Dentists
+Dr. Sujata Pingale,"Chikhali,",Dentist,83%,912071177426.0,₹200,Dentists
+Dr. Shailendra Supekar,"Kharadi,",Dentist,99%,918037320367.0,₹500,Dentists
+Dr. Sudiksha Jaiswal,"Viman Nagar,",Dentist,97%,912071177319.0,₹500,Dentists
+Dr. Nimisha N. Barve,"Kothrud,",Dentist,100%,912071533932.0,₹300,Dentists
+Dr. Ananth Kamath,"Aundh,",Dentist,100%,912071177303.0,₹500,Dentists
+Dr. Meena Juyal,"Hadapsar,",Dentist,100%,912048553253.0,₹500,Dentists
+Dr. Aditya Jadhav,"Kothrud,",Dentist,100%,912071177324.0,₹300,Dentists
+Dr. Minal Niswade,"Aundh,",Dentist,96%,912248902319.0,₹400,Dentists
+Dr. Kunal Advani,"Prabhat Road,",Dentist,100%,912071179090.0,₹400,Dentists
+Dr. Nidhi Deven Sheth,"Vadgaon Budruk,",Dentist,96%,912048552972.0,₹200,Dentists
+Dr. Rhea Kashid,"Baner,",Dentist,92%,912071177422.0,₹1000,Dentists
+Dr. Patil Aashish Dilip,"Kharadi,",Dentist,100%,912071177303.0,₹300,Dentists
+Dr. Priyam Aditya,"Baner,",Dentist,99%,912071177422.0,₹800,Dentists
+Dr. Onkar Anantrao,"Aundh,",Dentist,98%,912248968621.0,₹1200,Dentists
+Dr. Jyothi Vinayan,"Prabhat Road,",Dentist,100%,911142246455.0,₹200,Dentists
+Dr. Keshal Ruparel,"Kharadi,",Dentist,100%,912071185854.0,₹300,Dentists
+Dr. Vanessa Lobo,"Kharadi,",Dentist,100%,912071177426.0,₹500,Dentists
+Dr. Dhaval Oswal,"Bibvewadi,",Dentist,97%,912071533850.0,₹100,Dentists
+Dr. Nimay Devjee,"Yerwada,",Dentist,100%,912249398293.0,₹300,Dentists
+Dr. Saina Elahi,"Shivajinagar,",Dentist,100%,912048554750.0,₹500,Dentists
+Dr. Swathi Pissay Martande,"Pimple Nilakh,",Dentist,100%,912071179090.0,₹300,Dentists
+Dr. Disha Bansal,"Koregaon Park,",Dentist,100%,912248968623.0,₹400,Dentists
+Dr. Seema Rathod,"Balewadi,",Dentist,98%,912048553256.0,₹500,Dentists
+Dr. Rachna Darak,"Wakad,",Dentist,100%,912071177426.0,₹300,Dentists
+Dr. Nikita Nishan,"Baner Road,",Dentist,100%,912071177321.0,₹300,Dentists
+Dr. Sanjay Talele,"Kothrud,",Dentist,100%,912071177437.0,₹300,Dentists
+Dr. Bhawana Dubey,"Wakad,",Dentist,100%,912071173265.0,₹500,Dentists
+Dr. Siddhi Thuse,"Balewadi,",Dentist,97%,912248933641.0,₹300,Dentists
+Dr. Priyanka Singh,"Kharadi,",Dentist,100%,912071533824.0,₹300,Dentists
+Dr. Sharwari Pawale,"Kharadi,",Dentist,100%,912071173264.0,₹300,Dentists
+Dr. Samhita Advani,"Prabhat Road,",Dentist,100%,912071179090.0,₹400,Dentists
+Dr. Shital Kupkar,"Hadapsar,",Dentist,100%,912071173173.0,₹300,Dentists
+Dr. Sunita Gallani,"Aundh,",Dentist,96%,912071189376.0,₹500,Dentists
+Dr. Divya Kharat,"Shivajinagar,",Dentist,unavailable,912071188518.0,₹500,Dentists
+Dr. Vishakha Lal,"Sasanenagar,",Dentist,100%,912048566751.0,₹300,Dentists
+Dr. Anamika Gupta,"Pimple Saudagar,",Dentist,94%,912248977837.0,₹500,Dentists
+Dr. Simmy Joseph,"Koregaon Park,",Dentist,100%,912048553255.0,₹500,Dentists
+Dr. Amol J. Pharande,"Aundh,",Dentist,96%,912271873696.0,₹500,Dentists
+Dr. Kirti Takke,"Parvati Gaon,",Dentist,100%,912048553066.0,₹400,Dentists
+Dr. Revathi,"Wakad,",Dentist,100%,912048552978.0,₹400,Dentists
+Dr. Santosh Martande,"Pimple Nilakh,",Dentist,100%,912071179090.0,₹300,Dentists
+Dr. Ashish Gupta,"Aundh,",Dentist,98%,912249398293.0,₹500,Dentists
+Dr. Mukund E Kothavade,"Parvati Paytha,",Dentist,unavailable,912071177420.0,₹500,Dentists
+Dr. Athira,"Aundh,",Dentist,99%,912071173189.0,₹200,Dentists
+Dr. Nandita Bhati,"Hinjewadi,",Dentist,99%,917969141981.0,₹500,Dentists
+Dr. Puja Bansal,"Viman Nagar,",Dentist,98%,917969141683.0,₹500,Dentists
+Dr. Amit Chaudhari,"Bibvewadi,",Dentist,99%,912071177320.0,₹500,Dentists
+Dr. Gauri Srinidhi,"Karve Nagar,",Dentist,98%,912048553254.0,₹500,Dentists
+Dr. Ritesh Kumar Singh,"Pimple Saudagar,",Dentist,99%,917971262181.0,₹400,Dentists
+Dr. Kalpak Patil,"Hadapsar,",Dentist,99%,912271873697.0,₹300,Dentists
+Dr. Pallavi Deshpande Umrajkar,"Pashan,",Dentist,94%,912071185853.0,₹300,Dentists
+Dr. Samiksha Jarde,"Pimple Saudagar,",Dentist,96%,918037298998.0,₹500,Dentists
+Dr. Shilpika Gupta,"Pimple Saudagar,",Dentist,unavailable,912071172687.0,₹300,Dentists
+Dr. Vrushalee Oke,"Kalyani Nagar,",Dentist,100%,912071173225.0,₹400,Dentists
+Dr. Yashyashwini Jain,"Aundh,",Dentist,100%,917971171699.0,₹600,Dentists
+Dr. Archana Singhal,"Law College Road,",Dentist,unavailable,912048553255.0,₹400,Dentists
+Dr. Manju Patel,"Wakad,",Dentist,99%,912071177308.0,₹400,Dentists
+Dr. Varad Prashant Pathak,"Ravet,",Dentist,100%,917971262030.0,₹200,Dentists
+Dr. Shraddha Angal,"Senapati Bapat Marg,",Dentist,99%,912048553586.0,₹300,Dentists
+Dr. Snigdha Chandorkar,"FC Road,",Dentist,99%,912071177308.0,₹500,Dentists
+Dr. Sonali Nilesh Kakade,"Pimpri-Chinchwad,",Dentist,100%,912071177306.0,₹300,Dentists
+Dr. Deepinder Singh Duggal,"Camp,",Dentist,99%,917971262095.0,₹500,Dentists
+Dr. Kathade Anjali Sudhakar,"Hadapsar,",Dentist,unavailable,912048553263.0,₹400,Dentists
+Dr. Vaidehi Khandare,"Pimple Saudagar,",Dentist,unavailable,912071533824.0,₹200,Dentists
+Dr. Nikhil Jain,"Rasta Peth,",Dentist,unavailable,912071185853.0,₹500,Dentists
+Dr. Harshada Karjatkar,"Erandwane,",Dentist,unavailable,912048552971.0,₹300,Dentists
+Dr. Ajinkya Sudhir Pandit,"Baner,",Dentist,unavailable,912071171359.0,₹500,Dentists
+Dr. Ashwini P,"Wakad,",Dentist,100%,918037321279.0,₹200,Dentists
+Dr. Ruhamah Nelson,"Wakad,",Dentist,100%,912071188518.0,₹200,Dentists
+Dr. Ritesh Khandelwal,"Lonavala,",Dentist,93%,918037298998.0,₹200,Dentists
+Dr. Aishwarya Deshmukh,"Kharadi,",Dentist,unavailable,918037298995.0,₹300,Dentists
+Dr. Ajinkya S. Patil,"Baner,",Dentist,100%,918037298997.0,₹800,Dentists
+Dr. Anisha Kulkarni,"Kondhwa,",Dentist,99%,912071187259.0,₹400,Dentists
+Dr. Ruchika Srivastava,"Aundh,",Dentist,unavailable,912048553249.0,₹600,Dentists
+Dr. Danish Virani,"Koregaon Park,",Dentist,100%,unavailable,"This fee is indicative and might vary.
+NOTE: Fees is payable at clinic. There are NO charges for booking an appointment.",Dentists
+Dr. Archana Ghai,"Amnora Park Town,",Dentist,100%,unavailable,"This fee is indicative and might vary.
+NOTE: Fees is payable at clinic. There are NO charges for booking an appointment.",Dentists
+Dr. Sayali Khomane Patil,"Balewadi,",Dentist,94%,unavailable,"This fee is indicative and might vary.
+NOTE: Fees is payable at clinic. There are NO charges for booking an appointment.",Dentists
+Dr. Reshma Sakharkar Patil,"Pimple Saudagar,",Dentist,100%,unavailable,₹300,Dentists
+Dr. Kush Sahu,"Wakad,",Dentist,100%,unavailable,₹400,Dentists
+Dr. Ketkee Asnani,"Bund Garden,",Dentist,99%,unavailable,₹300,Dentists
+Dr. Deepak Kaul,"Swargate,",Dentist,97%,912071177299.0,₹200,Dentists
+Dr. Sharath Shetty,"Pimpri-Chinchwad,",Dentist,93%,912071177299.0,₹100,Dentists
+Dr. Shweta Rathi,"Magarpatta City,",Dentist,98%,912071177299.0,₹300,Dentists
+Dr. Priyanka Tidke,"Viman Nagar,",Dentist,100%,912048553253.0,₹300,Dentists
+Dr. Aabha Agarkar,"Aundh,",Dentist,100%,912048553253.0,₹300,Dentists
+Dr. Sagar Jangam,"Pimpri-Chinchwad,",Dentist,100%,912048553261.0,₹600,Dentists
+Dr. Ashvini Phadnis,"Aundh,",Dentist,100%,917969201437.0,₹400,Dentists
+Dr. Shriram Kshirsagar,"Hadapsar,",Dentist,96%,917969201437.0,₹200,Dentists
+Dr. Yogesh Pandit,"Baner,",Dentist,93%,918037285150.0,₹500,Dentists
+Dr. Ashish Chinchanikar,"Dhayari,",Dentist,98%,918037285150.0,₹300,Dentists
+Dr. Swapnil K. Rachha,"Kothrud,",Dentist,99%,912048553251.0,₹400,Dentists
+Dr. Anjali Mendhe,"Kharadi,",Dentist,100%,912048553251.0,₹200,Dentists
+Dr. Peter Dhanraj,"Bhosari,",Dentist,100%,912048553251.0,₹500,Dentists
+Dr. Prajakta Chaudhari,"Bibvewadi,",Dentist,100%,912071177320.0,₹500,Dentists
+Dr. Kranti Pawar,"Nigdi-Pradhikaran,",Dentist,100%,unavailable,₹300,Dentists
+Dr. Sandhya W,"Kharadi,",Dentist,unavailable,unavailable,₹200,Dentists
+Dr. Reshma Deshpande,"Pimple Saudagar,",Dentist,100%,918037298997.0,₹300,Dentists
+Dr. Rupali G,"Kharadi,",Dentist,unavailable,918037298997.0,₹200,Dentists
+Dr. Madhura Kaluskar Burute,"Pimpri-Chinchwad,",Dentist,100%,912071533870.0,₹200,Dentists
+Dr. Priyanka Mittal,"Khadki,",Dentist,unavailable,912071533870.0,₹200,Dentists
+Dr. Priyanka Pawal Badge,"Kharadi,",Dentist,100%,912071533870.0,₹200,Dentists
+Dr. Ninad Muley,"Aundh,",Dentist,100%,912071179000.0,₹500,Dentists
+Dr. Devanshi Sharma,"BT Kawade Road,",Dentist,unavailable,912071179000.0,₹350,Dentists
+Dr. Sayani Maity,"Pimple Saudagar,",Dentist,100%,912071179000.0,₹300,Dentists
+Dr. Gurleen kaur,"Kharadi,",Dentist,100%,912071179000.0,₹300,Dentists
+Dr. Rupali Gakhare,"Bhugaon,",Dentist,100%,912071173265.0,₹300,Dentists
+Dr. Tejas Agarwwal,"Nigdi-Pradhikaran,",Dentist,100%,912071173265.0,₹400,Dentists
+Dr. Glory Fengade,"Hinjewadi,",Dentist,94%,912048552971.0,₹300,Dentists
+Dr. Krupali Oswal,"Camp,",Dentist,unavailable,912048552971.0,₹300,Dentists
+Dr. Sanjana Sethi,"Kothrud,",Dentist,unavailable,912048552971.0,₹200,Dentists
+Dr. Onkar Jabade,"Kasba Peth,",Dentist,unavailable,912048552971.0,₹300,Dentists
+Dr. Neha Bhandari,"Aundh,",Dentist,unavailable,912048552971.0,₹500,Dentists
+Dr. L K Desai,"Sopan Baug,",Dermatologist,93%,912048552428.0,₹700,Dermatologist
+Dr. Mohan Nalawade,"Aundh,",Dermatologist,92%,912048553621.0,₹700,Dermatologist
+Dr. Pooja Malekar,"FC Road,",Dermatologist,88%,917969201774.0,₹600,Dermatologist
+Dr. Amit Pal,"Pimple Saudagar,",Dermatologist,97%,917969201702.0,₹600,Dermatologist
+Dr. Renu Jadhav,"Hadapsar,",Dermatologist,91%,912241642354.0,₹700,Dermatologist
+Dr. Satywan Chaure,"Deccan Gymkhana,",Dermatologist,90%,917969200912.0,₹700,Dermatologist
+Dr. Rangoli Jirwankar,"Wagholi,",Dermatologist,82%,917971171378.0,₹1000,Dermatologist
+Dr. Avinash Urmil,"Wanowrie,",Dermatologist,79%,912048556145.0,₹700,Dermatologist
+Dr. Anupama,"Hinjewadi,",Dermatologist,100%,917971172076.0,₹600,Dermatologist
+Dr. Vijay Nagdev,"Pimpri-Chinchwad,",Dermatologist,92%,917969141845.0,₹1200,Dermatologist
+Dr. Gautam Kumar Singh,"Undri,",Dermatologist,100%,917969142005.0,₹700,Dermatologist
+Dr. Gauri Patil,"Wakad,",Dermatologist,92%,917969142005.0,₹700,Dermatologist
+Dr. Rashmi Gujalwar,"Pimple Saudagar,",Dermatologist,96%,918037320707.0,₹700,Dermatologist
+Dr. Nitin Jain,"Kothrud,",Dermatologist,96%,912048564517.0,₹800,Dermatologist
+Dr. Nitin Maske,"Baner Road,",Dermatologist,94%,917969141650.0,₹600,Dermatologist
+Dr. Mamta Patil,"Wakad,",Dermatologist,79%,917971115381.0,₹600,Dermatologist
+Dr. K R Chandvania,"Pimpri-Chinchwad,",Dermatologist,82%,917969141960.0,₹1000,Dermatologist
+Dr. Pradeep Kumari,"Viman Nagar,",Dermatologist,95%,912048564510.0,₹800,Dermatologist
+Dr. Hina Kherajani,"Pimple Saudagar,",Dermatologist,95%,912048552295.0,₹800,Dermatologist
+Dr. Rajshree Patil,"Aundh,",Dermatologist,90%,912048553254.0,₹700,Dermatologist
+Dr. Keerti Verma,"Shivajinagar,",Dermatologist,100%,912071173266.0,₹900,Dermatologist
+Dr. Rohan Anand,"Koregaon Park,",Dermatologist,91%,917969201217.0,₹1000,Dermatologist
+Dr. Amrin Jibrail Diwan,"Kalyani Nagar,",Dermatologist,97%,912071533850.0,₹900,Dermatologist
+Dr. Nandini Teli,"Wakad,",Dermatologist,91%,912241642400.0,₹1000,Dermatologist
+Dr. Snehal Navande,"Baner Road,",Dermatologist,89%,917971262119.0,₹750,Dermatologist
+Dr. Pradeep Patil,"Baner,",Dermatologist,99%,917969201312.0,₹875,Dermatologist
+Dr. Patil Leena Rajendra,"Kharadi,",Dermatologist,96%,917969201427.0,₹500,Dermatologist
+Dr. Solanki Hemalata Suresh,"Kalyani Nagar,",Dermatologist,100%,918037298998.0,₹900,Dermatologist
+Dr. V J Tannu,"Budhwar Peth,",Dermatologist,84%,917969142011.0,₹800,Dermatologist
+Dr. Arshi Farista,"Kharadi,",Dermatologist,71%,912071189373.0,₹750,Dermatologist
+Dr. Madhavi Zende,"Wakad,",Dermatologist,89%,912071177419.0,₹700,Dermatologist
+Dr. Rupal Phate,"Kalyani Nagar,",Dermatologist,100%,917971261949.0,₹900,Dermatologist
+Dr. Shilpa Mary Shaji,"Kalyani Nagar,",Dermatologist,96%,912071173265.0,₹900,Dermatologist
+Dr. Snehal Pardeshi,"Pimpri-Chinchwad,",Dermatologist,unavailable,918037320343.0,₹1000,Dermatologist
+Dr. Inderpreet Mahendra,"Viman Nagar,",Dermatologist,92%,912241642341.0,₹700,Dermatologist
+Dr. Shveta Sharma,"Kharadi,",Dermatologist,93%,917969200925.0,₹900,Dermatologist
+Dr. Preet Raut,"Wakad,",Dermatologist,unavailable,912071187803.0,₹700,Dermatologist
+Dr. Shruti Dewang,"Baner,",Dermatologist,100%,917971261838.0,₹600,Dermatologist
+Dr. Mayank Lagoo,"Kalyani Nagar,",Dermatologist,88%,914049174245.0,₹900,Dermatologist
+Dr. Ramagauri Pawar,"Kalyani Nagar,",Dermatologist,100%,912048566752.0,₹900,Dermatologist
+Dr. Madhur Eshwar Rao Basude,"Nigdi-Pradhikaran,",Dermatologist,78%,912048553256.0,₹750,Dermatologist
+Dr. Varun Shrivastava,"Viman Nagar,",Dermatologist,100%,912071171335.0,₹800,Dermatologist
+Dr. Sadhana Jadhavar,"Pimpri-Chinchwad,",Dermatologist,93%,912071171335.0,₹400,Dermatologist
+Dr. Vaishalee Kirane,"Pimpri-Chinchwad,",Dermatologist,90%,917971115369.0,₹1000,Dermatologist
+Dr. Gunjan Chavan,"Pimple Saudagar,",Dermatologist,96%,917971115369.0,₹600,Dermatologist
+Dr. Anagha Dudhbhate,"Erandwane,",Dermatologist,98%,917971115369.0,₹800,Dermatologist
+Dr. Rashmi Soni Lohiya,"Senapati Bapat Marg,",Dermatologist,91%,917971115369.0,₹700,Dermatologist
+Dr. Karuna Soni,"Baner,",Dermatologist,98%,912248905402.0,₹1000,Dermatologist
+Dr. Aarushi Kinjalk,"Viman Nagar,",Dermatologist,100%,912248905402.0,₹700,Dermatologist
+Dr. Silky Priya,"Wanwadi,",Dermatologist,86%,912248905402.0,₹400,Dermatologist
+Dr. Abdul Mateen M Ayyub,"Wanowrie,",Dermatologist,96%,912071173266.0,₹650,Dermatologist
+Dr. Sanvedana M Danej,"Baner,",Dermatologist,92%,912071173266.0,"This fee is indicative and might vary.
+NOTE: Fees is payable at clinic. There are NO charges for booking an appointment.",Dermatologist
+Dr. Amit Kothekar,"Wakad,",Dermatologist,85%,918037321067.0,₹700,Dermatologist
+Dr. Shravani Patil,"Wakad,",Dermatologist,100%,917971262818.0,₹600,Dermatologist
+Dr. Praneet Awake,"Baner,",Dermatologist,82%,917971262002.0,₹600,Dermatologist
+Dr. Chinmay Ratkanthiwar,"Kharadi,",Dermatologist,unavailable,917971171381.0,₹750,Dermatologist
+Dr. Piyush Lodha,"Shankar Shet Road,",Endocrinologist,97%,unavailable,₹1000,Endocrinologist
+Dr. Charushila Dhole,"Pimpri-Chinchwad,",Endocrinologist,100%,918037320530.0,₹1000,Endocrinologist
+Dr. Sachin Pandit,"Wakad,",Endocrinologist,unavailable,918037320530.0,₹650,Endocrinologist
+Dr. Uday Phadke,"Kothrud,",Endocrinologist,90%,918037320530.0,₹1500,Endocrinologist
+Dr. Harshal Ekatpure,"Dhole Patil Road,",Endocrinologist,91%,918037320530.0,₹1200,Endocrinologist
+Dr. Suhas Khaire,"Hadapsar,",Endocrinologist,100%,918037320530.0,Free Consultation,Endocrinologist
+Dr. Vinayak Harale,"Akurdi,",Endocrinologist,99%,918037320530.0,₹700,Endocrinologist
+Dr. Varsha Jagtap,"Tilak Road,",Endocrinologist,92%,918037320530.0,₹1200,Endocrinologist
+Dr. A G Unnikrishnan,"Bavdhan,",Endocrinologist,95%,918037320530.0,₹1400,Endocrinologist
+Dr. Tanvi Parikh,"Model Colony,",Endocrinologist,97%,918037320530.0,₹1000,Endocrinologist
+Dr. Harshal Ekatpure,"Dhole Patil Road,",Endocrinologist,unavailable,unavailable,Free Consultation,Endocrinologist
+Dr. Manoj M.Bauskar,"Wanowrie,",Ear-Nose-Throat (ENT) Specialist,90%,912048556145.0,₹800,Ent Specialist
+Dr. Rupali Gulavani,"Baner,",Ear-Nose-Throat (ENT) Specialist,87%,912048556927.0,₹1000,Ent Specialist
+Dr. P K Bhagat,"Dhankawadi,",Ear-Nose-Throat (ENT) Specialist,unavailable,912048556246.0,₹1100,Ent Specialist
+Dr. Manohar Suryawanshi,"Bhosari,",Ear-Nose-Throat (ENT) Specialist,unavailable,917949108205.0,₹500,Ent Specialist
+Dr. Jaya Kochure,"Pimpri-Chinchwad,",Ear-Nose-Throat (ENT) Specialist,89%,912048553257.0,₹1000,Ent Specialist
+Dr. Sarang Deshmukh,"Kharadi,",Ear-Nose-Throat (ENT) Specialist,89%,912048564480.0,₹1000,Ent Specialist
+Dr. Sumitpal Bhatti,"Dapodi,",Ear-Nose-Throat (ENT) Specialist,82%,912241642433.0,₹1500,Ent Specialist
+Dr. Ajinkya Kelkar,"JM Road,",Ear-Nose-Throat (ENT) Specialist,94%,912048564448.0,₹800,Ent Specialist
+Dr. Aniket K Shah,"Kharadi,",Ear-Nose-Throat (ENT) Specialist,96%,912071171110.0,₹1200,Ent Specialist
+Dr. Ajay Kothadiya,"Shivajinagar,",Ear-Nose-Throat (ENT) Specialist,96%,912248932616.0,₹700,Ent Specialist
+Dr. Amruta Ambekar,"Shivajinagar,",Ear-Nose-Throat (ENT) Specialist,100%,unavailable,₹600,Ent Specialist
+Dr. Vijay Sonawane,"Deccan Gymkhana,",Ear-Nose-Throat (ENT) Specialist,81%,918037314155.0,₹605,Ent Specialist
+Dr. Shirish,"Viman Nagar,",Ear-Nose-Throat (ENT) Specialist,97%,912241642341.0,₹825,Ent Specialist
+Dr. Kartik Narkhede,"Baner,",Ear-Nose-Throat (ENT) Specialist,97%,912241642341.0,₹700,Ent Specialist
+Dr. Rupalee Borkar,"Kharadi,",Ear-Nose-Throat (ENT) Specialist,100%,917971172077.0,₹650,Ent Specialist
+Dr. Shama Shaikh,"Wanowrie,",Gastroenterologist,62%,912048556145.0,₹700,Gastroenterologist
+Dr. Manoj Chandrakant Kolhe,"Bhosari,",Gastroenterologist,unavailable,917949108205.0,₹1000,Gastroenterologist
+Dr. Rahul Kothari,"Aundh,",Gastroenterologist,92%,912071171022.0,₹800,Gastroenterologist
+Dr. Rajendra Sathe,"Narayan Peth,",Gastroenterologist,71%,918037315753.0,₹500,Gastroenterologist
+Dr. Prakash D Valse,"Pimple Saudagar,",Gastroenterologist,96%,912048564464.0,₹600,Gastroenterologist
+Dr. Nachiket Dubale,"Shankar Shet Road,",Gastroenterologist,11%,912048564464.0,₹1000,Gastroenterologist
+Dr. Ujwal Zambare,"Pimpri-Chinchwad,",Gastroenterologist,87%,917969141862.0,₹800,Gastroenterologist
+Dr. Lalit Shimpi,"Deccan Gymkhana,",Gastroenterologist,97%,912241642329.0,₹1500,Gastroenterologist
+Dr. Harshwardhan Dongre,"Kothrud,",Gastroenterologist,100%,917969141623.0,₹800,Gastroenterologist
+Dr. Yogesh Bade,"Pimpri-Chinchwad,",Gastroenterologist,67%,912071173194.0,₹1000,Gastroenterologist
+Dr. Shailaja Desai,"Sopan Baug,",General Physician,86%,912048552428.0,₹700,General Physician
+Dr. N.M. Rao,"Pimple Saudagar,",General Physician,72%,912048554718.0,₹700,General Physician
+Dr. Rameshwar Hudekar,"Wakad,",General Physician,88%,917941058734.0,₹700,General Physician
+Dr. Pramod Jagtap,"Wanowrie,",General Physician,unavailable,912048556145.0,₹800,General Physician
+Dr. Kshitij Raghuvanshi,"Wanowrie,",General Physician,unavailable,912048556145.0,₹900,General Physician
+Dr. Lata Patil,"Wanowrie,",General Physician,unavailable,912048556145.0,₹800,General Physician
+Dr. Janitha Gilbert,"Wanowrie,",General Physician,unavailable,912048556145.0,₹700,General Physician
+Dr. Pandurang Sawant,"Dhanori,",General Physician,95%,917971262166.0,₹700,General Physician
+Dr. Govinda N,"Sasanenagar,",General Physician,50%,912248968624.0,₹500,General Physician
+Dr. Nivratti Adate,"Sinhagad Road,",General Physician,88%,912071171335.0,₹400,General Physician
+Dr. Ravindra Chhajed,"Market Yard,",General Physician,98%,912071171345.0,₹800,General Physician
+Dr. Abhijeet Baldota,"Aundh,",General Physician,96%,912248932475.0,₹800,General Physician
+Dr. Anupama Joshi,"Shivajinagar,",General Physician,100%,917969141570.0,₹800,General Physician
+Dr. Pournima Kulkarni,"Kothrud,",General Physician,100%,917969201218.0,₹1500,General Physician
+Dr. Devendra Satpute,"Pimpri-Chinchwad,",General Physician,50%,912048552499.0,₹1000,General Physician
+Dr. Abhijit Bagade,"Shankar Shet Road,",General Physician,96%,912048552499.0,₹1000,General Physician
+Dr. Ravindra Singh,"Pimpri-Chinchwad,",General Physician,100%,917969201608.0,₹700,General Physician
+Dr. Pankaj Totala,"Pimpri-Chinchwad,",General Physician,unavailable,912071189377.0,₹1000,General Physician
+Dr. Mukesh Budhwani,"Viman Nagar,",General Physician,88%,912071178462.0,₹750,General Physician
+Dr. Rachna Mogri,"Hadapsar,",General Physician,100%,917969141778.0,₹600,General Physician
+Dr. Raj Sewani,"Viman Nagar,",General Physician,79%,917971261808.0,₹600,General Physician
+Dr. Amit Sakaria,"Viman Nagar,",General Physician,94%,917969201754.0,₹800,General Physician
+Dr. Piyush Lodha,"Shankar Shet Road,",General Physician,97%,917969201754.0,₹1000,General Physician
+Dr. Gopal Jaju,"Kharadi,",General Physician,95%,912048564450.0,₹700,General Physician
+Dr. (Colonel) A.K Mehta,"Magarpatta City,",General Physician,98%,917971115412.0,₹600,General Physician
+Dr. Mushfiya Bahrainwala,"Wanowrie,",General Physician,100%,912071187111.0,₹600,General Physician
+Dr. Gore Jinal Dhansukh,"Pimpri-Chinchwad,",General Physician,unavailable,917971261184.0,₹800,General Physician
+Dr. Sujay Patil,"Shankar Shet Road,",General Physician,100%,912071171359.0,₹1000,General Physician
+Dr. Rajiv Kumar,"Viman Nagar,",General Physician,100%,912248933433.0,₹800,General Physician
+Dr. Suyash Gandhe,"Viman Nagar,",General Physician,100%,917969141716.0,₹800,General Physician
+Dr. Mahavir Bagrecha,"Pimpri-Chinchwad,",General Physician,98%,912241642385.0,₹700,General Physician
+Dr. Komal Kulkarni,"Bavdhan,",General Physician,83%,912071173180.0,₹600,General Physician
+Dr. Nilesh Giri,"Pimpri-Chinchwad,",General Physician,100%,912071187887.0,₹1000,General Physician
+Dr. Anand Kalaskar,"Nigdi-Pradhikaran,",General Physician,88%,918037320472.0,₹750,General Physician
+Dr. Amitkumar Patil,"Pimpri-Chinchwad,",General Physician,unavailable,912071187733.0,₹800,General Physician
+Dr. Girish Singh,"Yerwada,",General Physician,94%,912249398289.0,₹500,General Physician
+Dr. Satish Chavan,"Baner,",General Physician,99%,912071187887.0,₹1000,General Physician
+Dr. Kavita Ramnivas,"Hadapsar,",General Physician,80%,912071533875.0,₹500,General Physician
+Dr. Chanda Shyamrao Suvarnkar,"Shaniwar Peth,",General Physician,100%,917971261691.0,₹700,General Physician
+Dr. Kapil Patwardhan,"Nagar Road,",General Physician,86%,912071179090.0,₹880,General Physician
+Dr. Siddhesh Tryambake,"Pimpri-Chinchwad,",General Physician,unavailable,912071173266.0,₹1000,General Physician
+Dr. Suman Bala,"Viman Nagar,",General Physician,100%,912248933433.0,₹600,General Physician
+Dr. Pratibha Yogesh Walde,"Kharadi,",General Physician,75%,917969201736.0,₹700,General Physician
+Dr. Baset Hakim,"Viman Nagar,",General Physician,83%,917969141767.0,₹715,General Physician
+Dr. Anup Bhoyar,"Kharadi,",General Physician,97%,912048556580.0,₹800,General Physician
+Dr. Manoj Pawar,"Kharadi,",General Physician,100%,917971262789.0,₹800,General Physician
+Dr. Kiran Sudhare,"Nigdi-Pradhikaran,",General Physician,50%,912048553248.0,₹1925,General Physician
+Dr. Rahul Kulkarni,"Hadapsar,",General Physician,unavailable,917971262001.0,₹605,General Physician
+Dr. Kishor Sharma,"Balewadi,",General Physician,85%,917971262001.0,₹300,General Physician
+Dr. Shrishrimal Kavit Sohan,"Viman Nagar,",General Physician,50%,918037314148.0,₹700,General Physician
+Dr. Amol L Dange,"Hinjewadi,",unavailable,92%,unavailable,₹600,General Physician
+Dr. Rama Joshirao Paranjape,"Karve Nagar,",General Physician,100%,918037321133.0,₹500,General Physician
+Dr. Prafull Warghane,"Wakad,",General Physician,93%,917969201714.0,₹800,General Physician
+Dr. Mukesh Mahajan,"Keshav Nagar,",General Physician,99%,917969201572.0,₹500,General Physician
+Dr. Rajkumar Gautam Nikalje,"Nigdi-Pradhikaran,",General Physician,90%,917969201572.0,₹500,General Physician
+Dr. Sunayana Shinde,"Kharadi,",General Physician,100%,917969201747.0,₹500,General Physician
+Dr. Ravi Pratap,"Kharadi,",General Physician,99%,917969201747.0,₹700,General Physician
+Dr. Gaurav Chaudhary,"Balewadi,",General Physician,97%,917969201747.0,₹600,General Physician
+Dr. Chinmay Naik,"Sadashiv Peth,",General Physician,99%,912071177320.0,₹1000,General Physician
+Dr. Sanjay Dudhavade,"Junnar,",General Physician,100%,912071177320.0,₹100,General Physician
+Dr. Kalpana Chhajed,"Market Yard,",General Physician,100%,912071171709.0,₹700,General Physician
+Dr. Amol Jadhav,"Dhayari,",General Physician,unavailable,912071171709.0,₹500,General Physician
+Dr. Pankhuri Agarwal,"Pimpri-Chinchwad,",General Physician,100%,912071171709.0,₹400,General Physician
+Dr. Palve Amit Hanumanrao,"Kharadi,",General Physician,75%,912071177331.0,₹600,General Physician
+Dr. Deepti K,"Kharadi,",General Physician,unavailable,912048552978.0,₹500,General Physician
+Dr. Sheetal Mahajani,"Nagar Road,",General Physician,50%,917969201157.0,₹845,General Physician
+Dr. Samruddhi Dilip,"Kharadi,",General Physician,unavailable,918037298997.0,₹400,General Physician
+Dr. Dhakane Anupama Gangaram,"Viman Nagar,",Gynecologist/Obstetrician,100%,917971171358.0,₹700,General Physician
+Dr. Grishma G. Ganeshwala,"Kharadi,",General Physician,50%,918037321110.0,₹500,General Physician
+Dr. Prajakta Chaudhari,"Aundh,",General Physician,unavailable,912071533875.0,₹700,General Physician
+Dr. Sneha Trivedi,"Hadapsar,",Gynecologist,96%,912048556097.0,"This fee is indicative and might vary.
+NOTE: Fees is payable at clinic. There are NO charges for booking an appointment.",Gynac
+Dr. Mithil Patil,"Balewadi,",Gynecologist,96%,917949108393.0,"This fee is indicative and might vary.
+NOTE: Fees is payable at clinic. There are NO charges for booking an appointment.",Gynac
+Dr. Kishore Pandit,"Shivajinagar,",Gynecologist,99%,917949107756.0,₹1400,Gynac
+Dr. Kapil Kanade,"Hadapsar,",Gynecologist,89%,912071189373.0,₹700,Gynac
+Dr. Soniya Pawar,"Dhankawadi,",Gynecologist,90%,912048556246.0,₹800,Gynac
+Dr. Sonali Chaudhari,"Pimple Saudagar,",Gynecologist,91%,912048554718.0,₹800,Gynac
+Dr. Rushabh Karnawat,"Wakad,",Gynecologist,97%,912071189373.0,₹600,Gynac
+Dr. Santosh Sidid,"Hadapsar,",Gynecologist,unavailable,912048556097.0,₹850,Gynac
+Dr. Madhulika Singh,"Aundh,",Gynecologist,98%,918046809162.0,₹1000,Gynac
+Dr. Marya Patil,"Wanowrie,",Gynecologist,unavailable,912048556145.0,₹700,Gynac
+Dr. Sushila Netravali,"Pimpri-Chinchwad,",Gynecologist,85%,unavailable,₹1000,Gynac
+Dr. Priyanka Gholap,"Kalyani Nagar,",Gynecologist,93%,912071533932.0,₹1000,Gynac
+Dr. Lavina Batra,"Viman Nagar,",Gynecologist,85%,912248966474.0,₹400,Gynac
+Dr. Seemitha Shetty,"Kalyani Nagar,",Gynecologist,unavailable,912071173199.0,₹800,Gynac
+Dr. Pallavi Joshi Bhaik,"Kothrud,",Gynecologist,92%,917971262210.0,₹500,Gynac
+Dr. Sushama Surve Kunjir,"Hadapsar,",Gynecologist,100%,917969141799.0,₹700,Gynac
+Dr. Shipra Kunwar,"Kharadi,",Gynecologist,78%,912048553262.0,₹700,Gynac
+Dr. Sushruta Mokadam,"Kharadi,",Gynecologist,88%,918037298999.0,₹750,Gynac
+Dr. Smita Khose,"Kalyani Nagar,",Gynecologist,94%,917971262195.0,₹1000,Gynac
+Dr. Sneha Ashok Sasane,"Hadapsar,",Gynecologist,99%,912071173261.0,₹500,Gynac
+Dr. Chanda Shyamrao Suvarnkar,"Shaniwar Peth,",Gynecologist,100%,917971261691.0,₹700,Gynac
+Dr. Sameer Malshe,"Warje,",Gynecologist,100%,917971261827.0,₹400,Gynac
+Dr. Deeptie Narayanann,"Wakad,",Gynecologist,67%,918037285150.0,₹600,Gynac
+Dr. Pushpa Soni,"Kalyani Nagar,",Gynecologist,100%,912071533824.0,₹1000,Gynac
+Dr. Mane Tejal Manohar,"Kalyani Nagar,",Gynecologist,unavailable,917971115271.0,₹1000,Gynac
+Dr. Archana Chandak,"Nigdi-Pradhikaran,",Gynecologist,85%,918037320389.0,₹750,Gynac
+Dr. Rashmi Motiram Bhamare,"Baner Road,",Gynecologist,84%,912071172695.0,₹700,Gynac
+Dr. Karishma Dafle,"Baner,",Gynecologist,100%,912071533798.0,₹1000,Gynac
+Dr. Swati A. Gaikwad,"Kharadi,",Gynecologist,85%,912048566750.0,₹750,Gynac
+Dr. Sushil Garud,"Kharadi,",Gynecologist,unavailable,917969201343.0,₹700,Gynac
+Dr. Neelkanth G Belvi,"Wanowrie,",Gynecologist,97%,unavailable,"This fee is indicative and might vary.
+NOTE: Fees is payable at clinic. There are NO charges for booking an appointment.",Gynac
+Dr. Vaishali Umap,"Wakad,",Gynecologist,80%,unavailable,"This fee is indicative and might vary.
+NOTE: Fees is payable at clinic. There are NO charges for booking an appointment.",Gynac
+Dr. Payal Narang,"Lulla Nagar,",Gynecologist,100%,917971115160.0,₹650,Gynac
+Dr. Varsha Patil Deshpande,"Hinjewadi,",Gynecologist,82%,917971115160.0,"This fee is indicative and might vary.
+NOTE: Fees is payable at clinic. There are NO charges for booking an appointment.",Gynac
+Dr. Nikhil Mahadar,"Wakad,",Gynecologist,99%,917971115160.0,₹400,Gynac
+Dr. Vaishali Chaudhary,"Yerwada,",Gynecologist,97%,917971261704.0,₹800,Gynac
+Dr. Charu Jagdish Chandra Gupta,"Wanowrie,",Gynecologist,unavailable,912071189376.0,₹500,Gynac
+Dr. Rashmi Sarang Pabalkar,"Wanowrie,",Gynecologist,100%,912071173266.0,₹500,Gynac
+Dr. Archana N Belvi,"Wanowrie,",Gynecologist,92%,912071173266.0,₹500,Gynac
+Dr. Girija Wagh,"Senapati Bapat Marg,",Gynecologist,89%,912071173194.0,₹1000,Gynac
+Dr. Madhu Juneja,"Hadapsar,",Gynecologist,98%,912071173194.0,₹880,Gynac
+Dr. Seema Jain,"Pimple Saudagar,",Gynecologist,94%,918037298998.0,₹1000,Gynac
+Dr. Jaideep Palwade,"Baner,",Gynecologist,94%,918037298998.0,₹500,Gynac
+Dr. Sowmya Kulkarni,"Pimple Saudagar,",Gynecologist,100%,912241642434.0,₹1000,Gynac
+Dr. Shivani Jain,"Kharadi,",Gynecologist,95%,917971171434.0,₹700,Gynac
+Dr. Nameeta Mokashi-Bhalerao,"Shivajinagar,",Gynecologist,100%,912048553255.0,₹800,Gynac
+Dr. Chaitanya Ganapule,"Hadapsar,",Gynecologist,96%,917969141662.0,₹1000,Gynac
+Dr. Anil Lonkar,"Hadapsar,",Gynecologist,78%,912071185854.0,₹600,Gynac
+Dr. Mangal Puri,"Bhosari,",Gynecologist,unavailable,912071185854.0,₹700,Gynac
+Dr. Medha Tukshetty,"Viman Nagar,",Gynecologist,100%,912071171708.0,₹700,Gynac
+Dr. Savita Chavan,"Baner,",Gynecologist,unavailable,unavailable,"This fee is indicative and might vary.
+NOTE: Fees is payable at clinic. There are NO charges for booking an appointment.",Gynac
+Dr. Vandana Khanijo,"Viman Nagar,",Gynecologist,65%,912071171708.0,₹825,Gynac
+Dr. Vaishali Amit Bhosale,"Kharadi,",Gynecologist,94%,912071189376.0,₹500,Gynac
+Dr. Geeta Wadadekar,"Senapati Bapat Marg,",Gynecologist,100%,912071187163.0,₹900,Gynac
+Dr. Shilpa Chaudhari,"Pimple Saudagar,",Gynecologist,100%,912071187163.0,₹600,Gynac
+Dr. Tanushree Deshpande,"Senapati Bapat Marg,",Gynecologist,100%,912071187883.0,₹1000,Gynac
+Dr. Manasi Viren Naralkar,"Senapati Bapat Marg,",Gynecologist,100%,912071187733.0,₹900,Gynac
+Dr. Meenakshi Dinde,"Wakad,",Gynecologist,94%,912071171335.0,₹600,Gynac
+Dr. Pooja Kolhe,"Kharadi,",Gynecologist,100%,912071173175.0,₹800,Gynac
+Dr. Anagha Pai Raiturker,"Senapati Bapat Marg,",Gynecologist,100%,912071187887.0,₹700,Gynac
+Dr. Deepti K,"Kharadi,",Gynecologist,unavailable,912048552978.0,₹500,Gynac
+Dr. Mrinmayi Dharmadhikari,"Hadapsar,",Gynecologist,100%,912048556137.0,₹500,Gynac
+Dr. Smita Surana,"Baner,",Gynecologist,100%,918037285150.0,₹1000,Gynac
+Dr. Sucheta Talele,"Hadapsar,",Gynecologist,100%,912071173265.0,₹500,Gynac
+Dr. Satish Shankar Londhe,"Kalyani Nagar,",Gynecologist,100%,912048566750.0,₹1000,Gynac
+Dr. Balki Sneha Govind,"Kharadi,",Gynecologist,unavailable,918037298999.0,₹500,Gynac
+Dr. Rahul Chavan,"Wakad,",Gynecologist,unavailable,918037298999.0,₹500,Gynac
+Dr. Lakshmi Kalbande,"Pimple Saudagar,",Gynecologist,50%,917969201493.0,₹1000,Gynac
+Dr. Rameshwar Hudekar,"Wakad,",Internal Medicine,88%,917941058734.0,"This fee is indicative and might vary.
+NOTE: Fees is payable at clinic. There are NO charges for booking an appointment.",Internal Medicine
+Dr. Prasad,"Bhosari,",Internal Medicine,unavailable,917949108205.0,₹750,Internal Medicine
+Dr. Nitin S Kabra,"Pimple Saudagar,",Internal Medicine,83%,912048553738.0,₹1000,Internal Medicine
+Dr. Mahesh Jadhav,"Wakad,",Internal Medicine,67%,912048556819.0,₹500,Internal Medicine
+Dr. Jayprakash Shirpurwar,"Viman Nagar,",Internal Medicine,33%,917949108193.0,₹600,Internal Medicine
+Dr. Sandesh Ghiya,"Ganga Dham,",Internal Medicine,unavailable,912048553261.0,₹700,Internal Medicine
+Dr. Monika Mamidwar,"Pimple Saudagar,",Internal Medicine,94%,912241642436.0,₹1000,Internal Medicine
+Dr. Aditya Sondankar,"Bhosari,",Internal Medicine,100%,917949108205.0,₹1000,Internal Medicine
+Dr. Govind Kulkarni,"Viman Nagar,",Internal Medicine,83%,917971262163.0,₹800,Internal Medicine
+Dr. Girish Date,"Deccan Gymkhana,",Internal Medicine,100%,912048552984.0,₹1100,Internal Medicine
+Dr. Rahul Baste,"Pimpri-Chinchwad,",Internal Medicine,unavailable,912071172550.0,₹1000,Internal Medicine
+Dr. Avinash Mundhe,"Pimpri-Chinchwad,",Internal Medicine,100%,912048553263.0,₹1000,Internal Medicine
+Dr. Madhukar Jadhav,"Alandi Road,",Internal Medicine,85%,917971261865.0,₹400,Internal Medicine
+Dr. Jenny Koshy,"Nigdi-Pradhikaran,",Internal Medicine,unavailable,912071177321.0,₹1000,Internal Medicine
+Dr. Komal Kulkarni,"Bavdhan,",Internal Medicine,83%,912071173180.0,₹600,Internal Medicine
+Dr. Sanjay Agarwal,"Nagar Road,",Internal Medicine,96%,918037320523.0,₹1650,Internal Medicine
+Dr. Tushar Anil Warke,"Pimpri-Chinchwad,",Internal Medicine,100%,917971261555.0,₹1000,Internal Medicine
+Dr. Anuja Kulkarni Mukund,"Shankar Shet Road,",Internal Medicine,unavailable,912071171359.0,₹1000,Internal Medicine
+Dr. Aditi Pandey,"Pimpri-Chinchwad,",Internal Medicine,50%,912048554750.0,₹1000,Internal Medicine
+Dr. Saleena Vaidya,"Shankar Shet Road,",Internal Medicine,unavailable,912048554750.0,₹1000,Internal Medicine
+Dr. Baset Hakim,"Viman Nagar,",Internal Medicine,83%,917969141767.0,₹715,Internal Medicine
+Dr. Bhagyashree Lahane,"Pimple Saudagar,",Internal Medicine,unavailable,912071533717.0,₹800,Internal Medicine
+Dr. Pankaj Changedia,"Kharadi,",Internal Medicine,92%,912071533717.0,₹600,Internal Medicine
+Dr. Manoj Naik,"Deccan Gymkhana,",Internal Medicine,67%,912048552984.0,₹665,Internal Medicine
+Dr. Shrikant Govind Kulkarni,"Wanowrie,",Internal Medicine,unavailable,912048552971.0,₹750,Internal Medicine
+Dr. Amol L Dange,"Hinjewadi,",Internal Medicine,92%,912048552971.0,₹600,Internal Medicine
+Dr. Rashida Melinkeri Patanwala,"Deccan Gymkhana,",Internal Medicine,unavailable,912071185853.0,₹605,Internal Medicine
+Dr. Mohan Magdum,"Pimpri-Chinchwad,",Internal Medicine,100%,912048553260.0,₹900,Internal Medicine
+Dr. Aniruddha Tembe,"Pimpri-Chinchwad,",Internal Medicine,83%,917971171949.0,₹1000,Internal Medicine
+Dr. Gaurav Chaudhary,"Balewadi,",Internal Medicine,97%,917971171949.0,₹600,Internal Medicine
+Dr. Suhas Mondhe,"Baner,",Nephrologist,100%,912048556927.0,₹1000,Nephrologist
+Dr. Pavan Wakhare,"Bhosari,",Nephrologist,100%,917949108205.0,₹1000,Nephrologist
+Dr. Sandeep S Morkhandikar,"Wanowrie,",Nephrologist,100%,912048556145.0,₹900,Nephrologist
+Dr. Shailesh Gondane,"Pimple Saudagar,",Nephrologist,100%,912048553738.0,₹1500,Nephrologist
+Dr. Madhavi Dadwe,"Wanowrie,",Nephrologist,unavailable,912048556145.0,₹900,Nephrologist
+Dr. Manish Mali,"Pimpri-Chinchwad,",Nephrologist,62%,918037313395.0,₹1000,Nephrologist
+Dr. Sachin Patil,"Nagar Road,",Nephrologist,92%,917969142017.0,₹1210,Nephrologist
+Dr. Vivek Biradar,"Wakad,",Nephrologist,100%,917971261731.0,₹1000,Nephrologist
+Dr. Kumthekar Girish Vasudeo,"Pimpri-Chinchwad,",Nephrologist,unavailable,912071187883.0,₹1000,Nephrologist
+Dr. Manan V Doshi,"Deccan Gymkhana,",Nephrologist,50%,912071177307.0,₹1210,Nephrologist
+Dr. Sneha Trivedi,"Hadapsar,",Obstetrician,93%,912048556097.0,₹750,Obsstetrician
+Dr. Kishore Pandit,"Shivajinagar,",Obstetrician,99%,917949107756.0,₹1400,Obsstetrician
+Dr. Soniya Pawar,"Dhankawadi,",Obstetrician,90%,912048556246.0,₹800,Obsstetrician
+Dr. Sonali Chaudhari,"Pimple Saudagar,",Obstetrician,91%,912048554718.0,₹800,Obsstetrician
+Dr. Rushabh Karnawat,"Wakad,",Obstetrician,97%,912071189373.0,₹600,Obsstetrician
+Dr. Santosh Sidid,"Hadapsar,",Obstetrician,unavailable,912048556097.0,₹850,Obsstetrician
+Dr. Marya Patil,"Wanowrie,",Obstetrician,unavailable,912048556145.0,₹700,Obsstetrician
+Dr. Asha Gavade,"Hadapsar,",Obstetrician,96%,917941058656.0,₹700,Obsstetrician
+Dr. Shweta Pandya,"Pimple Saudagar,",Obstetrician,100%,912048553738.0,₹1000,Obsstetrician
+Dr. Nilesh Unmesh Balkawade,"Wakad,",Obstetrician,93%,912071177427.0,Free Consultation,Obsstetrician
+Dr. Sushil Garud,"Kharadi,",Obstetrician,unavailable,917969201343.0,₹700,Obsstetrician
+Dr. Vandana Khanijo,"Viman Nagar,",Obstetrician,65%,912071171708.0,₹825,Obsstetrician
+Dr. Mukta Paul,"Kalyani Nagar,",Obstetrician,100%,912071533850.0,₹1000,Obsstetrician
+Dr. K Anupama,"Kharadi,",Obstetrician,97%,918037313286.0,₹600,Obsstetrician
+Dr. Avinash Phadnis,"Pimple Saudagar,",Obstetrician,67%,917971262069.0,₹1000,Obsstetrician
+Dr. Asmita Gholap,"Nagar Road,",Obstetrician,100%,917971262069.0,₹880,Obsstetrician
+Dr. Mansi Sharma,"Kharadi,",Obstetrician,100%,912048552978.0,₹850,Obsstetrician
+Dr. Rushali,"Kharadi,",Obstetrician,50%,912048552983.0,₹700,Obsstetrician
+Dr. Meenal Mehendale,"Shivajinagar,",Obstetrician,100%,912071189377.0,₹600,Obsstetrician
+Dr. Smita S Deo,"Baner,",Obstetrician,96%,917969141595.0,₹1000,Obsstetrician
+Dr. Sujata Uday Rajput,"Lulla Nagar,",Obstetrician,100%,912048553065.0,₹800,Obsstetrician
+Dr. Tejal Deshmukh Mokashi,"Baner,",Obstetrician,91%,918037298996.0,₹1000,Obsstetrician
+Dr. Bhagyashri R Naphade,"Wakad,",Obstetrician,100%,914049174245.0,₹600,Obsstetrician
+Dr. Renuka Aney,"Baner,",Obstetrician,unavailable,912071533850.0,₹1000,Obsstetrician
+Dr. Manisha Kulkarni,"Hadapsar,",Obstetrician,100%,912071171227.0,₹880,Obsstetrician
+Dr. Prajakta Mahajan,"Pimple Saudagar,",Obstetrician,100%,912048553586.0,₹1000,Obsstetrician
+Dr. Gauri Jagdale,"Kharadi,",Obstetrician,unavailable,912071177427.0,₹850,Obsstetrician
+Dr. Mehta Shaikesh Ukchand,"Shankar Shet Road,",Obstetrician,unavailable,912071171359.0,₹1000,Obsstetrician
+Dr. Archana Changedia,"Kharadi,",Obstetrician,96%,912071171359.0,₹600,Obsstetrician
+Dr. Neelkanth G Belvi,"Wanowrie,",Obstetrician,97%,912048556998.0,₹400,Obsstetrician
+Dr. Jaideep Palwade,"Baner,",Obstetrician,94%,unavailable,₹500,Obsstetrician
+Dr. Shivani Jain,"Kharadi,",Obstetrician,95%,917971171434.0,₹700,Obsstetrician
+Dr. Nameeta Mokashi-Bhalerao,"Shivajinagar,",Obstetrician,100%,912048553255.0,₹800,Obsstetrician
+Dr. Chaitanya Ganapule,"Hadapsar,",Obstetrician,96%,917969141662.0,₹1000,Obsstetrician
+Dr. Anil Lonkar,"Hadapsar,",Obstetrician,78%,912071185854.0,₹600,Obsstetrician
+Dr. Mangal Puri,"Bhosari,",Obstetrician,unavailable,912071185854.0,₹700,Obsstetrician
+Dr. Medha Tukshetty,"Viman Nagar,",Obstetrician,100%,912071171708.0,₹700,Obsstetrician
+Dr. Geeta Wadadekar,"Senapati Bapat Marg,",Obstetrician,100%,912071187163.0,₹900,Obsstetrician
+Dr. Tanushree Deshpande,"Senapati Bapat Marg,",Obstetrician,100%,912071187883.0,₹1000,Obsstetrician
+Dr. Manasi Viren Naralkar,"Senapati Bapat Marg,",Obstetrician,100%,912071187733.0,₹900,Obsstetrician
+Dr. Meenakshi Dinde,"Wakad,",Obstetrician,94%,912071171335.0,₹600,Obsstetrician
+Dr. Pooja Kolhe,"Kharadi,",Obstetrician,100%,912071173175.0,₹800,Obsstetrician
+Dr. Deepti K,"Kharadi,",Obstetrician,unavailable,912048552978.0,₹500,Obsstetrician
+Dr. Smita Surana,"Baner,",Obstetrician,100%,918037285150.0,₹1000,Obsstetrician
+Dr. Sucheta Talele,"Hadapsar,",Obstetrician,100%,912071173265.0,₹500,Obsstetrician
+Dr. Satish Shankar Londhe,"Kalyani Nagar,",Obstetrician,100%,912048566750.0,₹1000,Obsstetrician
+Dr. Balki Sneha Govind,"Kharadi,",Obstetrician,unavailable,918037298999.0,₹500,Obsstetrician
+Dr. Rahul Chavan,"Wakad,",Obstetrician,unavailable,918037298999.0,₹500,Obsstetrician
+Dr. Lakshmi Kalbande,"Pimple Saudagar,",Obstetrician,50%,918037298999.0,₹1000,Obsstetrician
+Dr. Pankaj Kshirsagar,"Pimple Saudagar,",Oncologist,90%,912048553738.0,₹1000,Oncologist
+Dr. Ashish Pokharkar,"Hadapsar,",Oncologist,86%,912048556097.0,₹700,Oncologist
+Dr. Bangar Ashish Sahurao,"Bhosari,",Oncologist,unavailable,917949108205.0,₹800,Oncologist
+Dr. Bhalgat Bhushan Sanjay,"Wanowrie,",Oncologist,unavailable,912048556145.0,₹1100,Oncologist
+Dr. Sumit Shah,"Gultekdi,",Oncologist,99%,917971261617.0,₹800,Oncologist
+Dr. Neeraj Dhingra,"Pimpri-Chinchwad,",Oncologist,unavailable,912071173265.0,₹1000,Oncologist
+Dr. Prashant Chandra,"Pimpri-Chinchwad,",Oncologist,unavailable,917971261625.0,₹1000,Oncologist
+Dr. Sanjay M H,"Hadapsar,",Oncologist,100%,912071188518.0,₹845,Oncologist
+Dr. Joy Ghose,"Hadapsar,",Oncologist,100%,917971262045.0,₹845,Oncologist
+Dr. Rahul Wagh,"Viman Nagar,",Oncologist,100%,917971262845.0,₹1000,Oncologist
+Dr. Asma Sadique Pathan,"Viman Nagar,",Oncologist,100%,912048553256.0,₹1000,Oncologist
+Dr. Kulkarni Shriniwas Subhash,"Kharadi,",Oncologist,unavailable,912071187259.0,₹1000,Oncologist
+Dr. Nikhil V. Rishikeshi,"Kothrud,",Ophthalmologist,97%,917948227956.0,₹1000,Ophthalmologist
+Dr. Metta Padma Lakshmi,"Aundh,",Ophthalmologist,88%,917948228267.0,₹600,Ophthalmologist
+Dr. Anand Palimkar,"Viman Nagar,",Ophthalmologist,96%,917948228325.0,₹600,Ophthalmologist
+Dr. Sudhir Baburdikar,"Aundh,",Ophthalmologist,100%,917948228267.0,₹600,Ophthalmologist
+Dr. Vijay Parbatani,"Kalyani Nagar,",Ophthalmologist,94%,912048553255.0,₹500,Ophthalmologist
+Dr. Baban C Dolas,"Pimple Saudagar,",Ophthalmologist,73%,917948227963.0,₹500,Ophthalmologist
+Dr. Sonal Ashok Erole,"Pimple Saudagar,",Ophthalmologist,80%,917948227963.0,₹500,Ophthalmologist
+Dr. Snehal Wakchaure,"Viman Nagar,",Ophthalmologist,91%,917948228325.0,₹500,Ophthalmologist
+Dr. Pankaj Asawa,"Aundh,",Ophthalmologist,88%,917948228267.0,₹600,Ophthalmologist
+Dr. Nitin Prabhudesai,"Kothrud,",Ophthalmologist,94%,917948227956.0,₹1200,Ophthalmologist
+Dr. Kavita Kasav,"Hadapsar,",Ophthalmologist,99%,917971261542.0,₹600,Ophthalmologist
+Dr. Suchi Smitha T. Behere,"Baner,",Ophthalmologist,99%,918037321492.0,₹800,Ophthalmologist
+Dr. Soumya Jabar,"Pimple Saudagar,",Ophthalmologist,100%,917971262811.0,₹600,Ophthalmologist
+Dr. Rashmi Bhadange,"Pimple Saudagar,",Ophthalmologist,100%,918037314054.0,₹600,Ophthalmologist
+Dr. Nisha Chauhan,"Pimpri-Chinchwad,",Ophthalmologist,100%,912071189377.0,₹1000,Ophthalmologist
+Dr. Nitesh Bhalla,"Wakad,",unavailable,100%,912071173261.0,₹600,Ophthalmologist
+Dr. Gaurav Patil,"Pimpri-Chinchwad,",Ophthalmologist,100%,918037321086.0,₹400,Ophthalmologist
+Dr. Muralidhar Alavandi,"Viman Nagar,",Ophthalmologist,90%,912048553251.0,₹750,Ophthalmologist
+Dr. Bhagwan Narayanrao Kakne,"Viman Nagar,",Ophthalmologist,100%,912071179000.0,₹750,Ophthalmologist
+Dr. Mehta Poonam Ravikant,"Shankar Shet Road,",Ophthalmologist,unavailable,912071171359.0,₹1000,Ophthalmologist
+Dr. Kuldeep Dole,"Deccan Gymkhana,",Ophthalmologist,100%,912048553247.0,₹605,Ophthalmologist
+Dr. Anagha Behere,"Aundh,",Ophthalmologist,99%,912048553247.0,₹600,Ophthalmologist
+Dr. Sharoon Shitole,"Pimple Saudagar,",Ophthalmologist,96%,912048553247.0,₹500,Ophthalmologist
+Dr. Ajit kumar,"Hadapsar,",Ophthalmologist,100%,917969201370.0,₹600,Ophthalmologist
+Dr. Dipti Murkute (Pansare),"Kharadi,",Ophthalmologist,97%,918037311983.0,₹700,Ophthalmologist
+Dr. Mukesh Paryani,"Wanowrie,",Ophthalmologist,100%,918037311983.0,₹600,Ophthalmologist
+Dr. Arushi Goyal Deshmukh,"Pimple Saudagar,",Ophthalmologist,100%,918037316735.0,₹800,Ophthalmologist
+Dr. Prafulla Kumar Aras,"Pimple Saudagar,",Ophthalmologist,100%,918037315549.0,₹600,Ophthalmologist
+Dr. Arundhati Kale Sidhaye,"Kothrud,",Ophthalmologist,94%,917971261554.0,₹750,Ophthalmologist
+Dr. Bhushan Wadekar,"Pimple Saudagar,",Ophthalmologist,100%,918037320871.0,₹800,Ophthalmologist
+Dr. Abhijit Ranaware,"Hadapsar,",Orthopedist,57%,912048556097.0,₹700,Orthopedic
+Dr. Pravin Waghmare,"Pimple Saudagar,",Orthopedist,96%,912048553738.0,₹1200,Orthopedic
+Dr. Aniket Patil,"Hadapsar,",Orthopedist,97%,912048556097.0,₹700,Orthopedic
+Dr. Shrirang Kulkarni,"Bhosari,",Orthopedist,91%,917949108205.0,₹500,Orthopedic
+Dr. Sana Ahmed Sayyad,"Wanowrie,",Orthopedist,33%,912048556145.0,₹800,Orthopedic
+Dr. Ashutosh Sabnis,"Dhankawadi,",Spine Surgeon,100%,912048556246.0,₹1300,Orthopedic
+Dr. Amrut Oswal,"Dhankawadi,",Orthopedist,50%,912048556246.0,₹1200,Orthopedic
+Dr. Sani Dole,"Wakad,",Orthopedist,100%,912048556819.0,₹500,Orthopedic
+Dr. Chavan Sanjay Vishnu,"Pimple Nilakh,",Orthopedist,50%,912048552982.0,₹800,Orthopedic
+Dr. Sujit Kadrekar,"Dhankawadi,",Orthopedist,unavailable,912048556246.0,₹1300,Orthopedic
+Dr. Vijaykumar Bhalerao,"Viman Nagar,",Orthopedist,89%,917949108193.0,₹1000,Orthopedic
+Dr. Ashwinkumar A Madavi,"Baner,",Orthopedist,100%,918037318746.0,₹600,Orthopedic
+Dr. Deepak Koli,"Wakad,",Orthopedist,unavailable,912048556819.0,₹500,Orthopedic
+Dr. Pravin,"Bhosari,",Orthopedist,unavailable,917949108205.0,₹1000,Orthopedic
+Dr. Pallav bhatia,"Nigdi-Pradhikaran,",Spine And Pain Specialist,99%,917971115407.0,₹1000,Orthopedic
+Dr. B A Kadam,"Pimpri-Chinchwad,",Orthopedist,94%,917971261702.0,₹1000,Orthopedic
+Dr. Nakul Shah,"Kothrud,",Orthopedist,97%,917969201309.0,₹700,Orthopedic
+Dr. Harshad Patankar,"Shukrawar Peth,",Orthopedist,97%,917971171370.0,₹700,Orthopedic
+Dr. Manish Gandhalikar,"Baner,",Orthopedist,98%,917971171973.0,₹700,Orthopedic
+Dr. Abhijit Agashe,"Deccan Gymkhana,",Orthopedist,97%,912048552611.0,₹605,Orthopedic
+Dr. Santosh Teli,"Wakad,",Orthopedist,96%,917969141518.0,₹700,Orthopedic
+Dr. Anshu S.R Sachdev,"Viman Nagar,",Orthopedist,95%,912241642437.0,₹1050,Orthopedic
+Dr. Abhijeet L. Wahegaonkar,"Deccan Gymkhana,",Orthopedist,92%,912241642437.0,₹2200,Orthopedic
+Dr. Sachin Karkamkar,"Hadapsar,",Orthopedist,94%,917969142027.0,₹605,Orthopedic
+Dr. Mayank Pathak,"Kharadi,",Orthopedist,88%,917969201777.0,₹700,Orthopedic
+Dr. Sachin Sonawane,"Wakad,",Orthopedist,94%,912071173178.0,₹800,Orthopedic
+Dr. Nikhil Phade,"Pimple Nilakh,",Orthopedist,92%,918037321187.0,₹500,Orthopedic
+Dr. Abhijit A Patil,"Undri,",Orthopedist,93%,912071189378.0,₹500,Orthopedic
+Dr. Makarand Borikar,"Warje,",Orthopedist,74%,917971262117.0,₹500,Orthopedic
+Dr. Amol Tapadia,"Hadapsar,",Orthopedist,89%,917969141901.0,₹500,Orthopedic
+Dr. Swaroop Solunke,"Wakad,",Orthopedist,99%,917971115237.0,₹1000,Orthopedic
+Dr. Abhay Kulkarni,"Aundh,",Orthopedist,97%,917969200944.0,₹800,Orthopedic
+Dr. Amod Harip,"Baner,",Orthopedist,100%,912048552973.0,₹1500,Orthopedic
+Dr. Shrikant Dalal,"Baner,",Spine Surgeon,78%,917971262182.0,₹1000,Orthopedic
+Dr. Snehal Dantkale Dalal,"Baner,",Orthopedist,83%,912071187803.0,₹1000,Orthopedic
+Dr. Aniruddha Kshirsagar,"Sadashiv Peth,",Orthopedist,100%,912071177423.0,₹600,Orthopedic
+Dr. Amit M Laturkar,"Aundh,",Orthopedist,100%,917971262014.0,₹1000,Orthopedic
+Dr. Kailas Mohanrao Jorule,"Pimpri-Chinchwad,",Orthopedist,unavailable,912071533717.0,₹1100,Orthopedic
+Dr. Vishal Murkute,"Kharadi,",Orthopedist,97%,912248966432.0,₹800,Orthopedic
+Dr. Ashish Suryawanshi,"Nigdi-Pradhikaran,",Orthopedist,67%,912071179090.0,₹1000,Orthopedic
+Dr. Azhar Lakhani,"Kharadi,",Orthopedist,99%,917969141794.0,₹800,Orthopedic
+Dr. Sinukumar Bhaskaran,"Kharadi,",Orthopedist,100%,917969141854.0,₹700,Orthopedic
+Dr. Rajesh N Parasnis,"Shankar Shet Road,",Orthopedist,82%,917969141854.0,₹1200,Orthopedic
+Dr. Murkute Vishal,"Nagar Road,",Orthopedist,unavailable,912071179000.0,₹800,Orthopedic
+Dr. Nilesh Kalwar Rameshwar,"Viman Nagar,",Orthopedist,90%,917971115118.0,₹825,Orthopedic
+Dr. Satish Kale,"Swargate,",Orthopedist,50%,912071533870.0,₹1000,Orthopedic
+Dr. Abhijit Lonari,"Pimpri-Chinchwad,",Orthopedist,100%,918037321393.0,₹1100,Orthopedic
+Dr. Rohit Chakor,"Wanowrie,",Orthopedist,97%,917969201750.0,₹900,Orthopedic
+Dr. Shashank Behere,"Aundh,",Orthopedist,98%,917969201750.0,₹600,Orthopedic
+Dr. Nikhil Likhate,"Deccan Gymkhana,",Orthopedist,94%,912071185854.0,₹1210,Orthopedic
+Dr. Ankur Kumar,"Balewadi,",Orthopedist,unavailable,unavailable,₹600,Orthopedic
+Dr. Pratibh Anil Srivastava,"Aundh,",Orthopedist,100%,917971261877.0,₹650,Orthopedic
+Dr. Kedar Jagtap,"Kharadi,",Orthopedist,100%,917971115184.0,₹500,Orthopedic
+Dr. Aashish Arbat,"Pimple Saudagar,",Orthopedist,50%,912071185853.0,₹1500,Orthopedic
+Dr. Abhishek Nair,"Wakad,",Orthopedist,100%,912071177325.0,₹900,Orthopedic
+Dr. Abhinav Kumar Singh,"Viman Nagar,",unavailable,unavailable,912048553249.0,₹800,Orthopedic
+Dr. Pankaj Sharma,"Nigdi-Pradhikaran,",Orthopedist,unavailable,912048553255.0,₹900,Orthopedic
+Dr. Nishit Jayant Shah,"Aundh,",Orthopedist,unavailable,912071533717.0,₹1000,Orthopedic
+Dr. Sachin Tapasvi,"Deccan Gymkhana,",Orthopedist,83%,912048564427.0,₹1815,Orthopedic
+Dr. Seema Joshi,"Aundh,",Pediatrician,92%,918046809162.0,"This fee is indicative and might vary.
+NOTE: Fees is payable at clinic. There are NO charges for booking an appointment.",Pediatrician
+Dr. B R Kilawat,"Wakad,",Pediatrician,unavailable,917941058734.0,"This fee is indicative and might vary.
+NOTE: Fees is payable at clinic. There are NO charges for booking an appointment.",Pediatrician
+Dr. Dattatray Vasantrao Kulkarni,"Bhosari,",Pediatrician,100%,917949108205.0,₹600,Pediatrician
+Dr. Janitha Gilbert,"Wanowrie,",Pediatrician,unavailable,912048556145.0,₹700,Pediatrician
+Dr. Mujanar Jalil Shaukatali,"Wanowrie,",Pediatrician,unavailable,912048556145.0,₹900,Pediatrician
+Dr. Pandurang Sawant,"Dhanori,",Pediatrician,95%,917971262166.0,₹700,Pediatrician
+Dr. Madhav Chavan,"Wakad,",Pediatrician,78%,912067325820.0,₹600,Pediatrician
+Dr. Suhas Sodal,"Pimple Saudagar,",Pediatrician,94%,912048553738.0,₹800,Pediatrician
+Dr. Nandkumar Banait,"Thergaon,",Pediatrician,91%,917971262076.0,₹650,Pediatrician
+Dr. Shweta Hajare,"Chandan Nagar,",Pediatrician,100%,912071172550.0,₹600,Pediatrician
+Dr. Avinash Itke,"Wakad,",Pediatrician,100%,912071173263.0,₹600,Pediatrician
+Dr. Sameer Mhatre,"Viman Nagar,",Pediatrician,92%,917969141561.0,₹700,Pediatrician
+Dr. Sujay Patil,"Shankar Shet Road,",Pediatrician,100%,912071171359.0,₹1000,Pediatrician
+Dr. Atul Pralhad Palwe,"Lulla Nagar,",Pediatrician,unavailable,912071173266.0,₹650,Pediatrician
+Dr. Ganesh Shivmurti Badge,"Hadapsar,",Pediatrician,100%,912071189378.0,₹605,Pediatrician
+Dr. Abhijit Bagde,"Shankar Shet Road,",Pediatrician,100%,912071189378.0,₹1000,Pediatrician
+Dr. Srujan Topale,"Kharadi,",Pediatrician,96%,918037314287.0,₹700,Pediatrician
+Dr. Manoj Bansode,"Hadapsar,",Pediatrician,unavailable,912048566751.0,₹600,Pediatrician
+Dr. Anupama Tapadia,"Hadapsar,",Pediatrician,92%,917971262008.0,₹400,Pediatrician
+Dr. Hemant Prakash Palkar,"Pimpri-Chinchwad,",Pediatrician,100%,917971172646.0,₹1000,Pediatrician
+Dr. Rohan Gundecha,"Kondhwa,",Pediatrician,75%,912071171707.0,₹500,Pediatrician
+Dr. Anshu Sethi,"Baner,",Pediatrician,97%,917969200996.0,₹1000,Pediatrician
+Dr. Vaishnavi Bhagat,"Wakad,",Pediatrician,100%,917969142020.0,₹400,Pediatrician
+Dr. Surabhi Wattal Zutshi,"Rahatani,",Pediatrician,100%,912048552972.0,₹600,Pediatrician
+Dr. Indrajeet Thorat,"Hadapsar,",Pediatrician,unavailable,912048553262.0,₹500,Pediatrician
+Dr. Jagdish Kathwate,"Kharadi,",Pediatrician,89%,912048553249.0,₹800,Pediatrician
+Dr. Deepak Jeswani,"Hadapsar,",Pediatrician,99%,912048553586.0,₹600,Pediatrician
+Dr. Suryawanshi Pradip,"Nagar Road,",Pediatrician,100%,912071188518.0,₹600,Pediatrician
+Dr. Hirdeshkumar Nagpal,"Kharadi,",Pediatrician,unavailable,912071187259.0,₹600,Pediatrician
+Dr. Prashant Wagh,"Vishrantwadi,",Pediatrician,99%,917971262935.0,₹500,Pediatrician
+Dr. Amrita Shirude,"Wakad,",Pediatrician,100%,912048553263.0,₹700,Pediatrician
+Dr. Manish Ramteke,"Kalyani Nagar,",Pediatrician,100%,912071533870.0,₹1000,Pediatrician
+Dr. Rakesh C Chincholikar Kulkarni,"Pimple Saudagar,",Pediatrician,100%,917969142021.0,₹1000,Pediatrician
+Dr. Kshitija Daswadikar,"Hadapsar,",Pediatrician,unavailable,918037316895.0,₹605,Pediatrician
+Dr. Geetanjali Ingale,"Kharadi,",Pediatrician,60%,918037316895.0,₹700,Pediatrician
+Dr. Changdev Dhakne,"Kharadi,",Pediatrician,100%,918037316895.0,₹500,Pediatrician
+Dr. Prateek Kataria,"Nagar Road,",Pediatrician,100%,912048553587.0,₹660,Pediatrician
+Dr. Vidushi Taneja,"Kharadi,",Pediatrician,50%,912048552972.0,₹750,Pediatrician
+Dr. Sandip Prabhakar Bandewar,"Kalyani Nagar,",Pediatrician,100%,917971115247.0,₹1000,Pediatrician
+Dr. Bageshree Deokar,"Nigdi-Pradhikaran,",Pediatrician,43%,917971172444.0,₹850,Pediatrician
+Dr. Sharvari Kulkarni,"Viman Nagar,",Pediatrician,100%,912071177423.0,₹650,Pediatrician
+Dr. Rajesh Patidar,"Kharadi,",Pediatrician,unavailable,912048553261.0,₹600,Pediatrician
+Dr. Smita Dsouza,"Pimple Saudagar,",Pediatrician,100%,918037314297.0,₹1000,Pediatrician
+Dr. Amar Bhise,"Kharadi,",Pediatrician,50%,912071177437.0,₹500,Pediatrician
+Dr. Dobhal Mahendra Gulabchand,"Pimple Saudagar,",Pediatrician,50%,917971115108.0,₹1000,Pediatrician
+Dr. Ved Pratap,"Mohammadwadi,",Pediatrician,100%,917971115108.0,₹600,Pediatrician
+Dr. Chandrashekhar Vasant Phadnis,"Aundh,",Pediatrician,95%,912048553255.0,₹500,Pediatrician
+Dr. Priyanka Gundecha,"Wanowrie,",Pediatrician,unavailable,917969141926.0,₹400,Pediatrician
+Dr. Kishori Bankhele,"Nigdi-Pradhikaran,",Pediatrician,100%,917969141926.0,₹300,Pediatrician
+Dr. Amit Jayasingrao Nigade,"Senapati Bapat Marg,",Pediatrician,98%,912071189377.0,₹1000,Pediatrician
+Dr. Pankaj B Borade,"Camp,",Psychiatrist,95%,912048553759.0,₹1750,Psychiatrist
+Dr. Bhushan Chaudhari,"Pimpri-Chinchwad,",Psychiatrist,96%,912241642357.0,₹800,Psychiatrist
+Dr. Rashmi Navelkar,"Pimple Saudagar,",Psychiatrist,98%,917969141871.0,₹900,Psychiatrist
+Dr. Kishor Jadhavar,"Hadapsar,",Psychiatrist,98%,912071173186.0,₹1000,Psychiatrist
+Dr. Hamza Hussain,"Undri,",Psychiatrist,94%,917969141882.0,₹1000,Psychiatrist
+Dr. Bhushan Ambadkar,"Wadgaon Sheri,",Psychiatrist,100%,917969141827.0,₹800,Psychiatrist
+Dr. Pratibha K Bezwada,"Hinjewadi,",Psychiatrist,99%,917969201165.0,₹1400,Psychiatrist
+Dr. Samiksha Murkute,"Pimple Saudagar,",Psychiatrist,94%,917971172884.0,₹1000,Psychiatrist
+Dr. Yogesh Pokale,"Bhosari,",Psychiatrist,98%,912048564456.0,₹500,Psychiatrist
+Dr. Ananya Dhar,"Viman Nagar,",Psychiatrist,98%,912048564432.0,₹1200,Psychiatrist
+Dr. Rishikesh Behere,"Baner,",Psychiatrist,94%,917969142012.0,₹2000,Psychiatrist
+Dr. Rajesh Nalawade,"Nigdi-Pradhikaran,",Psychiatrist,98%,917969201083.0,₹1500,Psychiatrist
+Dr. Dnyanda Nakul Deshpande,"Baner Road,",Psychiatrist,98%,917969141630.0,₹1200,Psychiatrist
+Dr. Pranavjeet Kaldate,"Balewadi,",Psychiatrist,100%,917969141630.0,₹2000,Psychiatrist
+Dr. Raval Nischol,"Nagar Road,",Psychiatrist,100%,918037312207.0,₹1320,Psychiatrist
+Dr. Sayantani Mukherjee,"Kharadi,",Psychiatrist,90%,918037317099.0,₹1100,Psychiatrist
+Dr. Rupali Shinde,"Deccan Gymkhana,",Psychiatrist,100%,912071187259.0,₹1200,Psychiatrist
+Dr. Shriya Dalaya,"Katraj,",Psychiatrist,100%,917969141844.0,₹1000,Psychiatrist
+Dr. Kishor Gujar,"Pimpri-Chinchwad,",Psychiatrist,100%,917971115284.0,₹1700,Psychiatrist
+Dr. Sneha Arya,"Pimpri-Chinchwad,",Psychiatrist,88%,912048554748.0,₹1600,Psychiatrist
+Dr. Ashok Bansode,"Hadapsar,",Pulmonologist,96%,917969201048.0,₹800,Pulmonologist
+Dr. Rahul P. Kendre,"Kharadi,",Pulmonologist,100%,917969201461.0,₹800,Pulmonologist
+Dr. Dnyandeep Sarpe,"Wakad,",Pulmonologist,50%,917941058734.0,₹800,Pulmonologist
+Dr. Shubhada Kulkarni,"Pimple Saudagar,",Pulmonologist,86%,912048554718.0,₹700,Pulmonologist
+Dr. Rahul Chavan,"Baner,",Pulmonologist,93%,917969201485.0,₹800,Pulmonologist
+Dr. Mahavir Bagrecha,"Pimpri-Chinchwad,",Pulmonologist,98%,912241642385.0,₹700,Pulmonologist
+Dr. Vaibhav D. Pandharkar,"Kharadi,",Pulmonologist,95%,917969201724.0,₹1000,Pulmonologist
+Dr. Suyash Gandhe,"Viman Nagar,",Pulmonologist,100%,917969141716.0,₹800,Pulmonologist
+Dr. Anup Bhoyar,"Kharadi,",Pulmonologist,97%,912048556580.0,₹800,Pulmonologist
+Dr. Anand Vijay,"Pimpri-Chinchwad,",Pulmonologist,89%,917969142078.0,₹1000,Pulmonologist
+Dr. Shashikant Bhange,"Hadapsar,",Urologist,74%,912048556097.0,₹850,Urologist
+Dr. Sandesh Surana,"Dhankawadi,",Urologist,75%,912048556246.0,₹1500,Urologist
+Dr. Vikram Satav,"Hadapsar,",Urologist,75%,912048556097.0,₹850,Urologist
+Dr. Bhoopat Singh Bhati,"Wanowrie,",Urologist,97%,912048556145.0,₹1200,Urologist
+Dr. Gopal Rathi,"Wanowrie,",Urologist,88%,912048556145.0,₹1200,Urologist
+Dr. Sunil Palve,"Pimple Saudagar,",Urologist,67%,912048553738.0,₹1500,Urologist
+Dr. Sumit M Chaudhari,"Bhosari,",Urologist,73%,917949108205.0,₹1000,Urologist
+Dr. Sachin Patil,"Baner,",Urologist,96%,917971171485.0,₹1000,Urologist
+Dr. Ketan Pai,"Deccan Gymkhana,",Urologist,89%,917971262942.0,₹845,Urologist
+Dr. Ketan Vartak,"Shankar Shet Road,",Urologist,88%,917971262942.0,₹1000,Urologist
+Dr. Ankit Sharma,"Kharadi,",Urologist,100%,917971262684.0,₹1200,Urologist
+Dr. Nayan Odedra,"Pimpri-Chinchwad,",Urologist,100%,918037285150.0,₹1000,Urologist
+Dr. Radhe Shyam Chaudhari,"Pimpri-Chinchwad,",Urologist,67%,912048553261.0,₹1000,Urologist
+Dr. Parag Vijay Gulhane,"Hadapsar,",Urologist,88%,917971171874.0,₹600,Urologist
+Dr. Nandkishor Raut,"Pimpri-Chinchwad,",Urologist,unavailable,912048553250.0,₹1000,Urologist
+Dr. Himesh Gandhi,"Dhole Patil Road,",Urologist,95%,912048553250.0,₹1500,Urologist
+Dr. Mhaskar Shrikant,"Nagar Road,",Urologist,unavailable,918037320377.0,₹845,Urologist

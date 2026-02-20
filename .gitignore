@@ -16,17 +16,18 @@ parts/
 sdist/
 var/
 wheels/
+pip-wheel-metadata/
+share/python-wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+MANIFEST
 
-# Virtual Environment
-venv/
-env/
-ENV/
+# Virtual environments
 .venv/
-
-# Environment variables
+venv/
+ENV/
+env/
 .env
 .env.local
 
@@ -43,17 +44,28 @@ ENV/
 # Database
 *.db
 *.sqlite3
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Geocoding (unnecessary intermediate files)
+geocode_locations.py
+location_coords.json
+
+# OS
+.DS_Store
+Thumbs.db
 
 # Logs
 *.log
 logs/
+# Cache
+.cache/
+*.cache
 
 # Testing
 .pytest_cache/
 .coverage
 htmlcov/
 .tox/
-
-# OS
-.DS_Store
-Thumbs.db
