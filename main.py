@@ -16,6 +16,7 @@ from config.database import engine, Base
 from routers import agent_routes
 from routers.schemas import HealthCheckResponse
 from api.routes import router as api_router  # Orchestrator routes
+from backend.api.recommendation_api import router as recommendation_router
 from fix_database_schema import fix_schema
 
 # Create FastAPI app
@@ -45,6 +46,7 @@ if static_path.exists():
 # Include routers - Both input-agents and orchestrator
 app.include_router(agent_routes.router)  # Symptom assessment routes
 app.include_router(api_router)           # Hospital orchestration routes
+app.include_router(recommendation_router, prefix="/api")  # Doctor recommendation routes
 
 # Startup event
 @app.on_event("startup")
@@ -140,7 +142,8 @@ async def api_info():
             "symptom_assessment": "POST /api/assess",
             "conversation_history": "GET /api/conversation/{session_id}",
             "disclaimer": "GET /api/disclaimer",
-            "hospital_orchestration": "POST /api/analyze"
+            "hospital_orchestration": "POST /api/analyze",
+            "doctor_recommendations": "POST /api/recommend"
         }
     }
 
