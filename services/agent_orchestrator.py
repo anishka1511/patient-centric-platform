@@ -6,6 +6,7 @@ from typing import Dict, Optional
 from services.llm_service import llm_service
 from utils.emergency_rules import emergency_detector
 from utils.specialty_mapper import specialty_mapper
+from utils.input_classifier import input_classifier
 from config.logging_config import logger
 
 
@@ -23,6 +24,7 @@ class AgentOrchestrator:
         self.llm_service = llm_service
         self.emergency_detector = emergency_detector
         self.specialty_mapper = specialty_mapper
+        self.input_classifier = input_classifier
     
     def assess_user_input(self, user_message: str, session_id: Optional[str] = None) -> Dict:
         """
@@ -38,6 +40,34 @@ class AgentOrchestrator:
         logger.info(f"Starting assessment for message: '{user_message[:50]}...'")
         
         try:
+            # Step 0: Input Classification (validate before processing)
+            category, reason, clarification_prompts = self.input_classifier.classify_input(user_message)
+            logger.info(f"Input classified as: {category} - {reason}")
+            
+            # Handle IRRELEVANT inputs (greetings, small talk)
+            if category == "IRRELEVANT":
+                return {
+                    "category": "IRRELEVANT",
+                    "message": clarification_prompts[0] if clarification_prompts else "Please describe your medical symptoms.",
+                    "suggestions": clarification_prompts[1:] if len(clarification_prompts) > 1 else [],
+                    "session_id": session_id,
+                    "user_input": user_message
+                }
+            
+            # Handle INSUFFICIENT_INFO (vague symptoms, needs clarification)
+            if category == "INSUFFICIENT_INFO":
+                return {
+                    "category": "INSUFFICIENT_INFO",
+                    "message": "I need more details to provide an accurate assessment.",
+                    "reason": reason,
+                    "clarifying_questions": clarification_prompts,
+                    "session_id": session_id,
+                    "user_input": user_message
+                }
+            
+            # EMERGENCY and VALID_MEDICAL continue to medical processing below
+            # (Emergency gets prioritized in the pipeline)
+            
             # Step 1: Extract symptoms using LLM
             extraction_result = self.llm_service.extract_symptoms(user_message)
             symptoms = extraction_result.get("symptoms", [])
