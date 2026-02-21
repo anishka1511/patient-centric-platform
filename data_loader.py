@@ -652,42 +652,70 @@ def recommend_doctors(input_data: dict):
         # First attempt: exact location match
         location_filtered = filtered_df[filtered_df['location'].str.lower() == location]
 
-        # If no exact results, try nearby locations in order
+        # If no exact results, try nearby locations in order and accumulate
+        # until we collect at least DEFAULT_TOP_K candidates.
         if location_filtered.empty:
             nearby_locations = NEARBY_MAP.get(location, [])
+            nearby_batches = []
+            collected_count = 0
+
             for nearby in nearby_locations:
                 nearby_filtered = filtered_df[filtered_df['location'].str.lower() == nearby]
-                if not nearby_filtered.empty:
-                    location_filtered = nearby_filtered
+                if nearby_filtered.empty:
+                    continue
+
+                nearby_batches.append(nearby_filtered)
+                collected_count += len(nearby_filtered)
+
+                if not fallback_applied:
                     fallback_applied = True
                     fallback_location = nearby
                     fallback_type = "nearby"
+
+                if collected_count >= DEFAULT_TOP_K:
                     break
-        
+
+            if nearby_batches:
+                location_filtered = pd.concat(nearby_batches, ignore_index=True)
+
         filtered_df = location_filtered
     
     # If still no matches, try general_physician fallback
     if filtered_df.empty:
         gp_df = df[df['specialty'].str.lower() == "general physician"]
-        
+
         # Try exact location first
         gp_location_filtered = gp_df[gp_df['location'].str.lower() == location]
-        
-        # If no GPs in exact location, try nearby
+
+        # If no GPs in exact location, try nearby and accumulate
         if gp_location_filtered.empty:
             nearby_locations = NEARBY_MAP.get(location, [])
+            nearby_gp_batches = []
+            collected_gp_count = 0
+
             for nearby in nearby_locations:
                 nearby_gp = gp_df[gp_df['location'].str.lower() == nearby]
-                if not nearby_gp.empty:
-                    gp_location_filtered = nearby_gp
+                if nearby_gp.empty:
+                    continue
+
+                nearby_gp_batches.append(nearby_gp)
+                collected_gp_count += len(nearby_gp)
+
+                if not fallback_applied:
                     fallback_applied = True
                     fallback_location = nearby
-                    fallback_type = "general_physician_nearby"
+                fallback_type = "general_physician_nearby"
+
+                if collected_gp_count >= DEFAULT_TOP_K:
                     break
-        
+
+            if nearby_gp_batches:
+                gp_location_filtered = pd.concat(nearby_gp_batches, ignore_index=True)
+
         if not gp_location_filtered.empty:
             filtered_df = gp_location_filtered
-            fallback_type = "general_physician"
+            if fallback_type != "general_physician_nearby":
+                fallback_type = "general_physician"
     
     # Handle no matches
     if filtered_df.empty:
@@ -819,6 +847,61 @@ def generate_cost_insights(input_data: dict):
         cost_band = "Premium"
     
     # Return structured response
+    return {
+        "average_fee": average_fee,
+        "min_fee": min_fee,
+        "max_fee": max_fee,
+        "cost_band": cost_band
+    }
+
+
+def _generate_cost_summary_from_recommendations(recommended_doctors: list) -> dict:
+    """
+    Generate cost summary directly from returned recommended doctors.
+
+    Args:
+        recommended_doctors (list): List of doctor recommendation dicts.
+
+    Returns:
+        dict: Dictionary with average_fee, min_fee, max_fee, and cost_band.
+    """
+    if not recommended_doctors:
+        return {
+            "average_fee": None,
+            "min_fee": None,
+            "max_fee": None,
+            "cost_band": None
+        }
+
+    fees = []
+    for doctor in recommended_doctors:
+        fee = doctor.get("consultation_fee")
+        if fee is None:
+            continue
+        try:
+            fees.append(float(fee))
+        except (TypeError, ValueError):
+            continue
+
+    if not fees:
+        return {
+            "average_fee": None,
+            "min_fee": None,
+            "max_fee": None,
+            "cost_band": None
+        }
+
+    average_fee = round(sum(fees) / len(fees), 2)
+    min_fee = min(fees)
+    max_fee = max(fees)
+
+    if average_fee < 300:
+        cost_band = "Budget-friendly"
+    elif average_fee <= 500:
+        cost_band = "Standard"
+    else:
+        cost_band = "Premium"
+
     return {
         "average_fee": average_fee,
         "min_fee": min_fee,
@@ -1304,9 +1387,10 @@ def generate_recommendation_response(input_data: dict):
         else:
             # No hospitals found - fallback to doctors
             doctor_recommendations = recommend_doctors(cleaned_input)
-            cost_insights = generate_cost_insights(cleaned_input)
+            recommended_doctors = doctor_recommendations.get("recommended_doctors", [])
+            cost_summary = _generate_cost_summary_from_recommendations(recommended_doctors)
             
-            returned_count = len(doctor_recommendations.get("recommended_doctors", []))
+            returned_count = len(recommended_doctors)
             total_matches = doctor_recommendations.get("total_matches", 0)
             fallback_metadata = doctor_recommendations.get("metadata", {})
             fallback_type = fallback_metadata.get("fallback_type")
@@ -1332,13 +1416,8 @@ def generate_recommendation_response(input_data: dict):
             response = {
                 "care_setting": "clinic",
                 "metadata": metadata,
-                "recommended_doctors": doctor_recommendations.get("recommended_doctors", []),
-                "cost_summary": {
-                    "average_fee": cost_insights.get("average_fee"),
-                    "min_fee": cost_insights.get("min_fee"),
-                    "max_fee": cost_insights.get("max_fee"),
-                    "cost_band": cost_insights.get("cost_band")
-                }
+                "recommended_doctors": recommended_doctors,
+                "cost_summary": cost_summary
             }
             
             if "message" in doctor_recommendations:
@@ -1375,9 +1454,10 @@ def generate_recommendation_response(input_data: dict):
                 }
         
         # Otherwise, continue with doctor recommendations
-        cost_insights = generate_cost_insights(cleaned_input)
+        recommended_doctors = doctor_recommendations.get("recommended_doctors", [])
+        cost_summary = _generate_cost_summary_from_recommendations(recommended_doctors)
         
-        returned_count = len(doctor_recommendations.get("recommended_doctors", []))
+        returned_count = len(recommended_doctors)
         total_matches = doctor_recommendations.get("total_matches", 0)
         fallback_metadata = doctor_recommendations.get("metadata", {})
         fallback_type = fallback_metadata.get("fallback_type")
@@ -1403,13 +1483,8 @@ def generate_recommendation_response(input_data: dict):
         response = {
             "care_setting": "clinic",
             "metadata": metadata,
-            "recommended_doctors": doctor_recommendations.get("recommended_doctors", []),
-            "cost_summary": {
-                "average_fee": cost_insights.get("average_fee"),
-                "min_fee": cost_insights.get("min_fee"),
-                "max_fee": cost_insights.get("max_fee"),
-                "cost_band": cost_insights.get("cost_band")
-            }
+            "recommended_doctors": recommended_doctors,
+            "cost_summary": cost_summary
         }
         
         if "message" in doctor_recommendations:
