@@ -1,0 +1,161 @@
+{
+  "recommendation": "Consult with a Gastroenterologist for digestive issues",
+  "urgency": "medium",
+  "emergency_flag": false,
+  "specialty": "Gastroenterologist",
+  "hospitals": [
+    {
+      "name": "Gastro Care Centre, Baner",
+      "distance_km": 4.5,
+      "rating": 4.5,
+      "cost_level": "medium",
+      "insurance_supported": true,
+      "coordinates": [
+        18.5304,
+        73.9217
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Shama Shaikh",
+          "specialty": "Gastroenterologist",
+          "experience_years": 10,
+          "availability": "Schedule Appointment",
+          "rating": 85,
+          "cost": "₹650",
+          "phone": "912048556145.0",
+          "location": "Wanowrie"
+        },
+        {
+          "name": "Dr. Manoj Chandrakant Kolhe",
+          "specialty": "Gastroenterologist",
+          "experience_years": 26,
+          "availability": "Schedule Appointment",
+          "rating": 65,
+          "cost": "₹1050",
+          "phone": "917949108205.0",
+          "location": "Bhosari"
+        },
+        {
+          "name": "Dr. Rahul Kothari",
+          "specialty": "Gastroenterologist",
+          "experience_years": 24,
+          "availability": "Available Today",
+          "rating": 78,
+          "cost": "₹850",
+          "phone": "912071171022.0",
+          "location": "Aundh"
+        }
+      ]
+    },
+    {
+      "name": "Apollo Gastroenterology, Kharadi",
+      "distance_km": 15.3,
+      "rating": 4.6,
+      "cost_level": "medium",
+      "insurance_supported": true,
+      "coordinates": [
+        18.5304,
+        73.9217
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Rajendra Sathe",
+          "specialty": "Gastroenterologist",
+          "experience_years": 27,
+          "availability": "Schedule Appointment",
+          "rating": 92,
+          "cost": "₹450",
+          "phone": "918037315753.0",
+          "location": "Narayan Peth"
+        },
+        {
+          "name": "Dr. Prakash D Valse",
+          "specialty": "Gastroenterologist",
+          "experience_years": 25,
+          "availability": "Available Today",
+          "rating": 85,
+          "cost": "₹600",
+          "phone": "912048564464.0",
+          "location": "Pimple Saudagar"
+        },
+        {
+          "name": "Dr. Nachiket Dubale",
+          "specialty": "Gastroenterologist",
+          "experience_years": 17,
+          "availability": "Schedule Appointment",
+          "rating": 65,
+          "cost": "₹1050",
+          "phone": "912048564464.0",
+          "location": "Shankar Shet Road"
+        }
+      ]
+    },
+    {
+      "name": "Digestive Health Clinic, Aundh",
+      "distance_km": 12.5,
+      "rating": 4.4,
+      "cost_level": "low",
+      "insurance_supported": true,
+      "coordinates": [
+        18.5304,
+        73.9217
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Ujwal Zambare",
+          "specialty": "Gastroenterologist",
+          "experience_years": 10,
+          "availability": "Available Today",
+          "rating": 98,
+          "cost": "₹800",
+          "phone": "917969141862.0",
+          "location": "Pimpri-Chinchwad"
+        },
+        {
+          "name": "Dr. Lalit Shimpi",
+          "specialty": "Gastroenterologist",
+          "experience_years": 29,
+          "availability": "Available Today",
+          "rating": 82,
+          "cost": "₹1500",
+          "phone": "912241642329.0",
+          "location": "Deccan Gymkhana"
+        },
+        {
+          "name": "Dr. Harshwardhan Dongre",
+          "specialty": "Gastroenterologist",
+          "experience_years": 23,
+          "availability": "Available Today",
+          "rating": 98,
+          "cost": "₹900",
+          "phone": "917969141623.0",
+          "location": "Kothrud"
+        }
+      ]
+    },
+    {
+      "name": "GI Specialist, Hadapsar",
+      "distance_km": 18.9,
+      "rating": 4.3,
+      "cost_level": "low",
+      "insurance_supported": true,
+      "coordinates": [
+        18.5304,
+        73.9217
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Yogesh Bade",
+          "specialty": "Gastroenterologist",
+          "experience_years": 20,
+          "availability": "Schedule Appointment",
+          "rating": 85,
+          "cost": "₹1000",
+          "phone": "912071173194.0",
+          "location": "Pimpri-Chinchwad"
+        }
+      ]
+    }
+  ],
+  "cost_estimate": "₹1000 - ₹3500"
+}

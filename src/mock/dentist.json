@@ -1,0 +1,57 @@
+{
+  "recommendation": "Schedule an appointment with a Dentist",
+  "urgency": "medium",
+  "emergency_flag": false,
+  "specialty": "Dentist",
+  "hospitals": [
+    {
+      "name": "Smile Care Dental, Kharadi",
+      "distance_km": 15.3,
+      "rating": 4.7,
+      "cost_level": "medium",
+      "insurance_supported": true,
+      "coordinates": [
+        18.5304,
+        73.9217
+      ],
+      "doctors": []
+    },
+    {
+      "name": "Advanced Dental Clinic, Baner",
+      "distance_km": 4.2,
+      "rating": 4.6,
+      "cost_level": "medium",
+      "insurance_supported": true,
+      "coordinates": [
+        18.5304,
+        73.9217
+      ],
+      "doctors": []
+    },
+    {
+      "name": "Dental Plus, Aundh",
+      "distance_km": 12.8,
+      "rating": 4.5,
+      "cost_level": "low",
+      "insurance_supported": true,
+      "coordinates": [
+        18.5304,
+        73.9217
+      ],
+      "doctors": []
+    },
+    {
+      "name": "Royal Smile Dental, Hadapsar",
+      "distance_km": 18.9,
+      "rating": 4.4,
+      "cost_level": "low",
+      "insurance_supported": true,
+      "coordinates": [
+        18.5304,
+        73.9217
+      ],
+      "doctors": []
+    }
+  ],
+  "cost_estimate": "₹200 - ₹1500"
+}

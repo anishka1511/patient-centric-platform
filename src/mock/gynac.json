@@ -1,0 +1,181 @@
+{
+  "recommendation": "Consult with a Gynecologist",
+  "urgency": "medium",
+  "emergency_flag": false,
+  "specialty": "Gynecologist",
+  "hospitals": [
+    {
+      "name": "Women Health Center, Baner",
+      "distance_km": 4.5,
+      "rating": 4.8,
+      "cost_level": "medium",
+      "insurance_supported": true,
+      "coordinates": [
+        18.5604,
+        73.8071
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Sneha Trivedi",
+          "specialty": "Gynac",
+          "experience_years": 18,
+          "availability": "Available Today",
+          "rating": 88,
+          "cost": "This fee is indicative and might vary.\nNOTE: Fees is payable at clinic. There are NO charges for booking an appointment.",
+          "phone": "912048556097.0",
+          "location": "Hadapsar"
+        },
+        {
+          "name": "Dr. Mithil Patil",
+          "specialty": "Gynac",
+          "experience_years": 7,
+          "availability": "Available Today",
+          "rating": 94,
+          "cost": "This fee is indicative and might vary.\nNOTE: Fees is payable at clinic. There are NO charges for booking an appointment.",
+          "phone": "917949108393.0",
+          "location": "Balewadi"
+        },
+        {
+          "name": "Dr. Kishore Pandit",
+          "specialty": "Gynac",
+          "experience_years": 24,
+          "availability": "Available Today",
+          "rating": 85,
+          "cost": "₹1500",
+          "phone": "917949107756.0",
+          "location": "Shivajinagar"
+        }
+      ]
+    },
+    {
+      "name": "Femcare Hospital, Aundh",
+      "distance_km": 12.5,
+      "rating": 4.7,
+      "cost_level": "medium",
+      "insurance_supported": true,
+      "coordinates": [
+        18.5604,
+        73.8071
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Kapil Kanade",
+          "specialty": "Gynac",
+          "experience_years": 13,
+          "availability": "Available Today",
+          "rating": 90,
+          "cost": "₹750",
+          "phone": "912071189373.0",
+          "location": "Hadapsar"
+        },
+        {
+          "name": "Dr. Soniya Pawar",
+          "specialty": "Gynac",
+          "experience_years": 10,
+          "availability": "Available Today",
+          "rating": 94,
+          "cost": "₹800",
+          "phone": "912048556246.0",
+          "location": "Dhankawadi"
+        },
+        {
+          "name": "Dr. Sonali Chaudhari",
+          "specialty": "Gynac",
+          "experience_years": 27,
+          "availability": "Schedule Appointment",
+          "rating": 96,
+          "cost": "₹850",
+          "phone": "912048554718.0",
+          "location": "Pimple Saudagar"
+        }
+      ]
+    },
+    {
+      "name": "Apollo Gynec Clinic, Kharadi",
+      "distance_km": 15.3,
+      "rating": 4.6,
+      "cost_level": "medium",
+      "insurance_supported": true,
+      "coordinates": [
+        18.5604,
+        73.8071
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Rushabh Karnawat",
+          "specialty": "Gynac",
+          "experience_years": 4,
+          "availability": "Schedule Appointment",
+          "rating": 72,
+          "cost": "₹500",
+          "phone": "912071189373.0",
+          "location": "Wakad"
+        },
+        {
+          "name": "Dr. Santosh Sidid",
+          "specialty": "Gynac",
+          "experience_years": 29,
+          "availability": "Available Today",
+          "rating": 96,
+          "cost": "₹750",
+          "phone": "912048556097.0",
+          "location": "Hadapsar"
+        },
+        {
+          "name": "Dr. Madhulika Singh",
+          "specialty": "Gynac",
+          "experience_years": 5,
+          "availability": "Available Today",
+          "rating": 72,
+          "cost": "₹1350",
+          "phone": "918046809162.0",
+          "location": "Aundh"
+        }
+      ]
+    },
+    {
+      "name": "MaxCare Women Clinic, Viman Nagar",
+      "distance_km": 10.7,
+      "rating": 4.5,
+      "cost_level": "low",
+      "insurance_supported": true,
+      "coordinates": [
+        18.5604,
+        73.8071
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Marya Patil",
+          "specialty": "Gynac",
+          "experience_years": 20,
+          "availability": "Schedule Appointment",
+          "rating": 94,
+          "cost": "₹900",
+          "phone": "912048556145.0",
+          "location": "Wanowrie"
+        },
+        {
+          "name": "Dr. Sushila Netravali",
+          "specialty": "Gynac",
+          "experience_years": 3,
+          "availability": "Available Today",
+          "rating": 90,
+          "cost": "₹1000",
+          "phone": "Not available",
+          "location": "Pimpri-Chinchwad"
+        },
+        {
+          "name": "Dr. Priyanka Gholap",
+          "specialty": "Gynac",
+          "experience_years": 22,
+          "availability": "Available Today",
+          "rating": 78,
+          "cost": "₹1050",
+          "phone": "912071533932.0",
+          "location": "Kalyani Nagar"
+        }
+      ]
+    }
+  ],
+  "cost_estimate": "₹800 - ₹3000"
+}

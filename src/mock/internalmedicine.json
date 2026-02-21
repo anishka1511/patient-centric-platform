@@ -1,0 +1,181 @@
+{
+  "recommendation": "Consult with an Internal Medicine Specialist",
+  "urgency": "medium",
+  "emergency_flag": false,
+  "specialty": "Internal Medicine Specialist",
+  "hospitals": [
+    {
+      "name": "Internal Medicine Centre, Baner",
+      "distance_km": 4.5,
+      "rating": 4.6,
+      "cost_level": "medium",
+      "insurance_supported": true,
+      "coordinates": [
+        18.559,
+        73.789
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Rameshwar Hudekar",
+          "specialty": "Internal Medicine",
+          "experience_years": 24,
+          "availability": "Available Today",
+          "rating": 85,
+          "cost": "This fee is indicative and might vary.\nNOTE: Fees is payable at clinic. There are NO charges for booking an appointment.",
+          "phone": "917941058734.0",
+          "location": "Wakad"
+        },
+        {
+          "name": "Dr. Prasad",
+          "specialty": "Internal Medicine",
+          "experience_years": 25,
+          "availability": "Schedule Appointment",
+          "rating": 88,
+          "cost": "₹650",
+          "phone": "917949108205.0",
+          "location": "Bhosari"
+        },
+        {
+          "name": "Dr. Nitin S Kabra",
+          "specialty": "Internal Medicine",
+          "experience_years": 12,
+          "availability": "Available Today",
+          "rating": 90,
+          "cost": "₹1100",
+          "phone": "912048553738.0",
+          "location": "Pimple Saudagar"
+        }
+      ]
+    },
+    {
+      "name": "Apollo Internal Medicine, Kharadi",
+      "distance_km": 15.3,
+      "rating": 4.7,
+      "cost_level": "medium",
+      "insurance_supported": true,
+      "coordinates": [
+        18.559,
+        73.789
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Mahesh Jadhav",
+          "specialty": "Internal Medicine",
+          "experience_years": 12,
+          "availability": "Available Today",
+          "rating": 78,
+          "cost": "₹650",
+          "phone": "912048556819.0",
+          "location": "Wakad"
+        },
+        {
+          "name": "Dr. Jayprakash Shirpurwar",
+          "specialty": "Internal Medicine",
+          "experience_years": 17,
+          "availability": "Schedule Appointment",
+          "rating": 82,
+          "cost": "₹650",
+          "phone": "917949108193.0",
+          "location": "Viman Nagar"
+        },
+        {
+          "name": "Dr. Sandesh Ghiya",
+          "specialty": "Internal Medicine",
+          "experience_years": 15,
+          "availability": "Available Today",
+          "rating": 82,
+          "cost": "₹700",
+          "phone": "912048553261.0",
+          "location": "Ganga Dham"
+        }
+      ]
+    },
+    {
+      "name": "Max Internal Care, Aundh",
+      "distance_km": 12.5,
+      "rating": 4.5,
+      "cost_level": "medium",
+      "insurance_supported": true,
+      "coordinates": [
+        18.559,
+        73.789
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Monika Mamidwar",
+          "specialty": "Internal Medicine",
+          "experience_years": 5,
+          "availability": "Available Today",
+          "rating": 88,
+          "cost": "₹1150",
+          "phone": "912241642436.0",
+          "location": "Pimple Saudagar"
+        },
+        {
+          "name": "Dr. Aditya Sondankar",
+          "specialty": "Internal Medicine",
+          "experience_years": 25,
+          "availability": "Available Today",
+          "rating": 90,
+          "cost": "₹800",
+          "phone": "917949108205.0",
+          "location": "Bhosari"
+        },
+        {
+          "name": "Dr. Govind Kulkarni",
+          "specialty": "Internal Medicine",
+          "experience_years": 14,
+          "availability": "Available Today",
+          "rating": 90,
+          "cost": "₹750",
+          "phone": "917971262163.0",
+          "location": "Viman Nagar"
+        }
+      ]
+    },
+    {
+      "name": "Healthcare Specialist, Hadapsar",
+      "distance_km": 18.9,
+      "rating": 4.4,
+      "cost_level": "low",
+      "insurance_supported": true,
+      "coordinates": [
+        18.559,
+        73.789
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Girish Date",
+          "specialty": "Internal Medicine",
+          "experience_years": 13,
+          "availability": "Available Today",
+          "rating": 78,
+          "cost": "₹1300",
+          "phone": "912048552984.0",
+          "location": "Deccan Gymkhana"
+        },
+        {
+          "name": "Dr. Rahul Baste",
+          "specialty": "Internal Medicine",
+          "experience_years": 17,
+          "availability": "Schedule Appointment",
+          "rating": 94,
+          "cost": "₹1050",
+          "phone": "912071172550.0",
+          "location": "Pimpri-Chinchwad"
+        },
+        {
+          "name": "Dr. Avinash Mundhe",
+          "specialty": "Internal Medicine",
+          "experience_years": 24,
+          "availability": "Schedule Appointment",
+          "rating": 96,
+          "cost": "₹850",
+          "phone": "912048553263.0",
+          "location": "Pimpri-Chinchwad"
+        }
+      ]
+    }
+  ],
+  "cost_estimate": "₹1000 - ₹3000"
+}

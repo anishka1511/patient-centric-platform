@@ -1,0 +1,181 @@
+{
+  "recommendation": "Consult with a General Physician",
+  "urgency": "medium",
+  "emergency_flag": false,
+  "specialty": "General Physician",
+  "hospitals": [
+    {
+      "name": "Apollo Clinic, Kharadi",
+      "distance_km": 15.3,
+      "rating": 4.5,
+      "cost_level": "medium",
+      "insurance_supported": true,
+      "coordinates": [
+        18.5304,
+        73.9217
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Shailaja Desai",
+          "specialty": "General Physician",
+          "experience_years": 28,
+          "availability": "Available Today",
+          "rating": 94,
+          "cost": "₹750",
+          "phone": "912048552428.0",
+          "location": "Sopan Baug"
+        },
+        {
+          "name": "Dr. N.M. Rao",
+          "specialty": "General Physician",
+          "experience_years": 15,
+          "availability": "Schedule Appointment",
+          "rating": 85,
+          "cost": "₹650",
+          "phone": "912048554718.0",
+          "location": "Pimple Saudagar"
+        },
+        {
+          "name": "Dr. Rameshwar Hudekar",
+          "specialty": "General Physician",
+          "experience_years": 13,
+          "availability": "Available Today",
+          "rating": 90,
+          "cost": "₹800",
+          "phone": "917941058734.0",
+          "location": "Wakad"
+        }
+      ]
+    },
+    {
+      "name": "Max Healthcare, Viman Nagar",
+      "distance_km": 10.7,
+      "rating": 4.4,
+      "cost_level": "medium",
+      "insurance_supported": true,
+      "coordinates": [
+        18.5304,
+        73.9217
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Pramod Jagtap",
+          "specialty": "General Physician",
+          "experience_years": 30,
+          "availability": "Schedule Appointment",
+          "rating": 82,
+          "cost": "₹700",
+          "phone": "912048556145.0",
+          "location": "Wanowrie"
+        },
+        {
+          "name": "Dr. Kshitij Raghuvanshi",
+          "specialty": "General Physician",
+          "experience_years": 17,
+          "availability": "Available Today",
+          "rating": 72,
+          "cost": "₹900",
+          "phone": "912048556145.0",
+          "location": "Wanowrie"
+        },
+        {
+          "name": "Dr. Lata Patil",
+          "specialty": "General Physician",
+          "experience_years": 25,
+          "availability": "Schedule Appointment",
+          "rating": 82,
+          "cost": "₹1050",
+          "phone": "912048556145.0",
+          "location": "Wanowrie"
+        }
+      ]
+    },
+    {
+      "name": "Care Hospital, Koregaon Park",
+      "distance_km": 9.4,
+      "rating": 4.3,
+      "cost_level": "medium",
+      "insurance_supported": true,
+      "coordinates": [
+        18.5304,
+        73.9217
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Janitha Gilbert",
+          "specialty": "General Physician",
+          "experience_years": 20,
+          "availability": "Schedule Appointment",
+          "rating": 88,
+          "cost": "₹850",
+          "phone": "912048556145.0",
+          "location": "Wanowrie"
+        },
+        {
+          "name": "Dr. Pandurang Sawant",
+          "specialty": "General Physician",
+          "experience_years": 5,
+          "availability": "Available Today",
+          "rating": 96,
+          "cost": "₹750",
+          "phone": "917971262166.0",
+          "location": "Dhanori"
+        },
+        {
+          "name": "Dr. Govinda N",
+          "specialty": "General Physician",
+          "experience_years": 3,
+          "availability": "Available Today",
+          "rating": 88,
+          "cost": "₹600",
+          "phone": "912248968624.0",
+          "location": "Sasanenagar"
+        }
+      ]
+    },
+    {
+      "name": "Metropolis Healthcare, Hadapsar",
+      "distance_km": 18.9,
+      "rating": 4.2,
+      "cost_level": "low",
+      "insurance_supported": true,
+      "coordinates": [
+        18.5304,
+        73.9217
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Nivratti Adate",
+          "specialty": "General Physician",
+          "experience_years": 5,
+          "availability": "Schedule Appointment",
+          "rating": 96,
+          "cost": "₹400",
+          "phone": "912071171335.0",
+          "location": "Sinhagad Road"
+        },
+        {
+          "name": "Dr. Ravindra Chhajed",
+          "specialty": "General Physician",
+          "experience_years": 13,
+          "availability": "Available Today",
+          "rating": 92,
+          "cost": "₹800",
+          "phone": "912071171345.0",
+          "location": "Market Yard"
+        },
+        {
+          "name": "Dr. Abhijeet Baldota",
+          "specialty": "General Physician",
+          "experience_years": 11,
+          "availability": "Schedule Appointment",
+          "rating": 88,
+          "cost": "₹950",
+          "phone": "912248932475.0",
+          "location": "Aundh"
+        }
+      ]
+    }
+  ],
+  "cost_estimate": "₹500 - ₹2000"
+}

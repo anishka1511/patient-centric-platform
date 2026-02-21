@@ -1,0 +1,181 @@
+{
+  "recommendation": "Visit an ENT Specialist for ear/nose/throat issues",
+  "urgency": "low",
+  "emergency_flag": false,
+  "specialty": "ENT Specialist",
+  "hospitals": [
+    {
+      "name": "ENT Care Clinic, Baner",
+      "distance_km": 4.5,
+      "rating": 4.5,
+      "cost_level": "low",
+      "insurance_supported": true,
+      "coordinates": [
+        18.559,
+        73.789
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Manoj M.Bauskar",
+          "specialty": "Ent Specialist",
+          "experience_years": 22,
+          "availability": "Schedule Appointment",
+          "rating": 96,
+          "cost": "₹900",
+          "phone": "912048556145.0",
+          "location": "Wanowrie"
+        },
+        {
+          "name": "Dr. Rupali Gulavani",
+          "specialty": "Ent Specialist",
+          "experience_years": 26,
+          "availability": "Available Today",
+          "rating": 85,
+          "cost": "₹1100",
+          "phone": "912048556927.0",
+          "location": "Baner"
+        },
+        {
+          "name": "Dr. P K Bhagat",
+          "specialty": "Ent Specialist",
+          "experience_years": 10,
+          "availability": "Available Today",
+          "rating": 72,
+          "cost": "₹1250",
+          "phone": "912048556246.0",
+          "location": "Dhankawadi"
+        }
+      ]
+    },
+    {
+      "name": "Apollo ENT Centre, Kharadi",
+      "distance_km": 15.3,
+      "rating": 4.6,
+      "cost_level": "medium",
+      "insurance_supported": true,
+      "coordinates": [
+        18.559,
+        73.789
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Manohar Suryawanshi",
+          "specialty": "Ent Specialist",
+          "experience_years": 14,
+          "availability": "Schedule Appointment",
+          "rating": 72,
+          "cost": "₹550",
+          "phone": "917949108205.0",
+          "location": "Bhosari"
+        },
+        {
+          "name": "Dr. Jaya Kochure",
+          "specialty": "Ent Specialist",
+          "experience_years": 23,
+          "availability": "Available Today",
+          "rating": 88,
+          "cost": "₹1350",
+          "phone": "912048553257.0",
+          "location": "Pimpri-Chinchwad"
+        },
+        {
+          "name": "Dr. Sarang Deshmukh",
+          "specialty": "Ent Specialist",
+          "experience_years": 27,
+          "availability": "Available Today",
+          "rating": 65,
+          "cost": "₹1100",
+          "phone": "912048564480.0",
+          "location": "Kharadi"
+        }
+      ]
+    },
+    {
+      "name": "ENT Specialist, Aundh",
+      "distance_km": 12.5,
+      "rating": 4.4,
+      "cost_level": "low",
+      "insurance_supported": true,
+      "coordinates": [
+        18.559,
+        73.789
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Sumitpal Bhatti",
+          "specialty": "Ent Specialist",
+          "experience_years": 3,
+          "availability": "Available Today",
+          "rating": 72,
+          "cost": "₹1450",
+          "phone": "912241642433.0",
+          "location": "Dapodi"
+        },
+        {
+          "name": "Dr. Ajinkya Kelkar",
+          "specialty": "Ent Specialist",
+          "experience_years": 18,
+          "availability": "Available Today",
+          "rating": 72,
+          "cost": "₹750",
+          "phone": "912048564448.0",
+          "location": "JM Road"
+        },
+        {
+          "name": "Dr. Aniket K Shah",
+          "specialty": "Ent Specialist",
+          "experience_years": 23,
+          "availability": "Available Today",
+          "rating": 92,
+          "cost": "₹1000",
+          "phone": "912071171110.0",
+          "location": "Kharadi"
+        }
+      ]
+    },
+    {
+      "name": "Ear Nose Throat Clinic, Hadapsar",
+      "distance_km": 18.9,
+      "rating": 4.3,
+      "cost_level": "low",
+      "insurance_supported": true,
+      "coordinates": [
+        18.559,
+        73.789
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Ajay Kothadiya",
+          "specialty": "Ent Specialist",
+          "experience_years": 23,
+          "availability": "Schedule Appointment",
+          "rating": 82,
+          "cost": "₹750",
+          "phone": "912248932616.0",
+          "location": "Shivajinagar"
+        },
+        {
+          "name": "Dr. Amruta Ambekar",
+          "specialty": "Ent Specialist",
+          "experience_years": 10,
+          "availability": "Available Today",
+          "rating": 94,
+          "cost": "₹800",
+          "phone": "Not available",
+          "location": "Shivajinagar"
+        },
+        {
+          "name": "Dr. Vijay Sonawane",
+          "specialty": "Ent Specialist",
+          "experience_years": 7,
+          "availability": "Available Today",
+          "rating": 82,
+          "cost": "₹550",
+          "phone": "918037314155.0",
+          "location": "Deccan Gymkhana"
+        }
+      ]
+    }
+  ],
+  "cost_estimate": "₹500 - ₹2000"
+}

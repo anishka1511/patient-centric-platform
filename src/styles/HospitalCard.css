@@ -1,0 +1,154 @@
+.hospital-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(8px);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px var(--card-shadow);
+  transition: all 0.25s ease;
+  animation: fadeIn 0.5s ease-out;
+  border: 1px solid var(--border-color);
+}
+
+.hospital-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px var(--card-shadow);
+  border-color: var(--accent-color);
+  background: var(--glass-bg);
+}
+
+.card-header {
+  padding: 20px 24px;
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+  color: white;
+  position: relative;
+  overflow: hidden;
+  border-bottom: none;
+}
+
+.card-header::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: float 8s ease-in-out infinite;
+}
+
+.hospital-name {
+  font-size: 18px;
+  margin: 0;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+  position: relative;
+  z-index: 2;
+  line-height: 1.3;
+  color: white;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.hospital-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.info-label {
+  font-size: 10px;
+  color: var(--primary-color);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: color 0.4s ease;
+}
+
+.info-value {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-top: 4px;
+  transition: color 0.4s ease;
+}
+
+.card-footer {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+  padding-top: 16px;
+  border-top: 2px solid #EFF6FF;
+}
+
+.cost-badge {
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  transition: all 0.15s ease;
+}
+
+.cost-badge:hover {
+  transform: scale(1.02);
+}
+
+.cost-high {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.cost-medium {
+  background: #fef3c7;
+  color: #ca8a04;
+}
+
+.cost-low {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.insurance-badge {
+  padding: 6px 12px;
+  background: var(--badge-bg);
+  color: var(--badge-text);
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  transition: all 0.15s ease;
+  border: 1px solid var(--accent-color);
+}
+
+.insurance-badge:hover {
+  background: rgba(20, 184, 166, 0.25);
+  transform: scale(1.02);
+}
+
+@media (max-width: 600px) {
+  .hospital-card {
+    margin-bottom: 12px;
+  }
+
+  .hospital-info {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .hospital-name {
+    font-size: 16px;
+  }
+}

@@ -1,0 +1,108 @@
+.urgency-banner {
+  padding: 28px 32px;
+  border-radius: 16px;
+  margin-bottom: 35px;
+  text-align: center;
+  font-weight: 900;
+  animation: slideDown 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  overflow: hidden;
+  letter-spacing: 0.5px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.urgency-banner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.6s ease;
+}
+
+.urgency-banner:hover::before {
+  left: 100%;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.urgency-banner h2 {
+  font-size: 24px;
+  margin: 0;
+  letter-spacing: 0.3px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.banner-emergency {
+  background: linear-gradient(135deg, rgba(220, 38, 38, 0.95) 0%, rgba(153, 27, 27, 0.95) 100%);
+  color: white;
+  box-shadow: 0 15px 40px rgba(220, 38, 38, 0.35);
+  border-left: 6px solid #dc2626;
+  border-top: 0;
+  border: 1px solid rgba(220, 38, 38, 0.5);
+}
+
+.banner-emergency::after {
+  content: '⚠️ EMERGENCY';
+  display: block;
+  margin-top: 8px;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.banner-high {
+  background: linear-gradient(135deg, rgba(249, 115, 22, 0.95) 0%, rgba(192, 132, 16, 0.95) 100%);
+  color: white;
+  box-shadow: 0 15px 40px rgba(249, 115, 22, 0.3);
+  border-left: 6px solid #f97316;
+  border: 1px solid rgba(249, 115, 22, 0.5);
+}
+
+.banner-medium {
+  background: linear-gradient(135deg, rgba(234, 179, 8, 0.95) 0%, rgba(113, 63, 18, 0.95) 100%);
+  color: #1F2937;
+  box-shadow: 0 15px 40px rgba(234, 179, 8, 0.25);
+  border-left: 6px solid #eab308;
+  border: 1px solid rgba(234, 179, 8, 0.4);
+}
+
+.banner-low {
+  background: linear-gradient(135deg, #86efac 0%, #4ade80 100%);
+  color: #1e293b;
+  box-shadow: 0 4px 12px rgba(134, 239, 172, 0.3);
+}
+
+@media (max-width: 600px) {
+  .urgency-banner {
+    padding: 15px;
+  }
+
+  .urgency-banner h2 {
+    font-size: 16px;
+  }
+}

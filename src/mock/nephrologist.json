@@ -1,0 +1,161 @@
+{
+  "recommendation": "Consult with a Nephrologist for kidney issues",
+  "urgency": "medium",
+  "emergency_flag": false,
+  "specialty": "Nephrologist",
+  "hospitals": [
+    {
+      "name": "Kidney Care Centre, Baner",
+      "distance_km": 4.5,
+      "rating": 4.5,
+      "cost_level": "medium",
+      "insurance_supported": true,
+      "coordinates": [
+        18.5304,
+        73.9217
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Suhas Mondhe",
+          "specialty": "Nephrologist",
+          "experience_years": 7,
+          "availability": "Schedule Appointment",
+          "rating": 88,
+          "cost": "₹1100",
+          "phone": "912048556927.0",
+          "location": "Baner"
+        },
+        {
+          "name": "Dr. Pavan Wakhare",
+          "specialty": "Nephrologist",
+          "experience_years": 4,
+          "availability": "Available Today",
+          "rating": 88,
+          "cost": "₹1200",
+          "phone": "917949108205.0",
+          "location": "Bhosari"
+        },
+        {
+          "name": "Dr. Sandeep S Morkhandikar",
+          "specialty": "Nephrologist",
+          "experience_years": 6,
+          "availability": "Schedule Appointment",
+          "rating": 96,
+          "cost": "₹1100",
+          "phone": "912048556145.0",
+          "location": "Wanowrie"
+        }
+      ]
+    },
+    {
+      "name": "Apollo Nephrology, Kharadi",
+      "distance_km": 15.3,
+      "rating": 4.6,
+      "cost_level": "medium",
+      "insurance_supported": true,
+      "coordinates": [
+        18.5304,
+        73.9217
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Shailesh Gondane",
+          "specialty": "Nephrologist",
+          "experience_years": 3,
+          "availability": "Schedule Appointment",
+          "rating": 82,
+          "cost": "₹1550",
+          "phone": "912048553738.0",
+          "location": "Pimple Saudagar"
+        },
+        {
+          "name": "Dr. Madhavi Dadwe",
+          "specialty": "Nephrologist",
+          "experience_years": 21,
+          "availability": "Available Today",
+          "rating": 72,
+          "cost": "₹1050",
+          "phone": "912048556145.0",
+          "location": "Wanowrie"
+        },
+        {
+          "name": "Dr. Manish Mali",
+          "specialty": "Nephrologist",
+          "experience_years": 13,
+          "availability": "Schedule Appointment",
+          "rating": 65,
+          "cost": "₹800",
+          "phone": "918037313395.0",
+          "location": "Pimpri-Chinchwad"
+        }
+      ]
+    },
+    {
+      "name": "Renal Health Clinic, Aundh",
+      "distance_km": 12.5,
+      "rating": 4.4,
+      "cost_level": "low",
+      "insurance_supported": true,
+      "coordinates": [
+        18.5304,
+        73.9217
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Sachin Patil",
+          "specialty": "Nephrologist",
+          "experience_years": 10,
+          "availability": "Available Today",
+          "rating": 78,
+          "cost": "₹1650",
+          "phone": "917969142017.0",
+          "location": "Nagar Road"
+        },
+        {
+          "name": "Dr. Vivek Biradar",
+          "specialty": "Nephrologist",
+          "experience_years": 3,
+          "availability": "Schedule Appointment",
+          "rating": 82,
+          "cost": "₹1000",
+          "phone": "917971261731.0",
+          "location": "Wakad"
+        },
+        {
+          "name": "Dr. Kumthekar Girish Vasudeo",
+          "specialty": "Nephrologist",
+          "experience_years": 8,
+          "availability": "Schedule Appointment",
+          "rating": 88,
+          "cost": "₹1000",
+          "phone": "912071187883.0",
+          "location": "Pimpri-Chinchwad"
+        }
+      ]
+    },
+    {
+      "name": "Kidney Specialist, Hadapsar",
+      "distance_km": 18.9,
+      "rating": 4.3,
+      "cost_level": "low",
+      "insurance_supported": true,
+      "coordinates": [
+        18.5304,
+        73.9217
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Manan V Doshi",
+          "specialty": "Nephrologist",
+          "experience_years": 7,
+          "availability": "Available Today",
+          "rating": 72,
+          "cost": "₹1250",
+          "phone": "912071177307.0",
+          "location": "Deccan Gymkhana"
+        }
+      ]
+    }
+  ],
+  "cost_estimate": "₹1000 - ₹3000"
+}

@@ -1,0 +1,181 @@
+{
+  "recommendation": "Visit a Cardiologist immediately",
+  "urgency": "high",
+  "emergency_flag": true,
+  "specialty": "Cardiology",
+  "hospitals": [
+    {
+      "name": "Apollo Hospitals, Baner",
+      "distance_km": 3.8,
+      "rating": 4.8,
+      "cost_level": "high",
+      "insurance_supported": true,
+      "coordinates": [
+        18.559,
+        73.789
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Bhushan Bari",
+          "specialty": "Cardiologist",
+          "experience_years": 11,
+          "availability": "Schedule Appointment",
+          "rating": 96,
+          "cost": "₹1050",
+          "phone": "912048556145.0",
+          "location": "Wanowrie"
+        },
+        {
+          "name": "Dr. Prashant Sadashiv Shinde",
+          "specialty": "Cardiologist",
+          "experience_years": 3,
+          "availability": "Available Today",
+          "rating": 94,
+          "cost": "₹1000",
+          "phone": "917949108205.0",
+          "location": "Bhosari"
+        },
+        {
+          "name": "Dr. Akshay Kashid",
+          "specialty": "Cardiologist",
+          "experience_years": 24,
+          "availability": "Available Today",
+          "rating": 72,
+          "cost": "₹950",
+          "phone": "912048556927.0",
+          "location": "Baner"
+        }
+      ]
+    },
+    {
+      "name": "Max Super Speciality Hospital, Aundh",
+      "distance_km": 12.5,
+      "rating": 4.7,
+      "cost_level": "high",
+      "insurance_supported": true,
+      "coordinates": [
+        18.5604,
+        73.8071
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Abhay Somani",
+          "specialty": "Cardiologist",
+          "experience_years": 9,
+          "availability": "Available Today",
+          "rating": 65,
+          "cost": "₹1400",
+          "phone": "912048556145.0",
+          "location": "Wanowrie"
+        },
+        {
+          "name": "Dr. Rajesh Kaushish",
+          "specialty": "Cardiologist",
+          "experience_years": 8,
+          "availability": "Available Today",
+          "rating": 94,
+          "cost": "₹1150",
+          "phone": "912048556145.0",
+          "location": "Wanowrie"
+        },
+        {
+          "name": "Dr. Sonam Shinde",
+          "specialty": "Cardiologist",
+          "experience_years": 5,
+          "availability": "Schedule Appointment",
+          "rating": 72,
+          "cost": "₹800",
+          "phone": "917949108205.0",
+          "location": "Bhosari"
+        }
+      ]
+    },
+    {
+      "name": "AIIMS Balewadi",
+      "distance_km": 8.2,
+      "rating": 4.9,
+      "cost_level": "medium",
+      "insurance_supported": true,
+      "coordinates": [
+        18.5689,
+        73.772
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Yuvaraj Bhosale",
+          "specialty": "Cardiologist",
+          "experience_years": 30,
+          "availability": "Available Today",
+          "rating": 90,
+          "cost": "₹1250",
+          "phone": "912048553738.0",
+          "location": "Pimple Saudagar"
+        },
+        {
+          "name": "Dr. Sujit Sawadatkar",
+          "specialty": "Cardiologist",
+          "experience_years": 26,
+          "availability": "Available Today",
+          "rating": 78,
+          "cost": "₹1100",
+          "phone": "912048556097.0",
+          "location": "Hadapsar"
+        },
+        {
+          "name": "Dr. Gaurav Ganeshwala",
+          "specialty": "Cardiologist",
+          "experience_years": 17,
+          "availability": "Schedule Appointment",
+          "rating": 96,
+          "cost": "₹1000",
+          "phone": "912048556145.0",
+          "location": "Wanowrie"
+        }
+      ]
+    },
+    {
+      "name": "Fortis Hospital, Hinjewadi",
+      "distance_km": 22.1,
+      "rating": 4.6,
+      "cost_level": "high",
+      "insurance_supported": true,
+      "coordinates": [
+        18.5913,
+        73.7389
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Ashish S Khanijo",
+          "specialty": "Cardiologist",
+          "experience_years": 12,
+          "availability": "Available Today",
+          "rating": 88,
+          "cost": "₹1000",
+          "phone": "912048556145.0",
+          "location": "Wanowrie"
+        },
+        {
+          "name": "Dr. Dhananjay Zutshi",
+          "specialty": "Cardiologist",
+          "experience_years": 25,
+          "availability": "Available Today",
+          "rating": 92,
+          "cost": "₹700",
+          "phone": "912071173182.0",
+          "location": "Pimpri-Chinchwad"
+        },
+        {
+          "name": "Dr. Annapoorna A. Kalia",
+          "specialty": "Cardiologist",
+          "experience_years": 10,
+          "availability": "Available Today",
+          "rating": 98,
+          "cost": "₹900",
+          "phone": "912071177306.0",
+          "location": "Pimpri-Chinchwad"
+        }
+      ]
+    }
+  ],
+  "cost_estimate": "₹5000 - ₹15000"
+}

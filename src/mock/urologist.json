@@ -1,0 +1,181 @@
+{
+  "recommendation": "Visit a Urologist for urinary health",
+  "urgency": "medium",
+  "emergency_flag": false,
+  "specialty": "Urologist",
+  "hospitals": [
+    {
+      "name": "Urology Specialist Center, Baner",
+      "distance_km": 4.5,
+      "rating": 4.6,
+      "cost_level": "medium",
+      "insurance_supported": true,
+      "coordinates": [
+        18.5304,
+        73.9217
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Shashikant Bhange",
+          "specialty": "Urologist",
+          "experience_years": 21,
+          "availability": "Available Today",
+          "rating": 65,
+          "cost": "₹750",
+          "phone": "912048556097.0",
+          "location": "Hadapsar"
+        },
+        {
+          "name": "Dr. Sandesh Surana",
+          "specialty": "Urologist",
+          "experience_years": 2,
+          "availability": "Available Today",
+          "rating": 94,
+          "cost": "₹1550",
+          "phone": "912048556246.0",
+          "location": "Dhankawadi"
+        },
+        {
+          "name": "Dr. Vikram Satav",
+          "specialty": "Urologist",
+          "experience_years": 18,
+          "availability": "Available Today",
+          "rating": 78,
+          "cost": "₹700",
+          "phone": "912048556097.0",
+          "location": "Hadapsar"
+        }
+      ]
+    },
+    {
+      "name": "Apollo Urology, Kharadi",
+      "distance_km": 15.3,
+      "rating": 4.7,
+      "cost_level": "medium",
+      "insurance_supported": true,
+      "coordinates": [
+        18.5304,
+        73.9217
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Bhoopat Singh Bhati",
+          "specialty": "Urologist",
+          "experience_years": 18,
+          "availability": "Available Today",
+          "rating": 78,
+          "cost": "₹1300",
+          "phone": "912048556145.0",
+          "location": "Wanowrie"
+        },
+        {
+          "name": "Dr. Gopal Rathi",
+          "specialty": "Urologist",
+          "experience_years": 7,
+          "availability": "Available Today",
+          "rating": 72,
+          "cost": "₹1500",
+          "phone": "912048556145.0",
+          "location": "Wanowrie"
+        },
+        {
+          "name": "Dr. Sunil Palve",
+          "specialty": "Urologist",
+          "experience_years": 13,
+          "availability": "Schedule Appointment",
+          "rating": 92,
+          "cost": "₹1700",
+          "phone": "912048553738.0",
+          "location": "Pimple Saudagar"
+        }
+      ]
+    },
+    {
+      "name": "Max Urology Clinic, Aundh",
+      "distance_km": 12.5,
+      "rating": 4.5,
+      "cost_level": "medium",
+      "insurance_supported": true,
+      "coordinates": [
+        18.5304,
+        73.9217
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Sumit M Chaudhari",
+          "specialty": "Urologist",
+          "experience_years": 18,
+          "availability": "Available Today",
+          "rating": 88,
+          "cost": "₹1250",
+          "phone": "917949108205.0",
+          "location": "Bhosari"
+        },
+        {
+          "name": "Dr. Sachin Patil",
+          "specialty": "Urologist",
+          "experience_years": 30,
+          "availability": "Available Today",
+          "rating": 92,
+          "cost": "₹850",
+          "phone": "917971171485.0",
+          "location": "Baner"
+        },
+        {
+          "name": "Dr. Ketan Pai",
+          "specialty": "Urologist",
+          "experience_years": 13,
+          "availability": "Schedule Appointment",
+          "rating": 90,
+          "cost": "₹1150",
+          "phone": "917971262942.0",
+          "location": "Deccan Gymkhana"
+        }
+      ]
+    },
+    {
+      "name": "Urinary Care, Hadapsar",
+      "distance_km": 18.9,
+      "rating": 4.4,
+      "cost_level": "low",
+      "insurance_supported": true,
+      "coordinates": [
+        18.5304,
+        73.9217
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Ketan Vartak",
+          "specialty": "Urologist",
+          "experience_years": 2,
+          "availability": "Schedule Appointment",
+          "rating": 96,
+          "cost": "₹1000",
+          "phone": "917971262942.0",
+          "location": "Shankar Shet Road"
+        },
+        {
+          "name": "Dr. Ankit Sharma",
+          "specialty": "Urologist",
+          "experience_years": 2,
+          "availability": "Available Today",
+          "rating": 92,
+          "cost": "₹1200",
+          "phone": "917971262684.0",
+          "location": "Kharadi"
+        },
+        {
+          "name": "Dr. Nayan Odedra",
+          "specialty": "Urologist",
+          "experience_years": 7,
+          "availability": "Schedule Appointment",
+          "rating": 72,
+          "cost": "₹850",
+          "phone": "918037285150.0",
+          "location": "Pimpri-Chinchwad"
+        }
+      ]
+    }
+  ],
+  "cost_estimate": "₹1000 - ₹3500"
+}
