@@ -1369,7 +1369,12 @@ def generate_recommendation_response(input_data: dict):
         hospital_count = hospital_results.get("total_matches", 0)
         
         if hospital_count > 0:
-            # Hospitals found - return hospital recommendations
+            # Hospitals found - return hospital recommendations plus optional nearby doctors
+            doctor_recommendations = recommend_doctors(cleaned_input)
+            recommended_doctors = doctor_recommendations.get("recommended_doctors", [])
+            doctor_fallback_metadata = doctor_recommendations.get("metadata", {})
+            doctor_fallback_type = doctor_fallback_metadata.get("fallback_type")
+
             return {
                 "care_setting": "hospital",
                 "metadata": {
@@ -1378,11 +1383,21 @@ def generate_recommendation_response(input_data: dict):
                     "query_severity": severity,
                     "severity": severity,
                     "recommendation_type": "hospital_primary",
+                    "optional_doctors_available": len(recommended_doctors) > 0,
                     "location_source": location_source,
                     "detected_location": location if location_source == "coordinates" else None
                 },
                 "recommended_hospitals": hospital_results.get("recommended_hospitals", []),
-                "total_hospitals_available": hospital_count
+                "total_hospitals_available": hospital_count,
+                "optional_nearby_doctors": {
+                    "recommended_doctors": recommended_doctors,
+                    "total_doctors_available": doctor_recommendations.get("total_matches", 0),
+                    "returned_count": len(recommended_doctors),
+                    "fallback_applied": doctor_fallback_metadata.get("fallback_applied", False),
+                    "fallback_location": doctor_fallback_metadata.get("fallback_location"),
+                    "fallback_type": doctor_fallback_type,
+                    "cost_summary": _generate_cost_summary_from_recommendations(recommended_doctors)
+                }
             }
         else:
             # No hospitals found - fallback to doctors
