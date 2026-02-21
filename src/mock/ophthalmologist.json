@@ -1,0 +1,181 @@
+{
+  "recommendation": "Visit an Eye Specialist (Ophthalmologist)",
+  "urgency": "medium",
+  "emergency_flag": false,
+  "specialty": "Eye Specialist",
+  "hospitals": [
+    {
+      "name": "Vision Care Center, Baner",
+      "distance_km": 4.5,
+      "rating": 4.7,
+      "cost_level": "medium",
+      "insurance_supported": true,
+      "coordinates": [
+        18.5304,
+        73.9217
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Nikhil V. Rishikeshi",
+          "specialty": "Ophthalmologist",
+          "experience_years": 17,
+          "availability": "Available Today",
+          "rating": 98,
+          "cost": "₹1000",
+          "phone": "917948227956.0",
+          "location": "Kothrud"
+        },
+        {
+          "name": "Dr. Metta Padma Lakshmi",
+          "specialty": "Ophthalmologist",
+          "experience_years": 17,
+          "availability": "Available Today",
+          "rating": 65,
+          "cost": "₹500",
+          "phone": "917948228267.0",
+          "location": "Aundh"
+        },
+        {
+          "name": "Dr. Anand Palimkar",
+          "specialty": "Ophthalmologist",
+          "experience_years": 17,
+          "availability": "Available Today",
+          "rating": 94,
+          "cost": "₹750",
+          "phone": "917948228325.0",
+          "location": "Viman Nagar"
+        }
+      ]
+    },
+    {
+      "name": "Apollo Eye Hospital, Kharadi",
+      "distance_km": 15.3,
+      "rating": 4.8,
+      "cost_level": "medium",
+      "insurance_supported": true,
+      "coordinates": [
+        18.5304,
+        73.9217
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Sudhir Baburdikar",
+          "specialty": "Ophthalmologist",
+          "experience_years": 12,
+          "availability": "Available Today",
+          "rating": 82,
+          "cost": "₹850",
+          "phone": "917948228267.0",
+          "location": "Aundh"
+        },
+        {
+          "name": "Dr. Vijay Parbatani",
+          "specialty": "Ophthalmologist",
+          "experience_years": 15,
+          "availability": "Available Today",
+          "rating": 82,
+          "cost": "₹450",
+          "phone": "912048553255.0",
+          "location": "Kalyani Nagar"
+        },
+        {
+          "name": "Dr. Baban C Dolas",
+          "specialty": "Ophthalmologist",
+          "experience_years": 6,
+          "availability": "Schedule Appointment",
+          "rating": 98,
+          "cost": "₹550",
+          "phone": "917948227963.0",
+          "location": "Pimple Saudagar"
+        }
+      ]
+    },
+    {
+      "name": "Eye Specialist Clinic, Aundh",
+      "distance_km": 12.5,
+      "rating": 4.6,
+      "cost_level": "low",
+      "insurance_supported": true,
+      "coordinates": [
+        18.5304,
+        73.9217
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Sonal Ashok Erole",
+          "specialty": "Ophthalmologist",
+          "experience_years": 13,
+          "availability": "Available Today",
+          "rating": 90,
+          "cost": "₹550",
+          "phone": "917948227963.0",
+          "location": "Pimple Saudagar"
+        },
+        {
+          "name": "Dr. Snehal Wakchaure",
+          "specialty": "Ophthalmologist",
+          "experience_years": 17,
+          "availability": "Available Today",
+          "rating": 92,
+          "cost": "₹450",
+          "phone": "917948228325.0",
+          "location": "Viman Nagar"
+        },
+        {
+          "name": "Dr. Pankaj Asawa",
+          "specialty": "Ophthalmologist",
+          "experience_years": 4,
+          "availability": "Available Today",
+          "rating": 85,
+          "cost": "₹550",
+          "phone": "917948228267.0",
+          "location": "Aundh"
+        }
+      ]
+    },
+    {
+      "name": "Max Eye Care, Hadapsar",
+      "distance_km": 18.9,
+      "rating": 4.5,
+      "cost_level": "low",
+      "insurance_supported": true,
+      "coordinates": [
+        18.5304,
+        73.9217
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Nitin Prabhudesai",
+          "specialty": "Ophthalmologist",
+          "experience_years": 5,
+          "availability": "Available Today",
+          "rating": 96,
+          "cost": "₹1200",
+          "phone": "917948227956.0",
+          "location": "Kothrud"
+        },
+        {
+          "name": "Dr. Kavita Kasav",
+          "specialty": "Ophthalmologist",
+          "experience_years": 17,
+          "availability": "Schedule Appointment",
+          "rating": 92,
+          "cost": "₹600",
+          "phone": "917971261542.0",
+          "location": "Hadapsar"
+        },
+        {
+          "name": "Dr. Suchi Smitha T. Behere",
+          "specialty": "Ophthalmologist",
+          "experience_years": 19,
+          "availability": "Available Today",
+          "rating": 96,
+          "cost": "₹800",
+          "phone": "918037321492.0",
+          "location": "Baner"
+        }
+      ]
+    }
+  ],
+  "cost_estimate": "₹500 - ₹3000"
+}

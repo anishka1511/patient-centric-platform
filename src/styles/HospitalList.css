@@ -1,0 +1,57 @@
+.hospital-list {
+  margin-bottom: 30px;
+}
+
+.list-title {
+  font-size: 36px;
+  color: #1E3A8A;
+  margin-bottom: 32px;
+  font-weight: 900;
+  letter-spacing: -1px;
+  background: linear-gradient(135deg, #1E3A8A 0%, #0F766E 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hospital-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 28px;
+}
+
+.empty-state {
+  background: white;
+  padding: 40px 20px;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.empty-state p {
+  font-size: 16px;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .hospital-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .list-title {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .hospital-grid {
+    gap: 15px;
+  }
+
+  .list-title {
+    font-size: 18px;
+    margin-bottom: 15px;
+  }
+}

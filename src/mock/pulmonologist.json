@@ -1,0 +1,161 @@
+{
+  "recommendation": "Visit a Pulmonologist for respiratory issues",
+  "urgency": "medium",
+  "emergency_flag": false,
+  "specialty": "Pulmonologist",
+  "hospitals": [
+    {
+      "name": "Chest & Lung Care, Baner",
+      "distance_km": 4.5,
+      "rating": 4.5,
+      "cost_level": "medium",
+      "insurance_supported": true,
+      "coordinates": [
+        18.559,
+        73.789
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Ashok Bansode",
+          "specialty": "Pulmonologist",
+          "experience_years": 23,
+          "availability": "Schedule Appointment",
+          "rating": 92,
+          "cost": "₹1100",
+          "phone": "917969201048.0",
+          "location": "Hadapsar"
+        },
+        {
+          "name": "Dr. Rahul P. Kendre",
+          "specialty": "Pulmonologist",
+          "experience_years": 8,
+          "availability": "Schedule Appointment",
+          "rating": 94,
+          "cost": "₹800",
+          "phone": "917969201461.0",
+          "location": "Kharadi"
+        },
+        {
+          "name": "Dr. Dnyandeep Sarpe",
+          "specialty": "Pulmonologist",
+          "experience_years": 10,
+          "availability": "Available Today",
+          "rating": 72,
+          "cost": "₹750",
+          "phone": "917941058734.0",
+          "location": "Wakad"
+        }
+      ]
+    },
+    {
+      "name": "Apollo Pulmonology, Kharadi",
+      "distance_km": 15.3,
+      "rating": 4.6,
+      "cost_level": "medium",
+      "insurance_supported": true,
+      "coordinates": [
+        18.559,
+        73.789
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Shubhada Kulkarni",
+          "specialty": "Pulmonologist",
+          "experience_years": 17,
+          "availability": "Schedule Appointment",
+          "rating": 65,
+          "cost": "₹750",
+          "phone": "912048554718.0",
+          "location": "Pimple Saudagar"
+        },
+        {
+          "name": "Dr. Rahul Chavan",
+          "specialty": "Pulmonologist",
+          "experience_years": 16,
+          "availability": "Available Today",
+          "rating": 96,
+          "cost": "₹700",
+          "phone": "917969201485.0",
+          "location": "Baner"
+        },
+        {
+          "name": "Dr. Mahavir Bagrecha",
+          "specialty": "Pulmonologist",
+          "experience_years": 9,
+          "availability": "Available Today",
+          "rating": 88,
+          "cost": "₹750",
+          "phone": "912241642385.0",
+          "location": "Pimpri-Chinchwad"
+        }
+      ]
+    },
+    {
+      "name": "Respiratory Health, Aundh",
+      "distance_km": 12.5,
+      "rating": 4.4,
+      "cost_level": "low",
+      "insurance_supported": true,
+      "coordinates": [
+        18.559,
+        73.789
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Vaibhav D. Pandharkar",
+          "specialty": "Pulmonologist",
+          "experience_years": 11,
+          "availability": "Available Today",
+          "rating": 72,
+          "cost": "₹950",
+          "phone": "917969201724.0",
+          "location": "Kharadi"
+        },
+        {
+          "name": "Dr. Suyash Gandhe",
+          "specialty": "Pulmonologist",
+          "experience_years": 4,
+          "availability": "Available Today",
+          "rating": 82,
+          "cost": "₹1000",
+          "phone": "917969141716.0",
+          "location": "Viman Nagar"
+        },
+        {
+          "name": "Dr. Anup Bhoyar",
+          "specialty": "Pulmonologist",
+          "experience_years": 6,
+          "availability": "Available Today",
+          "rating": 82,
+          "cost": "₹750",
+          "phone": "912048556580.0",
+          "location": "Kharadi"
+        }
+      ]
+    },
+    {
+      "name": "Lung Specialist Clinic, Hadapsar",
+      "distance_km": 18.9,
+      "rating": 4.3,
+      "cost_level": "low",
+      "insurance_supported": true,
+      "coordinates": [
+        18.559,
+        73.789
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Anand Vijay",
+          "specialty": "Pulmonologist",
+          "experience_years": 9,
+          "availability": "Available Today",
+          "rating": 88,
+          "cost": "₹1100",
+          "phone": "917969142078.0",
+          "location": "Pimpri-Chinchwad"
+        }
+      ]
+    }
+  ],
+  "cost_estimate": "₹1000 - ₹3000"
+}

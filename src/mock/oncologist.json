@@ -1,0 +1,181 @@
+{
+  "recommendation": "Consult with an Oncologist immediately",
+  "urgency": "high",
+  "emergency_flag": false,
+  "specialty": "Oncologist",
+  "hospitals": [
+    {
+      "name": "Cancer Care Centre, Baner",
+      "distance_km": 4.5,
+      "rating": 4.8,
+      "cost_level": "high",
+      "insurance_supported": true,
+      "coordinates": [
+        18.559,
+        73.789
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Pankaj Kshirsagar",
+          "specialty": "Oncologist",
+          "experience_years": 23,
+          "availability": "Schedule Appointment",
+          "rating": 94,
+          "cost": "₹1150",
+          "phone": "912048553738.0",
+          "location": "Pimple Saudagar"
+        },
+        {
+          "name": "Dr. Ashish Pokharkar",
+          "specialty": "Oncologist",
+          "experience_years": 23,
+          "availability": "Available Today",
+          "rating": 82,
+          "cost": "₹750",
+          "phone": "912048556097.0",
+          "location": "Hadapsar"
+        },
+        {
+          "name": "Dr. Bangar Ashish Sahurao",
+          "specialty": "Oncologist",
+          "experience_years": 30,
+          "availability": "Schedule Appointment",
+          "rating": 94,
+          "cost": "₹700",
+          "phone": "917949108205.0",
+          "location": "Bhosari"
+        }
+      ]
+    },
+    {
+      "name": "Apollo Oncology, Kharadi",
+      "distance_km": 15.3,
+      "rating": 4.9,
+      "cost_level": "high",
+      "insurance_supported": true,
+      "coordinates": [
+        18.559,
+        73.789
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Bhalgat Bhushan Sanjay",
+          "specialty": "Oncologist",
+          "experience_years": 15,
+          "availability": "Available Today",
+          "rating": 88,
+          "cost": "₹1100",
+          "phone": "912048556145.0",
+          "location": "Wanowrie"
+        },
+        {
+          "name": "Dr. Sumit Shah",
+          "specialty": "Oncologist",
+          "experience_years": 24,
+          "availability": "Available Today",
+          "rating": 88,
+          "cost": "₹700",
+          "phone": "917971261617.0",
+          "location": "Gultekdi"
+        },
+        {
+          "name": "Dr. Neeraj Dhingra",
+          "specialty": "Oncologist",
+          "experience_years": 30,
+          "availability": "Schedule Appointment",
+          "rating": 94,
+          "cost": "₹850",
+          "phone": "912071173265.0",
+          "location": "Pimpri-Chinchwad"
+        }
+      ]
+    },
+    {
+      "name": "Max Cancer Institute, Aundh",
+      "distance_km": 12.5,
+      "rating": 4.7,
+      "cost_level": "high",
+      "insurance_supported": true,
+      "coordinates": [
+        18.559,
+        73.789
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Prashant Chandra",
+          "specialty": "Oncologist",
+          "experience_years": 12,
+          "availability": "Schedule Appointment",
+          "rating": 94,
+          "cost": "₹1050",
+          "phone": "917971261625.0",
+          "location": "Pimpri-Chinchwad"
+        },
+        {
+          "name": "Dr. Sanjay M H",
+          "specialty": "Oncologist",
+          "experience_years": 5,
+          "availability": "Schedule Appointment",
+          "rating": 88,
+          "cost": "₹900",
+          "phone": "912071188518.0",
+          "location": "Hadapsar"
+        },
+        {
+          "name": "Dr. Joy Ghose",
+          "specialty": "Oncologist",
+          "experience_years": 18,
+          "availability": "Schedule Appointment",
+          "rating": 78,
+          "cost": "₹850",
+          "phone": "917971262045.0",
+          "location": "Hadapsar"
+        }
+      ]
+    },
+    {
+      "name": "Oncology Specialist, Hadapsar",
+      "distance_km": 18.9,
+      "rating": 4.6,
+      "cost_level": "medium",
+      "insurance_supported": true,
+      "coordinates": [
+        18.559,
+        73.789
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Rahul Wagh",
+          "specialty": "Oncologist",
+          "experience_years": 29,
+          "availability": "Available Today",
+          "rating": 82,
+          "cost": "₹1300",
+          "phone": "917971262845.0",
+          "location": "Viman Nagar"
+        },
+        {
+          "name": "Dr. Asma Sadique Pathan",
+          "specialty": "Oncologist",
+          "experience_years": 12,
+          "availability": "Schedule Appointment",
+          "rating": 72,
+          "cost": "₹1100",
+          "phone": "912048553256.0",
+          "location": "Viman Nagar"
+        },
+        {
+          "name": "Dr. Kulkarni Shriniwas Subhash",
+          "specialty": "Oncologist",
+          "experience_years": 11,
+          "availability": "Schedule Appointment",
+          "rating": 78,
+          "cost": "₹1100",
+          "phone": "912071187259.0",
+          "location": "Kharadi"
+        }
+      ]
+    }
+  ],
+  "cost_estimate": "₹10000 - ₹50000"
+}

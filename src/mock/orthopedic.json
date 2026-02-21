@@ -1,0 +1,181 @@
+{
+  "recommendation": "Visit an Orthopedic Surgeon for joint/bone issues",
+  "urgency": "medium",
+  "emergency_flag": false,
+  "specialty": "Orthopedic Surgeon",
+  "hospitals": [
+    {
+      "name": "Bone Care Orthopedic, Baner",
+      "distance_km": 5.1,
+      "rating": 4.7,
+      "cost_level": "high",
+      "insurance_supported": true,
+      "coordinates": [
+        18.559,
+        73.789
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Abhijit Ranaware",
+          "specialty": "Orthopedic",
+          "experience_years": 7,
+          "availability": "Available Today",
+          "rating": 94,
+          "cost": "₹950",
+          "phone": "912048556097.0",
+          "location": "Hadapsar"
+        },
+        {
+          "name": "Dr. Pravin Waghmare",
+          "specialty": "Orthopedic",
+          "experience_years": 6,
+          "availability": "Available Today",
+          "rating": 88,
+          "cost": "₹1450",
+          "phone": "912048553738.0",
+          "location": "Pimple Saudagar"
+        },
+        {
+          "name": "Dr. Aniket Patil",
+          "specialty": "Orthopedic",
+          "experience_years": 28,
+          "availability": "Schedule Appointment",
+          "rating": 94,
+          "cost": "₹750",
+          "phone": "912048556097.0",
+          "location": "Hadapsar"
+        }
+      ]
+    },
+    {
+      "name": "Apollo Orthopedic Centre, Kharadi",
+      "distance_km": 15.3,
+      "rating": 4.8,
+      "cost_level": "high",
+      "insurance_supported": true,
+      "coordinates": [
+        18.559,
+        73.789
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Shrirang Kulkarni",
+          "specialty": "Orthopedic",
+          "experience_years": 17,
+          "availability": "Available Today",
+          "rating": 94,
+          "cost": "₹550",
+          "phone": "917949108205.0",
+          "location": "Bhosari"
+        },
+        {
+          "name": "Dr. Sana Ahmed Sayyad",
+          "specialty": "Orthopedic",
+          "experience_years": 30,
+          "availability": "Schedule Appointment",
+          "rating": 90,
+          "cost": "₹800",
+          "phone": "912048556145.0",
+          "location": "Wanowrie"
+        },
+        {
+          "name": "Dr. Ashutosh Sabnis",
+          "specialty": "Orthopedic",
+          "experience_years": 21,
+          "availability": "Available Today",
+          "rating": 72,
+          "cost": "₹1200",
+          "phone": "912048556246.0",
+          "location": "Dhankawadi"
+        }
+      ]
+    },
+    {
+      "name": "Max Ortho Specialty, Aundh",
+      "distance_km": 12.5,
+      "rating": 4.6,
+      "cost_level": "medium",
+      "insurance_supported": true,
+      "coordinates": [
+        18.559,
+        73.789
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Amrut Oswal",
+          "specialty": "Orthopedic",
+          "experience_years": 15,
+          "availability": "Available Today",
+          "rating": 82,
+          "cost": "₹1350",
+          "phone": "912048556246.0",
+          "location": "Dhankawadi"
+        },
+        {
+          "name": "Dr. Sani Dole",
+          "specialty": "Orthopedic",
+          "experience_years": 19,
+          "availability": "Available Today",
+          "rating": 65,
+          "cost": "₹650",
+          "phone": "912048556819.0",
+          "location": "Wakad"
+        },
+        {
+          "name": "Dr. Chavan Sanjay Vishnu",
+          "specialty": "Orthopedic",
+          "experience_years": 12,
+          "availability": "Available Today",
+          "rating": 78,
+          "cost": "₹750",
+          "phone": "912048552982.0",
+          "location": "Pimple Nilakh"
+        }
+      ]
+    },
+    {
+      "name": "Spine & Joint Care, Hadapsar",
+      "distance_km": 18.9,
+      "rating": 4.5,
+      "cost_level": "medium",
+      "insurance_supported": true,
+      "coordinates": [
+        18.559,
+        73.789
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Sujit Kadrekar",
+          "specialty": "Orthopedic",
+          "experience_years": 25,
+          "availability": "Schedule Appointment",
+          "rating": 90,
+          "cost": "₹1600",
+          "phone": "912048556246.0",
+          "location": "Dhankawadi"
+        },
+        {
+          "name": "Dr. Vijaykumar Bhalerao",
+          "specialty": "Orthopedic",
+          "experience_years": 28,
+          "availability": "Schedule Appointment",
+          "rating": 65,
+          "cost": "₹850",
+          "phone": "917949108193.0",
+          "location": "Viman Nagar"
+        },
+        {
+          "name": "Dr. Ashwinkumar A Madavi",
+          "specialty": "Orthopedic",
+          "experience_years": 12,
+          "availability": "Schedule Appointment",
+          "rating": 65,
+          "cost": "₹600",
+          "phone": "918037318746.0",
+          "location": "Baner"
+        }
+      ]
+    }
+  ],
+  "cost_estimate": "₹1000 - ₹5000"
+}

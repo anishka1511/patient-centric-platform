@@ -1,0 +1,181 @@
+{
+  "recommendation": "Schedule an appointment with an Obstetrician",
+  "urgency": "high",
+  "emergency_flag": false,
+  "specialty": "Obstetrician",
+  "hospitals": [
+    {
+      "name": "Maternity Care Centre, Baner",
+      "distance_km": 4.5,
+      "rating": 4.9,
+      "cost_level": "high",
+      "insurance_supported": true,
+      "coordinates": [
+        18.5604,
+        73.8071
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Sneha Trivedi",
+          "specialty": "Obsstetrician",
+          "experience_years": 4,
+          "availability": "Available Today",
+          "rating": 92,
+          "cost": "₹800",
+          "phone": "912048556097.0",
+          "location": "Hadapsar"
+        },
+        {
+          "name": "Dr. Kishore Pandit",
+          "specialty": "Obsstetrician",
+          "experience_years": 13,
+          "availability": "Available Today",
+          "rating": 78,
+          "cost": "₹1250",
+          "phone": "917949107756.0",
+          "location": "Shivajinagar"
+        },
+        {
+          "name": "Dr. Soniya Pawar",
+          "specialty": "Obsstetrician",
+          "experience_years": 24,
+          "availability": "Available Today",
+          "rating": 92,
+          "cost": "₹650",
+          "phone": "912048556246.0",
+          "location": "Dhankawadi"
+        }
+      ]
+    },
+    {
+      "name": "Apollo Maternity Wing, Aundh",
+      "distance_km": 12.5,
+      "rating": 4.8,
+      "cost_level": "high",
+      "insurance_supported": true,
+      "coordinates": [
+        18.5604,
+        73.8071
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Sonali Chaudhari",
+          "specialty": "Obsstetrician",
+          "experience_years": 23,
+          "availability": "Available Today",
+          "rating": 98,
+          "cost": "₹750",
+          "phone": "912048554718.0",
+          "location": "Pimple Saudagar"
+        },
+        {
+          "name": "Dr. Rushabh Karnawat",
+          "specialty": "Obsstetrician",
+          "experience_years": 27,
+          "availability": "Available Today",
+          "rating": 72,
+          "cost": "₹700",
+          "phone": "912071189373.0",
+          "location": "Wakad"
+        },
+        {
+          "name": "Dr. Santosh Sidid",
+          "specialty": "Obsstetrician",
+          "experience_years": 12,
+          "availability": "Schedule Appointment",
+          "rating": 94,
+          "cost": "₹1050",
+          "phone": "912048556097.0",
+          "location": "Hadapsar"
+        }
+      ]
+    },
+    {
+      "name": "Max Women Hospital, Kharadi",
+      "distance_km": 15.3,
+      "rating": 4.7,
+      "cost_level": "high",
+      "insurance_supported": true,
+      "coordinates": [
+        18.5604,
+        73.8071
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Marya Patil",
+          "specialty": "Obsstetrician",
+          "experience_years": 15,
+          "availability": "Schedule Appointment",
+          "rating": 90,
+          "cost": "₹750",
+          "phone": "912048556145.0",
+          "location": "Wanowrie"
+        },
+        {
+          "name": "Dr. Asha Gavade",
+          "specialty": "Obsstetrician",
+          "experience_years": 19,
+          "availability": "Schedule Appointment",
+          "rating": 82,
+          "cost": "₹650",
+          "phone": "917941058656.0",
+          "location": "Hadapsar"
+        },
+        {
+          "name": "Dr. Shweta Pandya",
+          "specialty": "Obsstetrician",
+          "experience_years": 20,
+          "availability": "Available Today",
+          "rating": 94,
+          "cost": "₹1100",
+          "phone": "912048553738.0",
+          "location": "Pimple Saudagar"
+        }
+      ]
+    },
+    {
+      "name": "Pregnancy Care Clinic, Hadapsar",
+      "distance_km": 18.9,
+      "rating": 4.6,
+      "cost_level": "medium",
+      "insurance_supported": true,
+      "coordinates": [
+        18.5604,
+        73.8071
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Nilesh Unmesh Balkawade",
+          "specialty": "Obsstetrician",
+          "experience_years": 11,
+          "availability": "Available Today",
+          "rating": 92,
+          "cost": "Free Consultation",
+          "phone": "912071177427.0",
+          "location": "Wakad"
+        },
+        {
+          "name": "Dr. Sushil Garud",
+          "specialty": "Obsstetrician",
+          "experience_years": 25,
+          "availability": "Available Today",
+          "rating": 78,
+          "cost": "₹800",
+          "phone": "917969201343.0",
+          "location": "Kharadi"
+        },
+        {
+          "name": "Dr. Vandana Khanijo",
+          "specialty": "Obsstetrician",
+          "experience_years": 18,
+          "availability": "Schedule Appointment",
+          "rating": 94,
+          "cost": "₹600",
+          "phone": "912071171708.0",
+          "location": "Viman Nagar"
+        }
+      ]
+    }
+  ],
+  "cost_estimate": "₹15000 - ₹50000"
+}

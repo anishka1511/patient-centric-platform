@@ -1,0 +1,181 @@
+{
+  "recommendation": "Consult with a Pediatrician for child health",
+  "urgency": "medium",
+  "emergency_flag": false,
+  "specialty": "Pediatrician",
+  "hospitals": [
+    {
+      "name": "Happy Kids Clinic, Baner",
+      "distance_km": 4.5,
+      "rating": 4.7,
+      "cost_level": "medium",
+      "insurance_supported": true,
+      "coordinates": [
+        18.559,
+        73.789
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Seema Joshi",
+          "specialty": "Pediatrician",
+          "experience_years": 2,
+          "availability": "Available Today",
+          "rating": 82,
+          "cost": "This fee is indicative and might vary.\nNOTE: Fees is payable at clinic. There are NO charges for booking an appointment.",
+          "phone": "918046809162.0",
+          "location": "Aundh"
+        },
+        {
+          "name": "Dr. B R Kilawat",
+          "specialty": "Pediatrician",
+          "experience_years": 9,
+          "availability": "Available Today",
+          "rating": 78,
+          "cost": "This fee is indicative and might vary.\nNOTE: Fees is payable at clinic. There are NO charges for booking an appointment.",
+          "phone": "917941058734.0",
+          "location": "Wakad"
+        },
+        {
+          "name": "Dr. Dattatray Vasantrao Kulkarni",
+          "specialty": "Pediatrician",
+          "experience_years": 2,
+          "availability": "Available Today",
+          "rating": 82,
+          "cost": "₹600",
+          "phone": "917949108205.0",
+          "location": "Bhosari"
+        }
+      ]
+    },
+    {
+      "name": "Apollo Pediatric Centre, Aundh",
+      "distance_km": 12.5,
+      "rating": 4.8,
+      "cost_level": "medium",
+      "insurance_supported": true,
+      "coordinates": [
+        18.559,
+        73.789
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Janitha Gilbert",
+          "specialty": "Pediatrician",
+          "experience_years": 8,
+          "availability": "Schedule Appointment",
+          "rating": 85,
+          "cost": "₹750",
+          "phone": "912048556145.0",
+          "location": "Wanowrie"
+        },
+        {
+          "name": "Dr. Mujanar Jalil Shaukatali",
+          "specialty": "Pediatrician",
+          "experience_years": 14,
+          "availability": "Available Today",
+          "rating": 92,
+          "cost": "₹800",
+          "phone": "912048556145.0",
+          "location": "Wanowrie"
+        },
+        {
+          "name": "Dr. Pandurang Sawant",
+          "specialty": "Pediatrician",
+          "experience_years": 7,
+          "availability": "Available Today",
+          "rating": 65,
+          "cost": "₹600",
+          "phone": "917971262166.0",
+          "location": "Dhanori"
+        }
+      ]
+    },
+    {
+      "name": "Max Child Care, Kharadi",
+      "distance_km": 15.3,
+      "rating": 4.6,
+      "cost_level": "medium",
+      "insurance_supported": true,
+      "coordinates": [
+        18.559,
+        73.789
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Madhav Chavan",
+          "specialty": "Pediatrician",
+          "experience_years": 3,
+          "availability": "Available Today",
+          "rating": 72,
+          "cost": "₹700",
+          "phone": "912067325820.0",
+          "location": "Wakad"
+        },
+        {
+          "name": "Dr. Suhas Sodal",
+          "specialty": "Pediatrician",
+          "experience_years": 26,
+          "availability": "Available Today",
+          "rating": 82,
+          "cost": "₹850",
+          "phone": "912048553738.0",
+          "location": "Pimple Saudagar"
+        },
+        {
+          "name": "Dr. Nandkumar Banait",
+          "specialty": "Pediatrician",
+          "experience_years": 3,
+          "availability": "Available Today",
+          "rating": 98,
+          "cost": "₹700",
+          "phone": "917971262076.0",
+          "location": "Thergaon"
+        }
+      ]
+    },
+    {
+      "name": "Children Health Hub, Viman Nagar",
+      "distance_km": 10.7,
+      "rating": 4.5,
+      "cost_level": "low",
+      "insurance_supported": true,
+      "coordinates": [
+        18.559,
+        73.789
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Shweta Hajare",
+          "specialty": "Pediatrician",
+          "experience_years": 3,
+          "availability": "Available Today",
+          "rating": 78,
+          "cost": "₹700",
+          "phone": "912071172550.0",
+          "location": "Chandan Nagar"
+        },
+        {
+          "name": "Dr. Avinash Itke",
+          "specialty": "Pediatrician",
+          "experience_years": 21,
+          "availability": "Available Today",
+          "rating": 94,
+          "cost": "₹500",
+          "phone": "912071173263.0",
+          "location": "Wakad"
+        },
+        {
+          "name": "Dr. Sameer Mhatre",
+          "specialty": "Pediatrician",
+          "experience_years": 27,
+          "availability": "Schedule Appointment",
+          "rating": 78,
+          "cost": "₹750",
+          "phone": "917969141561.0",
+          "location": "Viman Nagar"
+        }
+      ]
+    }
+  ],
+  "cost_estimate": "₹500 - ₹2000"
+}

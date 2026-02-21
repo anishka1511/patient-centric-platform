@@ -1,0 +1,95 @@
+{
+  "recommendation": "Use online consultation or visit a nearby clinic",
+  "urgency": "low",
+  "emergency_flag": false,
+  "specialty": "Telemedicine",
+  "hospitals": [
+    {
+      "name": "Apollo 247 - Online Consultation",
+      "distance_km": 0,
+      "rating": 4.6,
+      "cost_level": "low",
+      "insurance_supported": false,
+      "coordinates": [
+        18.5204,
+        73.8567
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Anupama Joshi",
+          "specialty": "General Physician",
+          "experience_years": 28,
+          "availability": "Schedule Appointment",
+          "rating": 65,
+          "cost": "₹950",
+          "phone": "917969141570.0",
+          "location": "Shivajinagar"
+        },
+        {
+          "name": "Dr. Pournima Kulkarni",
+          "specialty": "General Physician",
+          "experience_years": 4,
+          "availability": "Schedule Appointment",
+          "rating": 92,
+          "cost": "₹1600",
+          "phone": "917969201218.0",
+          "location": "Kothrud"
+        },
+        {
+          "name": "Dr. Devendra Satpute",
+          "specialty": "General Physician",
+          "experience_years": 27,
+          "availability": "Available Today",
+          "rating": 96,
+          "cost": "₹1150",
+          "phone": "912048552499.0",
+          "location": "Pimpri-Chinchwad"
+        }
+      ]
+    },
+    {
+      "name": "Practo Online - Virtual Visit",
+      "distance_km": 0,
+      "rating": 4.5,
+      "cost_level": "low",
+      "insurance_supported": false,
+      "coordinates": [
+        18.5204,
+        73.8567
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Abhijit Bagade",
+          "specialty": "General Physician",
+          "experience_years": 15,
+          "availability": "Schedule Appointment",
+          "rating": 78,
+          "cost": "₹1000",
+          "phone": "912048552499.0",
+          "location": "Shankar Shet Road"
+        },
+        {
+          "name": "Dr. Ravindra Singh",
+          "specialty": "General Physician",
+          "experience_years": 18,
+          "availability": "Available Today",
+          "rating": 65,
+          "cost": "₹700",
+          "phone": "917969201608.0",
+          "location": "Pimpri-Chinchwad"
+        },
+        {
+          "name": "Dr. Pankaj Totala",
+          "specialty": "General Physician",
+          "experience_years": 7,
+          "availability": "Available Today",
+          "rating": 90,
+          "cost": "₹1050",
+          "phone": "912071189377.0",
+          "location": "Pimpri-Chinchwad"
+        }
+      ]
+    }
+  ],
+  "cost_estimate": "₹200 - ₹500"
+}

@@ -1,0 +1,181 @@
+{
+  "recommendation": "Schedule an appointment with a Psychiatrist",
+  "urgency": "medium",
+  "emergency_flag": false,
+  "specialty": "Psychiatrist",
+  "hospitals": [
+    {
+      "name": "Mental Health Clinic, Baner",
+      "distance_km": 4.5,
+      "rating": 4.5,
+      "cost_level": "medium",
+      "insurance_supported": true,
+      "coordinates": [
+        18.5304,
+        73.9217
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Pankaj B Borade",
+          "specialty": "Psychiatrist",
+          "experience_years": 25,
+          "availability": "Schedule Appointment",
+          "rating": 82,
+          "cost": "₹1650",
+          "phone": "912048553759.0",
+          "location": "Camp"
+        },
+        {
+          "name": "Dr. Bhushan Chaudhari",
+          "specialty": "Psychiatrist",
+          "experience_years": 13,
+          "availability": "Available Today",
+          "rating": 94,
+          "cost": "₹1000",
+          "phone": "912241642357.0",
+          "location": "Pimpri-Chinchwad"
+        },
+        {
+          "name": "Dr. Rashmi Navelkar",
+          "specialty": "Psychiatrist",
+          "experience_years": 16,
+          "availability": "Schedule Appointment",
+          "rating": 65,
+          "cost": "₹900",
+          "phone": "917969141871.0",
+          "location": "Pimple Saudagar"
+        }
+      ]
+    },
+    {
+      "name": "Apollo Psychiatric Centre, Kharadi",
+      "distance_km": 15.3,
+      "rating": 4.6,
+      "cost_level": "medium",
+      "insurance_supported": true,
+      "coordinates": [
+        18.5304,
+        73.9217
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Kishor Jadhavar",
+          "specialty": "Psychiatrist",
+          "experience_years": 24,
+          "availability": "Available Today",
+          "rating": 82,
+          "cost": "₹1050",
+          "phone": "912071173186.0",
+          "location": "Hadapsar"
+        },
+        {
+          "name": "Dr. Hamza Hussain",
+          "specialty": "Psychiatrist",
+          "experience_years": 24,
+          "availability": "Available Today",
+          "rating": 94,
+          "cost": "₹1350",
+          "phone": "917969141882.0",
+          "location": "Undri"
+        },
+        {
+          "name": "Dr. Bhushan Ambadkar",
+          "specialty": "Psychiatrist",
+          "experience_years": 12,
+          "availability": "Schedule Appointment",
+          "rating": 92,
+          "cost": "₹600",
+          "phone": "917969141827.0",
+          "location": "Wadgaon Sheri"
+        }
+      ]
+    },
+    {
+      "name": "Mind Care Bureau, Aundh",
+      "distance_km": 12.5,
+      "rating": 4.4,
+      "cost_level": "low",
+      "insurance_supported": true,
+      "coordinates": [
+        18.5304,
+        73.9217
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Pratibha K Bezwada",
+          "specialty": "Psychiatrist",
+          "experience_years": 30,
+          "availability": "Schedule Appointment",
+          "rating": 78,
+          "cost": "₹1400",
+          "phone": "917969201165.0",
+          "location": "Hinjewadi"
+        },
+        {
+          "name": "Dr. Samiksha Murkute",
+          "specialty": "Psychiatrist",
+          "experience_years": 23,
+          "availability": "Schedule Appointment",
+          "rating": 85,
+          "cost": "₹1050",
+          "phone": "917971172884.0",
+          "location": "Pimple Saudagar"
+        },
+        {
+          "name": "Dr. Yogesh Pokale",
+          "specialty": "Psychiatrist",
+          "experience_years": 4,
+          "availability": "Available Today",
+          "rating": 65,
+          "cost": "₹700",
+          "phone": "912048564456.0",
+          "location": "Bhosari"
+        }
+      ]
+    },
+    {
+      "name": "Mental Wellness, Hadapsar",
+      "distance_km": 18.9,
+      "rating": 4.3,
+      "cost_level": "low",
+      "insurance_supported": true,
+      "coordinates": [
+        18.5304,
+        73.9217
+      ],
+      "doctors": [
+        {
+          "name": "Dr. Ananya Dhar",
+          "specialty": "Psychiatrist",
+          "experience_years": 9,
+          "availability": "Schedule Appointment",
+          "rating": 82,
+          "cost": "₹1300",
+          "phone": "912048564432.0",
+          "location": "Viman Nagar"
+        },
+        {
+          "name": "Dr. Rishikesh Behere",
+          "specialty": "Psychiatrist",
+          "experience_years": 14,
+          "availability": "Available Today",
+          "rating": 78,
+          "cost": "₹1550",
+          "phone": "917969142012.0",
+          "location": "Baner"
+        },
+        {
+          "name": "Dr. Rajesh Nalawade",
+          "specialty": "Psychiatrist",
+          "experience_years": 13,
+          "availability": "Available Today",
+          "rating": 72,
+          "cost": "₹1900",
+          "phone": "917969201083.0",
+          "location": "Nigdi-Pradhikaran"
+        }
+      ]
+    }
+  ],
+  "cost_estimate": "₹1000 - ₹2500"
+}
