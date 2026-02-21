@@ -66,8 +66,11 @@ export const matchDoctorsToHospitals = (doctors, hospitalData, specialty) => {
 
 // Parse CSV text and return array of doctor objects
 export const parseCSVData = (csvText) => {
-  const lines = csvText.split('\n');
-  const headers = lines[0].split(',').map(h => h.trim());
+  const lines = csvText.split(/\r?\n/);
+  const headers = (lines[0] || '')
+    .replace(/^\uFEFF/, '')
+    .split(',')
+    .map(h => h.trim());
   const doctors = [];
 
   for (let i = 1; i < lines.length; i++) {

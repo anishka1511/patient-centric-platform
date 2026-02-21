@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react';
+import { parseCSVData } from '../services/csvParser';
 import '../styles/CSVUpload.css';
 
 export default function CSVUpload({ onDataImported }) {
@@ -6,31 +7,8 @@ export default function CSVUpload({ onDataImported }) {
   const [importStatus, setImportStatus] = useState(null);
   const fileInputRef = useRef(null);
 
-  const parseCSV = (csvText) => {
-    const lines = csvText.split('\n');
-    const headers = lines[0].split(',').map(h => h.trim());
-    const doctors = [];
-
-    for (let i = 1; i < lines.length; i++) {
-      if (!lines[i].trim()) continue;
-
-      const values = lines[i].split(',').map(v => v.trim().replace(/^"|"$/g, ''));
-      const doctor = {};
-
-      headers.forEach((header, index) => {
-        doctor[header] = values[index];
-      });
-
-      if (doctor.doctors_name) {
-        doctors.push(doctor);
-      }
-    }
-
-    return doctors;
-  };
-
   const handleFileSelect = (file) => {
-    if (!file.name.endsWith('.csv')) {
+    if (!/\.csv$/i.test(file.name)) {
       setImportStatus({ type: 'error', message: '❌ Please upload a CSV file' });
       return;
     }
@@ -38,7 +16,7 @@ export default function CSVUpload({ onDataImported }) {
     const reader = new FileReader();
     reader.onload = (e) => {
       try {
-        const doctors = parseCSV(e.target.result);
+        const doctors = parseCSVData(String(e.target.result || ''));
         setImportStatus({ type: 'success', message: `✓ Imported ${doctors.length} doctors` });
         setTimeout(() => {
           onDataImported(doctors);
