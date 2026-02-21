@@ -91,6 +91,30 @@ NEARBY_MAP = {
     "wanwadi": ["wanowrie", "camp", "salunke vihar"],
     "warje": ["kothrud", "karve nagar", "paud road"],
     "yerwada": ["kalyani nagar", "viman nagar", "dhanori"],
+    # Previously unmapped locations
+    "bhugaon": ["bavdhan", "warje", "kothrud"],
+    "bt kawade road": ["kharadi", "viman nagar", "wadgaon sheri"],
+    "bund garden": ["koregaon park", "camp", "yerwada"],
+    "chakan": ["moshi", "bhosari"],
+    "chandan nagar": ["kharadi", "viman nagar", "wadgaon sheri"],
+    "dapodi": ["khadki", "aundh", "pimpri-chinchwad"],
+    "dhayari": ["sinhagad road", "warje", "kothrud"],
+    "dhole patil road": ["camp", "koregaon park", "bund garden", "kasba peth", "rasta peth", "shivajinagar"],
+    "ganga dham": ["market yard", "bibvewadi", "swargate"],
+    "gultekdi": ["market yard", "swargate", "bibvewadi"],
+    "khadki": ["dapodi", "aundh", "shivajinagar"],
+    "magarpatta": ["hadapsar", "magarpatta city", "kharadi"],
+    "manik bag": ["kothrud", "karve nagar", "erandwane"],
+    "mangalvar peth": ["rasta peth", "kasba peth", "budhwar peth", "camp", "dhole patil road"],
+    "marunji": ["hinjewadi", "mahalunge", "wakad"],
+    "mohammadwadi": ["kondhwa", "undri", "nibm"],
+    "mundhwa": ["keshav nagar", "kharadi", "hadapsar"],
+    "narayan peth": ["sadashiv peth", "shaniwar peth", "budhwar peth"],
+    "parvati paytha": ["parvati gaon", "swargate", "mukund nagar"],
+    "rahatani": ["pimple saudagar", "thergaon", "wakad"],
+    "rasta peth": ["kasba peth", "budhwar peth", "camp", "mangalvar peth"],
+    "shukrawar peth": ["shaniwar peth", "budhwar peth", "sadashiv peth"],
+    "tilak road": ["sadashiv peth", "shaniwar peth", "deccan gymkhana"],
 }
 
 
@@ -145,6 +169,7 @@ LOCATION_COORDS = {
     "magarpatta": (18.5112, 73.9274),
     "magarpatta city": (18.5112, 73.9274),
     "mahalunge": (19.0931, 73.7527),
+    "mangalvar peth": (18.5210, 73.8650),
     "manik bag": (18.5400, 73.8300),
     "market yard": (18.3367, 74.3814),
     "marunji": (18.6117, 73.7156),
@@ -222,6 +247,55 @@ def validate_location_coordinates():
 
 # Validate coordinates once at initialization
 validate_location_coordinates()
+
+
+def convert_coordinates_to_location(latitude: float, longitude: float, max_distance_km: float = 10.0) -> str:
+    """
+    Convert latitude/longitude coordinates to the nearest known location name.
+    Uses Haversine formula to calculate distance between coordinates.
+    
+    Args:
+        latitude (float): User's latitude coordinate
+        longitude (float): User's longitude coordinate
+        max_distance_km (float): Maximum distance in km to consider a match (default: 10km)
+    
+    Returns:
+        str: Nearest location name (lowercase) or None if no location within max_distance
+    
+    Example:
+        >>> convert_coordinates_to_location(18.5642, 73.7769)
+        'baner'
+    """
+    from math import radians, sin, cos, sqrt, atan2
+    
+    def haversine_distance(lat1, lon1, lat2, lon2):
+        """Calculate distance between two coordinates in kilometers."""
+        R = 6371  # Earth's radius in kilometers
+        
+        lat1, lon1, lat2, lon2 = map(radians, [lat1, lon1, lat2, lon2])
+        dlat = lat2 - lat1
+        dlon = lon2 - lon1
+        
+        a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2
+        c = 2 * atan2(sqrt(a), sqrt(1-a))
+        
+        return R * c
+    
+    # Find nearest location
+    min_distance = float('inf')
+    nearest_location = None
+    
+    for location_name, (loc_lat, loc_lon) in LOCATION_COORDS.items():
+        distance = haversine_distance(latitude, longitude, loc_lat, loc_lon)
+        if distance < min_distance:
+            min_distance = distance
+            nearest_location = location_name
+    
+    # Return location only if within max_distance threshold
+    if min_distance <= max_distance_km:
+        return nearest_location
+    else:
+        return None
 
 
 def _convert_to_json_serializable(value):
@@ -1116,7 +1190,7 @@ def generate_recommendation_response(input_data: dict):
     Args:
         input_data (dict): Dictionary containing:
             - "specialty" (str): Desired medical specialty (required)
-            - "location" (str): Preferred location (required)
+            - "location" (str OR dict): Location as string name OR dict with "latitude" and "longitude" (required)
             - "severity" (str): Severity level - "low", "medium", or "high" (optional, default: "medium")
     
     Returns:
@@ -1131,9 +1205,42 @@ def generate_recommendation_response(input_data: dict):
     if not specialty:
         return {"error": "Specialty is required."}
     
-    location = input_data.get("location", "").strip().lower()
-    if not location:
+    # LOCATION HANDLING - Support both string and lat/lng coordinates
+    location_input = input_data.get("location")
+    if not location_input:
         return {"error": "Location is required."}
+    
+    # Check if location is provided as coordinates
+    if isinstance(location_input, dict):
+        latitude = location_input.get("latitude")
+        longitude = location_input.get("longitude")
+        
+        if latitude is None or longitude is None:
+            return {"error": "Location coordinates must include both latitude and longitude."}
+        
+        try:
+            latitude = float(latitude)
+            longitude = float(longitude)
+        except (ValueError, TypeError):
+            return {"error": "Invalid latitude or longitude values."}
+        
+        # Convert coordinates to nearest location name
+        detected_location = convert_coordinates_to_location(latitude, longitude)
+        if detected_location is None:
+            return {
+                "error": "No known locations found near the provided coordinates. Please try a different location.",
+                "metadata": {
+                    "provided_coordinates": {"latitude": latitude, "longitude": longitude}
+                }
+            }
+        location = detected_location
+        location_source = "coordinates"
+    else:
+        # Location provided as string
+        location = str(location_input).strip().lower()
+        if not location:
+            return {"error": "Location is required."}
+        location_source = "name"
     
     # SEVERITY VALIDATION
     severity = input_data.get("severity", "medium").strip().lower()
@@ -1165,7 +1272,9 @@ def generate_recommendation_response(input_data: dict):
                 "query_severity": severity,
                 "severity": severity,
                 "recommendation_type": "hospital_only",
-                "emergency_filter_applied": True
+                "emergency_filter_applied": True,
+                "location_source": location_source,
+                "detected_location": location if location_source == "coordinates" else None
             },
             "recommended_hospitals": hospital_results.get("recommended_hospitals", []),
             "total_hospitals_available": hospital_count
@@ -1185,7 +1294,9 @@ def generate_recommendation_response(input_data: dict):
                     "query_location": location,
                     "query_severity": severity,
                     "severity": severity,
-                    "recommendation_type": "hospital_primary"
+                    "recommendation_type": "hospital_primary",
+                    "location_source": location_source,
+                    "detected_location": location if location_source == "coordinates" else None
                 },
                 "recommended_hospitals": hospital_results.get("recommended_hospitals", []),
                 "total_hospitals_available": hospital_count
@@ -1210,7 +1321,9 @@ def generate_recommendation_response(input_data: dict):
                 "returned_count": returned_count,
                 "fallback_applied": fallback_metadata.get("fallback_applied", False),
                 "fallback_location": fallback_metadata.get("fallback_location"),
-                "fallback_type": fallback_type
+                "fallback_type": fallback_type,
+                "location_source": location_source,
+                "detected_location": location if location_source == "coordinates" else None
             }
             
             if fallback_type == "general_physician":
@@ -1253,7 +1366,9 @@ def generate_recommendation_response(input_data: dict):
                         "query_severity": severity,
                         "severity": severity,
                         "recommendation_type": "hospital_fallback",
-                        "reason": "No doctors available, suggesting hospitals instead"
+                        "reason": "No doctors available, suggesting hospitals instead",
+                        "location_source": location_source,
+                        "detected_location": location if location_source == "coordinates" else None
                     },
                     "recommended_hospitals": hospital_results.get("recommended_hospitals", []),
                     "total_hospitals_available": hospital_count
@@ -1277,7 +1392,9 @@ def generate_recommendation_response(input_data: dict):
             "returned_count": returned_count,
             "fallback_applied": fallback_metadata.get("fallback_applied", False),
             "fallback_location": fallback_metadata.get("fallback_location"),
-            "fallback_type": fallback_type
+            "fallback_type": fallback_type,
+            "location_source": location_source,
+            "detected_location": location if location_source == "coordinates" else None
         }
         
         if fallback_type == "general_physician" or fallback_type == "general_physician_nearby":

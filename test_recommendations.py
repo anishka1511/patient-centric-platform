@@ -27,12 +27,18 @@ def get_severity():
 
 
 def get_location():
-    """Prompt user for location."""
+    """Prompt user for location coordinates."""
     while True:
-        location = input("\nEnter location (e.g., baner, wakad, kharadi): ").strip().lower()
-        if location:
-            return location
-        print("❌ Location cannot be empty.")
+        try:
+            lat_input = input("\nEnter latitude (e.g., 18.5642): ").strip()
+            lon_input = input("Enter longitude (e.g., 73.7769): ").strip()
+            
+            latitude = float(lat_input)
+            longitude = float(lon_input)
+            
+            return {"latitude": latitude, "longitude": longitude}
+        except ValueError:
+            print("❌ Invalid coordinates. Please enter valid numbers.")
 
 
 def get_specialty():
@@ -66,7 +72,7 @@ def main():
             
             print(f"\n📋 Processing request...")
             print(f"   Severity: {severity}")
-            print(f"   Location: {location}")
+            print(f"   Location: Coordinates ({location['latitude']}, {location['longitude']})")
             print(f"   Specialty: {specialty}")
             
             # Get recommendation
