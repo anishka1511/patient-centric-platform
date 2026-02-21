@@ -57,6 +57,10 @@ class SymptomAssessmentResponse(BaseModel):
     safety_advice: Optional[str] = None
     session_id: Optional[str] = None
     user_location: Optional[UserLocation] = Field(None, description="User's location if provided")
+    scraping_recommendations: Optional[Dict[str, Any]] = Field(
+        None,
+        description="Optional downstream recommendations from scraping/recommendation engine"
+    )
     disclaimer: str
     
     class Config:

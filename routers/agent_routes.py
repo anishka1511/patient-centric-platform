@@ -1,6 +1,8 @@
 """
 API Routes for symptom assessment agent
 """
+from typing import Any, Dict, Optional
+
 from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlalchemy.orm import Session
 import uuid
@@ -14,10 +16,47 @@ from routers.schemas import (
 from services.agent_orchestrator import agent_orchestrator
 from services.conversation_service import conversation_service
 from services.geolocation_service import geolocation_service
+from services.scraping_adapter import build_scraping_input
 from models.message import MessageRole
 from config.logging_config import logger
 
 router = APIRouter(prefix="/api", tags=["symptom-assessment"])
+
+
+def _run_scraping_enrichment(
+    assessment_result: Dict[str, Any],
+    location_dict: Optional[Dict[str, Any]]
+) -> Optional[Dict[str, Any]]:
+    """
+    Convert assessment output to scraping input format and run recommendation engine.
+    Returns None for non-actionable categories.
+    """
+    category = assessment_result.get("category")
+    if category in {"INSUFFICIENT_INFO", "IRRELEVANT"}:
+        return None
+
+    payload = build_scraping_input(assessment_result, location_dict)
+    coords = payload.get("location", {})
+    latitude = coords.get("latitude")
+    longitude = coords.get("longitude")
+    specialty = payload.get("specialty")
+
+    if latitude is None or longitude is None or not specialty:
+        return {
+            "error": "Missing required scraping inputs: severity, latitude/longitude, specialty.",
+            "input": payload
+        }
+
+    try:
+        from data_loader import generate_recommendation_response
+        return generate_recommendation_response(payload)
+    except Exception as exc:
+        logger.error(f"Scraping enrichment failed: {exc}", exc_info=True)
+        return {
+            "error": "Scraping enrichment failed.",
+            "details": str(exc),
+            "input": payload
+        }
 
 
 @router.post("/assess", response_model=SymptomAssessmentResponse)
@@ -88,6 +127,8 @@ async def assess_symptoms(
             conversation.id,
             assessment_result
         )
+
+        scraping_recommendations = _run_scraping_enrichment(assessment_result, location_dict)
         
         # Handle INSUFFICIENT_INFO case - format clarifying questions
         if assessment_result.get("category") == "INSUFFICIENT_INFO":
@@ -104,7 +145,8 @@ async def assess_symptoms(
                 reasoning=reasoning,
                 safety_advice=None,
                 session_id=session_id,
-                user_location=request.location,
+                user_location=location_dict,
+                scraping_recommendations=scraping_recommendations,
                 disclaimer=agent_orchestrator.get_health_disclaimer()
             )
         # Handle IRRELEVANT case - non-medical input
@@ -121,7 +163,8 @@ async def assess_symptoms(
                 reasoning=assessment_result.get("message", "Please describe your symptoms.") + suggestions_text,
                 safety_advice=None,
                 session_id=session_id,
-                user_location=request.location,
+                user_location=location_dict,
+                scraping_recommendations=scraping_recommendations,
                 disclaimer=agent_orchestrator.get_health_disclaimer()
             )
         # Normal medical assessment
@@ -135,7 +178,8 @@ async def assess_symptoms(
                 reasoning=assessment_result.get("reasoning", ""),
                 safety_advice=assessment_result.get("safety_advice"),
                 session_id=session_id,
-                user_location=request.location,
+                user_location=location_dict,
+                scraping_recommendations=scraping_recommendations,
                 disclaimer=agent_orchestrator.get_health_disclaimer()
             )
         
