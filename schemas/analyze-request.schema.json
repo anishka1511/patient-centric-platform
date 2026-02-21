@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "analyze-request.schema.json",
+  "title": "AnalyzeRequest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["symptoms", "city"],
+  "properties": {
+    "patient_id": { "type": "string", "minLength": 1 },
+    "age": { "type": "integer", "minimum": 0, "maximum": 120 },
+    "gender": { "type": "string", "minLength": 1 },
+    "symptoms": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "city": { "type": "string", "minLength": 1 },
+    "insurance_provider": { "type": "string", "minLength": 1 }
+  }
+}

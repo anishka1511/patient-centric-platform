@@ -120,10 +120,10 @@ pip install -r requirements.txt
 Edit `.env` file (create from `.env.example`):
 ```env
 # Groq AI (current provider for symptom assessment)
-GROQ_API_KEY=gsk_YOUR_KEY_HERE
+OPENAI_API_KEY=gsk_YOUR_KEY_HERE
 LLM_PROVIDER=groq
 GROQ_BASE_URL=https://api.groq.com/openai/v1
-OPENAI_MODEL=llama-3.3-70b-versatile
+LLM_MODEL=llama-3.3-70b-versatile
 
 # Database
 DATABASE_URL=sqlite:///./healthcare_agent.db
@@ -570,20 +570,20 @@ patient-centric-platform/
 ```env
 LLM_PROVIDER=groq
 GROQ_BASE_URL=https://api.groq.com/openai/v1
-OPENAI_MODEL=llama-3.3-70b-versatile
+LLM_MODEL=llama-3.3-70b-versatile
 ```
 
 **OpenAI:**
 ```env
 LLM_PROVIDER=openai
-OPENAI_MODEL=gpt-4
+LLM_MODEL=gpt-4
 ```
 
 **Grok (X.AI):**
 ```env
 LLM_PROVIDER=grok
 GROK_BASE_URL=https://api.x.ai/v1
-OPENAI_MODEL=grok-beta
+LLM_MODEL=grok-beta
 ```
 
 ### Database

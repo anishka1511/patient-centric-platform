@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "analyze-response.schema.json",
+  "title": "AnalyzeResponse",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["triage", "recommended_action", "hospitals", "meta"],
+  "properties": {
+    "triage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["specialty", "urgency_level", "emergency", "confidence", "rationale"],
+      "properties": {
+        "specialty": { "type": "string" },
+        "urgency_level": { "type": "string", "enum": ["low", "medium", "high", "critical"] },
+        "emergency": { "type": "boolean" },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "rationale": { "type": "string" }
+      }
+    },
+    "recommended_action": { "type": "string" },
+    "hospitals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "hospital_name",
+          "distance_km",
+          "rating",
+          "estimated_wait_time_min",
+          "accepts_insurance",
+          "review_summary",
+          "hidden_charges_risk",
+          "rank_reasons"
+        ],
+        "properties": {
+          "hospital_name": { "type": "string" },
+          "distance_km": { "type": "number", "minimum": 0 },
+          "rating": { "type": "number", "minimum": 0, "maximum": 5 },
+          "estimated_wait_time_min": { "type": "integer", "minimum": 0 },
+          "accepts_insurance": { "type": "boolean" },
+          "review_summary": { "type": "string" },
+          "hidden_charges_risk": { "type": "string", "enum": ["low", "medium", "high", "unknown"] },
+          "rank_score": { "type": ["number", "null"] },
+          "rank_reasons": { "type": "array", "items": { "type": "string" } },
+          "estimated_cost_for_hospital": { "type": ["integer", "null"], "minimum": 0 }
+        }
+      }
+    },
+    "cost_overview": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": [
+        "currency",
+        "estimated_min",
+        "estimated_max",
+        "estimated_avg",
+        "breakdown",
+        "insurance_applied"
+      ],
+      "properties": {
+        "currency": { "type": "string" },
+        "estimated_min": { "type": "integer", "minimum": 0 },
+        "estimated_max": { "type": "integer", "minimum": 0 },
+        "estimated_avg": { "type": "integer", "minimum": 0 },
+        "insurance_applied": { "type": "boolean" },
+        "breakdown": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["consultation", "diagnostics", "medication", "procedures"],
+          "properties": {
+            "consultation": { "type": "integer", "minimum": 0 },
+            "diagnostics": { "type": "integer", "minimum": 0 },
+            "medication": { "type": "integer", "minimum": 0 },
+            "procedures": { "type": "integer", "minimum": 0 }
+          }
+        }
+      }
+    },
+    "meta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["used_mock_data", "flow", "generated_at"],
+      "properties": {
+        "used_mock_data": { "type": "boolean" },
+        "flow": { "type": "string", "enum": ["standard", "emergency"] },
+        "generated_at": { "type": "string" }
+      }
+    }
+  }
+}
