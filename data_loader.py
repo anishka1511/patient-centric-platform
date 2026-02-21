@@ -8,6 +8,12 @@ _cached_data = None
 # Default number of recommendations to return
 DEFAULT_TOP_K = 10
 
+# City-level aliases that should search across all localities in that city dataset
+CITY_WIDE_LOCATIONS = {
+    "pune",
+    "pune city",
+}
+
 # Ordered nearby fallback map (lowercase keys/values)
 NEARBY_MAP = {
     "akurdi": ["nigdi-pradhikaran", "pimpri-chinchwad", "ravet", "thergaon"],
@@ -576,6 +582,8 @@ def recommend_doctors(input_data: dict):
     # Validate inputs
     if not specialty or not location:
         raise ValueError("Both 'specialty' and 'location' are required.")
+
+    is_city_wide_location = location in CITY_WIDE_LOCATIONS
     
     # Load dataset
     df = load_doctors_data()
@@ -600,11 +608,17 @@ def recommend_doctors(input_data: dict):
         # Don't auto-fallback here, let the location filtering handle it
         pass
     else:
-        # First attempt: exact location match
-        location_filtered = filtered_df[filtered_df['location'].str.lower() == location]
+        # First attempt: exact location match (or city-wide if requested)
+        if is_city_wide_location:
+            location_filtered = filtered_df.copy()
+            fallback_applied = True
+            fallback_location = "all_pune_areas"
+            fallback_type = "city_wide"
+        else:
+            location_filtered = filtered_df[filtered_df['location'].str.lower() == location]
 
         # If no exact results, try nearby locations in order
-        if location_filtered.empty:
+        if location_filtered.empty and not is_city_wide_location:
             nearby_locations = NEARBY_MAP.get(location, [])
             for nearby in nearby_locations:
                 nearby_filtered = filtered_df[filtered_df['location'].str.lower() == nearby]
@@ -622,10 +636,16 @@ def recommend_doctors(input_data: dict):
         gp_df = df[df['specialty'].str.lower() == "general physician"]
         
         # Try exact location first
-        gp_location_filtered = gp_df[gp_df['location'].str.lower() == location]
+        if is_city_wide_location:
+            gp_location_filtered = gp_df.copy()
+            fallback_applied = True
+            fallback_location = "all_pune_areas"
+            fallback_type = "general_physician_city_wide"
+        else:
+            gp_location_filtered = gp_df[gp_df['location'].str.lower() == location]
         
         # If no GPs in exact location, try nearby
-        if gp_location_filtered.empty:
+        if gp_location_filtered.empty and not is_city_wide_location:
             nearby_locations = NEARBY_MAP.get(location, [])
             for nearby in nearby_locations:
                 nearby_gp = gp_df[gp_df['location'].str.lower() == nearby]
@@ -743,8 +763,10 @@ def generate_cost_insights(input_data: dict):
     # Filter by specialty (case insensitive)
     filtered_df = df[df['specialty'].str.lower() == specialty.lower()]
     
-    # Further filter by location (case insensitive)
-    filtered_df = filtered_df[filtered_df['location'].str.lower() == location.lower()]
+    # Further filter by location (case insensitive), unless city-wide lookup is requested
+    location_lc = location.lower()
+    if location_lc not in CITY_WIDE_LOCATIONS:
+        filtered_df = filtered_df[filtered_df['location'].str.lower() == location_lc]
     
     # Handle no matches
     if filtered_df.empty:

@@ -242,6 +242,22 @@
                 <span class="result-label">⚠️ Safety Advice:</span>
                 <p id="safetyAdvice" style="font-weight: 600;"></p>
             </div>
+            <div class="result-item" id="costOverviewContainer" style="display: none;">
+                <span class="result-label">💰 Cost Overview:</span>
+                <p id="costOverview"></p>
+            </div>
+            <div class="result-item" id="doctorListContainer" style="display: none;">
+                <span class="result-label">👨‍⚕️ Recommended Doctors:</span>
+                <p id="doctorList" style="white-space: pre-line;"></p>
+            </div>
+            <div class="result-item" id="hospitalListContainer" style="display: none;">
+                <span class="result-label">🏥 Recommended Hospitals (Recommender):</span>
+                <p id="hospitalList" style="white-space: pre-line;"></p>
+            </div>
+            <div class="result-item" id="rawRecommendationContainer" style="display: none;">
+                <span class="result-label">📦 Recommendation Output (Raw):</span>
+                <pre id="rawRecommendation" style="white-space: pre-wrap; word-break: break-word; background: #f7f7f9; padding: 10px; border-radius: 6px; margin-top: 6px;"></pre>
+            </div>
             <div class="result-item">
                 <span class="result-label">📍 Your Location:</span>
                 <span id="userLocation"></span>
@@ -327,7 +343,8 @@
                 // Build request payload
                 const payload = {
                     message: symptoms,
-                    session_id: sessionId
+                    session_id: sessionId,
+                    city: "Pune"
                 };
                 
                 // Add location if available
@@ -339,7 +356,7 @@
                 }
                 
                 // Call API
-                const response = await fetch('http://localhost:8000/api/assess', {
+                const response = await fetch('http://localhost:8000/api/full-analyze', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -369,54 +386,128 @@
         function displayResults(data) {
             const result = document.getElementById('result');
             
+            const assessment = data.assessment || data;
+            const orchestration = data.orchestration || null;
+            const recommendations = data.doctor_recommendations || null;
+
             // Handle different response types
-            if (data.category === 'IRRELEVANT' || data.category === 'INSUFFICIENT_INFO') {
-                document.getElementById('resultTitle').textContent = data.message || 'Need More Information';
+            if (assessment.category === 'IRRELEVANT' || assessment.category === 'INSUFFICIENT_INFO') {
+                document.getElementById('resultTitle').textContent = assessment.message || 'Need More Information';
                 document.getElementById('symptomsIdentified').textContent = 'N/A';
                 document.getElementById('urgencyLevel').textContent = 'N/A';
                 document.getElementById('specialty').textContent = 'N/A';
                 document.getElementById('careSetting').textContent = 'N/A';
                 
-                let reasoning = data.reason || '';
-                if (data.clarifying_questions && data.clarifying_questions.length > 0) {
+                let reasoning = assessment.reason || '';
+                if (assessment.clarifying_questions && assessment.clarifying_questions.length > 0) {
                     reasoning += '\n\n🤔 Please provide more details:\n\n' + 
-                        data.clarifying_questions.map(q => `• ${q}`).join('\n');
+                        assessment.clarifying_questions.map(q => `• ${q}`).join('\n');
                 }
-                if (data.suggestions && data.suggestions.length > 0) {
+                if (assessment.suggestions && assessment.suggestions.length > 0) {
                     reasoning += '\n\n💡 Suggestions:\n\n' + 
-                        data.suggestions.map(s => `• ${s}`).join('\n');
+                        assessment.suggestions.map(s => `• ${s}`).join('\n');
                 }
                 document.getElementById('reasoning').style.whiteSpace = 'pre-line';
                 document.getElementById('reasoning').textContent = reasoning;
                 
                 document.getElementById('safetyAdviceContainer').style.display = 'none';
+                document.getElementById('costOverviewContainer').style.display = 'none';
+                document.getElementById('doctorListContainer').style.display = 'none';
+                document.getElementById('hospitalListContainer').style.display = 'none';
+                document.getElementById('rawRecommendationContainer').style.display = 'none';
                 result.className = 'result warning';
             } else {
                 // Full medical assessment
                 document.getElementById('resultTitle').textContent = 'Assessment Results';
                 document.getElementById('symptomsIdentified').textContent = 
-                    (data.symptoms_identified || []).join(', ') || 'None identified';
+                    (assessment.symptoms_identified || assessment.symptoms || []).join(', ') || 'None identified';
                 document.getElementById('urgencyLevel').textContent = 
-                    (data.urgency_level || 'N/A').toUpperCase();
+                    (assessment.urgency_level || 'N/A').toUpperCase();
                 document.getElementById('specialty').textContent = 
-                    data.recommended_specialty || 'General Physician';
+                    assessment.recommended_specialty || orchestration?.triage?.specialty || 'General Physician';
                 document.getElementById('careSetting').textContent = 
-                    (data.care_setting || 'clinic').replace('_', ' ').toUpperCase();
-                document.getElementById('reasoning').textContent = 
-                    data.reasoning || 'No reasoning provided';
+                    (assessment.care_setting || 'clinic').replace('_', ' ').toUpperCase();
+
+                let reasoningText = assessment.reasoning || 'No reasoning provided';
+                if (orchestration) {
+                    const hospitalCount = (orchestration.hospitals || []).length;
+                    const cost = orchestration.cost_overview
+                        ? `${orchestration.cost_overview.currency} ${orchestration.cost_overview.estimated_min}-${orchestration.cost_overview.estimated_max}`
+                        : 'N/A';
+                    reasoningText += `\n\n🏥 Orchestrator: ${hospitalCount} hospitals ranked`;
+                    reasoningText += `\n💰 Estimated treatment cost range: ${cost}`;
+                }
+                if (recommendations) {
+                    const doctors = recommendations.recommended_doctors || [];
+                    const hospitals = recommendations.recommended_hospitals || [];
+                    const topDoctor = doctors.length > 0 ? (doctors[0].doctor_name || 'Top match available') : 'No doctor recommendations';
+                    reasoningText += `\n👨‍⚕️ Doctor recommendations: ${doctors.length} found`;
+                    reasoningText += `\n🏥 Hospital recommendations (recommender): ${hospitals.length} found`;
+                    reasoningText += `\n⭐ Top doctor: ${topDoctor}`;
+                }
+                document.getElementById('reasoning').style.whiteSpace = 'pre-line';
+                document.getElementById('reasoning').textContent = reasoningText;
                 
                 // Safety advice
-                if (data.safety_advice) {
-                    document.getElementById('safetyAdvice').textContent = data.safety_advice;
+                if (assessment.safety_advice) {
+                    document.getElementById('safetyAdvice').textContent = assessment.safety_advice;
                     document.getElementById('safetyAdviceContainer').style.display = 'block';
                 } else {
                     document.getElementById('safetyAdviceContainer').style.display = 'none';
                 }
+
+                // Cost overview (orchestrator)
+                if (orchestration && orchestration.cost_overview) {
+                    const c = orchestration.cost_overview;
+                    document.getElementById('costOverview').textContent =
+                        `${c.currency} ${c.estimated_min} - ${c.estimated_max} (avg ${c.estimated_avg})`;
+                    document.getElementById('costOverviewContainer').style.display = 'block';
+                } else {
+                    document.getElementById('costOverviewContainer').style.display = 'none';
+                }
+
+                // Doctor recommendations list
+                if (recommendations) {
+                    const doctors = recommendations.recommended_doctors || [];
+                    if (doctors.length > 0) {
+                        const doctorLines = doctors.slice(0, 5).map((doctor, index) => {
+                            const name = doctor.doctor_name || doctor.name || 'Unknown Doctor';
+                            const spec = doctor.specialty || assessment.recommended_specialty || 'Specialist';
+                            const fee = doctor.consultation_fee || doctor.fee || doctor.cost || 'N/A';
+                            return `${index + 1}. ${name} (${spec}) - Fee: ${fee}`;
+                        });
+                        document.getElementById('doctorList').textContent = doctorLines.join('\n');
+                        document.getElementById('doctorListContainer').style.display = 'block';
+                    } else {
+                        document.getElementById('doctorListContainer').style.display = 'none';
+                    }
+
+                    const hospitals = recommendations.recommended_hospitals || [];
+                    if (hospitals.length > 0) {
+                        const hospitalLines = hospitals.slice(0, 5).map((hospital, index) => {
+                            const name = hospital.hospital_name || 'Unknown Hospital';
+                            const location = hospital.location || data.pipeline?.city || 'Unknown location';
+                            const emergency = hospital.emergency_available ? 'Emergency: Yes' : 'Emergency: No';
+                            return `${index + 1}. ${name} (${location}) - ${emergency}`;
+                        });
+                        document.getElementById('hospitalList').textContent = hospitalLines.join('\n');
+                        document.getElementById('hospitalListContainer').style.display = 'block';
+                    } else {
+                        document.getElementById('hospitalListContainer').style.display = 'none';
+                    }
+
+                    document.getElementById('rawRecommendation').textContent = JSON.stringify(recommendations, null, 2);
+                    document.getElementById('rawRecommendationContainer').style.display = 'block';
+                } else {
+                    document.getElementById('doctorListContainer').style.display = 'none';
+                    document.getElementById('hospitalListContainer').style.display = 'none';
+                    document.getElementById('rawRecommendationContainer').style.display = 'none';
+                }
                 
                 // Set result style based on urgency
-                if (data.emergency_flag) {
+                if (assessment.emergency_flag) {
                     result.className = 'result emergency';
-                } else if (data.urgency_level === 'high') {
+                } else if (assessment.urgency_level === 'high') {
                     result.className = 'result warning';
                 } else {
                     result.className = 'result success';
@@ -424,12 +515,14 @@
             }
             
             // Display location
-            if (data.user_location) {
-                const loc = data.user_location;
+            if (assessment.user_location) {
+                const loc = assessment.user_location;
                 const locText = loc.city 
                     ? `${loc.city}, ${loc.state || loc.country} (${loc.source})`
                     : `${loc.latitude}, ${loc.longitude}`;
                 document.getElementById('userLocation').textContent = locText;
+            } else if (data.pipeline && data.pipeline.city) {
+                document.getElementById('userLocation').textContent = `${data.pipeline.city} (pipeline city)`;
             } else {
                 document.getElementById('userLocation').textContent = 'Not detected';
             }

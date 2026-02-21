@@ -8,7 +8,7 @@ openai==1.10.0
 
 # Database
 sqlalchemy==2.0.25
-psycopg2-binary==2.9.9
+psycopg2-binary==2.9.10
 alembic==1.13.1
 
 # Configuration & Validation
@@ -25,6 +25,7 @@ rapidfuzz==3.6.1
 
 # Utilities
 colorama==0.4.6
+pandas==2.2.3
 
 # Testing
 pytest==7.4.4
