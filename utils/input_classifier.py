@@ -201,6 +201,20 @@ class InputClassifier:
         has_body_part = any(part in user_input_lower for part in self.BODY_PARTS)
         has_specific_symptom = any(keyword in user_input_lower for keyword in 
             ['headache', 'fever', 'cough', 'nausea', 'vomiting', 'diarrhea', 'rash', 'migraine'])
+
+        # Single body-part mentions (e.g. "head", "chest") need clarification.
+        if has_body_part and not has_specific_symptom and not has_context and word_count <= 3:
+            logger.info("Body part without symptom detail - needs more detail")
+            primary = next((part for part in self.BODY_PARTS if part in user_input_lower), "this area")
+            return (
+                "INSUFFICIENT_INFO",
+                "Body part mentioned without specific symptom",
+                [
+                    f"What is wrong with your {primary}?",
+                    "Do you have pain, injury, swelling, or another issue?",
+                    "When did it start?"
+                ]
+            )
         
         # If ONLY vague symptoms without body parts, context, or specific symptoms
         if has_vague_only and not has_body_part and not has_context and not has_specific_symptom and word_count <= 4:

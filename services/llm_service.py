@@ -9,6 +9,7 @@ from tenacity import retry, stop_after_attempt, wait_exponential
 from config.settings import settings
 from config.logging_config import logger
 from services.mock_llm_service import mock_llm_service
+from utils.input_classifier import input_classifier
 
 
 class LLMService:
@@ -167,23 +168,7 @@ No additional text."""
         if history:
             logger.info(f"Using conversation history with {len(history)} messages")        
         if self.use_mock:
-            # Mock classification doesn't exist, use simple rules
-            if any(word in user_message.lower() for word in ['hi', 'hello', 'hey', 'thanks', 'bye']):
-                return {
-                    "category": "IRRELEVANT",
-                    "symptoms": [],
-                    "emergency": False,
-                    "message": "I'm here to help with medical symptoms.",
-                    "reason": "Non-medical greeting or social conversation"
-                }
-            # Default to valid medical for mock
-            return {
-                "category": "VALID_MEDICAL",
-                "symptoms": [user_message],
-                "emergency": False,
-                "message": "Processing your medical concern",
-                "reason": "Medical input detected"
-            }
+            return self._classify_with_rules(user_message)
         
         system_prompt = """You are a medical input classifier and symptom extractor.
 
@@ -294,14 +279,30 @@ For example:
             return result
         except Exception as e:
             logger.error(f"LLM classification failed: {e}")
-            # Safe fallback - assume medical and let assessment handle it
-            return {
-                "category": "VALID_MEDICAL",
-                "symptoms": [user_message],
-                "emergency": False,
-                "message": "Processing your input",
-                "reason": "Classification failed, proceeding with assessment"
-            }
+            return self._classify_with_rules(user_message)
+
+    def _classify_with_rules(self, user_message: str) -> Dict:
+        """Deterministic fallback classification when LLM is unavailable."""
+        category, reason, prompts = input_classifier.classify_input(user_message)
+        normalized = user_message.strip().lower()
+
+        response = {
+            "category": category,
+            "symptoms": [] if category in ("IRRELEVANT", "INSUFFICIENT_INFO") else [user_message],
+            "emergency": category == "EMERGENCY",
+            "message": "I need more details." if category == "INSUFFICIENT_INFO" else "Processing your medical concern",
+            "reason": reason,
+        }
+
+        if category == "IRRELEVANT":
+            response["message"] = "I'm here to help with medical symptoms."
+
+        if category == "INSUFFICIENT_INFO":
+            response["clarifying_questions"] = prompts
+        elif category == "EMERGENCY" and not response["symptoms"]:
+            response["symptoms"] = [normalized]
+
+        return response
     
     def assess_symptoms(self, symptoms: List[str], history: Optional[List[Dict]] = None) -> Dict:
         """

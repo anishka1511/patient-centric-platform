@@ -1,4 +1,4 @@
-from typing import Literal
+from typing import Literal, Optional
 
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
@@ -9,12 +9,12 @@ router = APIRouter(prefix="/api", tags=["analyze"])
 
 
 class AnalyzeRequest(BaseModel):
-	patient_id: str | None = None
-	age: int | None = Field(default=None, ge=0, le=120)
-	gender: str | None = None
+	patient_id: Optional[str] = None
+	age: Optional[int] = Field(default=None, ge=0, le=120)
+	gender: Optional[str] = None
 	symptoms: list[str] = Field(..., min_length=1)
 	city: str = Field(..., min_length=1)
-	insurance_provider: str | None = None
+	insurance_provider: Optional[str] = None
 
 
 class Triage(BaseModel):
@@ -33,9 +33,9 @@ class HospitalRecommendation(BaseModel):
 	accepts_insurance: bool
 	review_summary: str
 	hidden_charges_risk: Literal["low", "medium", "high", "unknown"]
-	rank_score: float | None = None
+	rank_score: Optional[float] = None
 	rank_reasons: list[str]
-	estimated_cost_for_hospital: int | None = Field(default=None, ge=0)
+	estimated_cost_for_hospital: Optional[int] = Field(default=None, ge=0)
 
 
 class CostBreakdown(BaseModel):
@@ -64,7 +64,7 @@ class AnalyzeResponse(BaseModel):
 	triage: Triage
 	recommended_action: str
 	hospitals: list[HospitalRecommendation]
-	cost_overview: CostOverview | None = None
+	cost_overview: Optional[CostOverview] = None
 	meta: Meta
 
 

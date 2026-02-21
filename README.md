@@ -104,15 +104,19 @@ Four categories with intelligent handling:
 ### 1. Setup Environment
 
 ```bash
-# Activate virtual environment
-source venv/Scripts/activate   # Git Bash
-# OR
-venv\Scripts\activate.bat      # CMD
-# OR
-venv\Scripts\Activate.ps1      # PowerShell
+# macOS/Linux (recommended)
+python3 -m venv .venv
+source .venv/bin/activate
 
 # Install dependencies
-pip install -r requirements.txt
+python3 -m pip install -r requirements.txt
+```
+
+Windows:
+```powershell
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
 ```
 
 ### 2. Configure API Keys
@@ -123,7 +127,7 @@ Edit `.env` file (create from `.env.example`):
 OPENAI_API_KEY=gsk_YOUR_KEY_HERE
 LLM_PROVIDER=groq
 GROQ_BASE_URL=https://api.groq.com/openai/v1
-LLM_MODEL=llama-3.3-70b-versatile
+OPENAI_MODEL=llama-3.3-70b-versatile
 
 # Database
 DATABASE_URL=sqlite:///./healthcare_agent.db
@@ -136,17 +140,21 @@ API_PORT=8000
 ### 3. Initialize Database
 
 ```bash
-python scripts/setup_database.py
+python3 scripts/setup_database.py
 ```
 
 ### 4. Start the Server
 
 ```bash
+# One-command macOS helper
+./scripts/dev_macos.sh
+
+# OR run manually:
 # Method 1: Using uvicorn directly
-uvicorn main:app --reload
+python3 -m uvicorn main:app --reload
 
 # Method 2: Using Python main
-python main.py
+python3 main.py
 ```
 
 Server will be available at: **http://localhost:8000**
@@ -158,7 +166,7 @@ Server will be available at: **http://localhost:8000**
 
 **Option A: Interactive CLI (Recommended)**
 ```bash
-python test_interactive.py
+python3 test_interactive.py
 ```
 
 **Option B: API Testing with curl**

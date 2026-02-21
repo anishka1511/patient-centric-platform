@@ -1,7 +1,7 @@
-from typing import Any
+from typing import Any, Optional
 
 
-def analyze_symptoms(symptoms: list[str], age: int | None = None) -> dict[str, Any]:
+def analyze_symptoms(symptoms: list[str], age: Optional[int] = None) -> dict[str, Any]:
 	lowered = " ".join(symptoms).lower()
 
 	emergency_keywords = [

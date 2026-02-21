@@ -1,10 +1,10 @@
-from typing import Any
+from typing import Any, Optional
 
 
 def estimate_cost(
 	specialty: str,
 	urgency_level: str,
-	insurance_provider: str | None,
+	insurance_provider: Optional[str],
 ) -> dict[str, Any]:
 	specialty_base = {
 		"general physician": 1200,

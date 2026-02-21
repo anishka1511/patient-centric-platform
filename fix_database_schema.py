@@ -58,23 +58,10 @@ if __name__ == "__main__":
     print("=" * 60)
     if fix_schema(silent=False):
         print("\n✅ Database updated! You can now run:")
-        print("   python test_interactive.py")
-        print("   python main.py")
+        print("   python3 test_interactive.py")
+        print("   python3 main.py")
     else:
         print("\n❌ Fix failed. Try deleting database and starting fresh:")
-        print("   rm healthcare_agent.db  (or: del healthcare_agent.db on Windows)")
-    print("=" * 60)
-
-
-if __name__ == "__main__":
-    print("=" * 60)
-    print("DATABASE SCHEMA FIX")
-    print("=" * 60)
-    if fix_schema():
-        print("\n✅ Database updated! You can now run:")
-        print("   python test_interactive.py")
-        print("   python main.py")
-    else:
-        print("\n❌ Fix failed. Try deleting database and starting fresh:")
-        print("   rm healthcare_agent.db  (or: del healthcare_agent.db on Windows)")
+        print("   macOS/Linux: rm healthcare_agent.db")
+        print("   Windows: del healthcare_agent.db")
     print("=" * 60)

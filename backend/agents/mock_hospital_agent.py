@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Optional
 
 
 def _seed_hospitals() -> list[dict[str, Any]]:
@@ -59,7 +59,7 @@ def _seed_hospitals() -> list[dict[str, Any]]:
 def find_hospitals(
 	city: str,
 	specialty: str,
-	insurance_provider: str | None,
+	insurance_provider: Optional[str],
 	emergency: bool = False,
 ) -> list[dict[str, Any]]:
 	city_normalized = city.strip().lower()
