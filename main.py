@@ -37,9 +37,16 @@ app.add_middleware(
 
 # Mount static files
 static_path = Path(__file__).parent / "static"
+frontend_dist_path = Path(__file__).parent / "dist"
+
 if static_path.exists():
     app.mount("/static", StaticFiles(directory=str(static_path)), name="static")
     logger.info(f"Static files mounted from {static_path}")
+
+frontend_assets_path = frontend_dist_path / "assets"
+if frontend_assets_path.exists():
+    app.mount("/assets", StaticFiles(directory=str(frontend_assets_path)), name="frontend-assets")
+    logger.info(f"Frontend assets mounted from {frontend_assets_path}")
 
 # Include routers - Both input-agents and orchestrator
 app.include_router(agent_routes.router)  # Symptom assessment routes
@@ -110,6 +117,10 @@ async def root():
     """
     Serve the web interface
     """
+    frontend_index_path = frontend_dist_path / "index.html"
+    if frontend_index_path.exists():
+        return FileResponse(frontend_index_path)
+
     index_path = Path(__file__).parent / "static" / "index.html"
     if index_path.exists():
         return FileResponse(index_path)

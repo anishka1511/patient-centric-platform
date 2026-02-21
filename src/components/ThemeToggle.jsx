@@ -24,7 +24,7 @@ export default function ThemeToggle({ onThemeChange }) {
       title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
     >
       <span className="toggle-icon">
-        {isDark ? '☀️' : '🌙'}
+        {isDark ? '☀️' : <span className="night-logo">N</span>}
       </span>
     </button>
   );

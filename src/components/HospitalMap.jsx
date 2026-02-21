@@ -1,85 +1,161 @@
-import { useState, useEffect } from 'react';
-import { MapContainer, TileLayer, CircleMarker, Popup, useMap, Marker } from 'react-leaflet';
+import { useEffect, useMemo, useState } from 'react';
+import { MapContainer, TileLayer, Popup, useMap, Marker } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import hospitalsCsvRaw from '../../data/hospitals.csv?raw';
 import '../styles/HospitalMap.css';
 
-// Pune service areas with coordinates
-const PUNE_SERVICE_AREAS = {
-  'baner': [18.5590, 73.7890],
-  'baner road': [18.5594, 73.7876],
-  'aundh': [18.5604, 73.8071],
-  'balewadi': [18.5689, 73.7720],
-  'pashan': [18.5354, 73.7850],
-  'wakad': [18.5998, 73.7616],
-  'hinjewadi': [18.5913, 73.7389],
-  'pimpri-chinchwad': [18.6298, 73.7997],
-  'kothrud': [18.5074, 73.8077],
-  'karve nagar': [18.5024, 73.8166],
-  'paud road': [18.5095, 73.7986],
-  'warje': [18.4865, 73.8010],
-  'shivajinagar': [18.5308, 73.8475],
-  'kharadi': [18.5511, 73.9422],
-  'viman nagar': [18.5679, 73.9154],
-  'hadapsar': [18.5089, 73.9260],
-  'wagholi': [18.5793, 73.9790],
-  'magarpatta': [18.5167, 73.9346],
-  'koregaon park': [18.5362, 73.8940],
-  'fc road': [18.5196, 73.8409],
-  'nibm': [18.4590, 73.8966],
-  'swargate': [18.5018, 73.8636],
+const toFiniteNumber = (value) => {
+  const parsed = Number(value);
+  return Number.isFinite(parsed) ? parsed : null;
 };
 
-// Component to handle map bounds fitting
-function MapBounds({ hospitals, areas }) {
+function MapBounds({ hospitals, userCoordinates, searchTerm }) {
   const map = useMap();
 
   useEffect(() => {
-    const allCoords = [
-      ...hospitals
-        .filter(h => h.coordinates && Array.isArray(h.coordinates))
-        .map(h => h.coordinates),
-      ...Object.values(areas),
-    ];
+    const hospitalCoords = hospitals
+      .filter((h) => h.coordinates && Array.isArray(h.coordinates))
+      .map((h) => h.coordinates);
+
+    if (hospitalCoords.length === 0) {
+      if (userCoordinates && Array.isArray(userCoordinates)) {
+        map.setView(userCoordinates, 12);
+      }
+      return;
+    }
+
+    const hasSearch = String(searchTerm || '').trim().length > 0;
+
+    if (hasSearch) {
+      if (hospitalCoords.length === 1) {
+        map.setView(hospitalCoords[0], 16);
+        return;
+      }
+
+      const searchBounds = L.latLngBounds(hospitalCoords);
+      map.fitBounds(searchBounds, { padding: [40, 40], maxZoom: 15 });
+      return;
+    }
+
+    const allCoords = [...hospitalCoords];
+    if (userCoordinates && Array.isArray(userCoordinates)) {
+      allCoords.push(userCoordinates);
+    }
 
     if (allCoords.length > 0) {
       const bounds = L.latLngBounds(allCoords);
       map.fitBounds(bounds, { padding: [50, 50] });
     }
-  }, [hospitals, areas, map]);
+  }, [hospitals, userCoordinates, searchTerm, map]);
 
   return null;
 }
 
-// Service area marker component with red pin icon
-function ServiceAreaMarker({ areaName, coordinates }) {
-  // Create red pin icon SVG
-  const redPinIcon = new L.Icon({
-    iconUrl: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI1MCIgdmlld0JveD0iMCAwIDQwIDUwIj48ZGVmcz48ZmlsdGVyIGlkPSJzaGFkb3ciIHg9Ii01MCUiIHk9Ii01MCUiIHdpZHRoPSIyMDAlIiBoZWlnaHQ9IjIwMCUiPjxmZU9mZnNldCBpbj0iU291cmNlR3JhcGhpYyIgZHg9IjAiIGR5PSIyIi8+PGZlR2F1c3NpYW5CbHVyIGluPSJvZmZzZXQiIHN0ZERldmlhdGlvbj0iMyIvPjxmZU1lcmdlPjxmZU1lcmdlTm9kZSBpbj0iU291cmNlR3JhcGhpYyIvPjxmZU1lcmdlTm9kZSBpbj0iYmx1ciIvPjwvZmVNZXJnZT48L2ZpbHRlcj48L2RlZnM+PHBhdGggZmlsdGVyPSJ1cmwoI3NoYWRvdykiIGQ9Ik0yMCAwQzguOTU0IDAgMCA4Ljk1NCAwIDIwYzAgMTAgMjAgMzAgMjAgMzBzMjAtMjAgMjAtMzBDNDAgOC45NTQgMzEuMDQ2IDAgMjAgMHptMCAyOWMtNS4wMDggMC05LTMuOTkyLTktOXMzLjk5Mi05IDktOSA5IDMuOTkyIDkgOS0zLjk5MiA5LTkgOXoiIGZpbGw9IiNlZjQ0NDQiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMiIvPjwvc3ZnPg==',
-    iconSize: [40, 50],
-    iconAnchor: [20, 50],
-    popupAnchor: [0, -50],
-    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
-    shadowSize: [41, 41],
-    shadowAnchor: [12, 41],
-  });
+function parseCSVRows(csvText) {
+  const lines = String(csvText || '').split(/\r?\n/).filter((line) => line.trim().length > 0);
+  if (lines.length < 2) return [];
 
-  return (
-    <Marker position={coordinates} icon={redPinIcon}>
-      <Popup maxWidth={250}>
-        <div className="area-popup">
-          <div className="area-name">📍 {areaName.toUpperCase()}</div>
-          <div className="area-coords">
-            {coordinates[0].toFixed(4)}, {coordinates[1].toFixed(4)}
-          </div>
-          <div className="area-coverage">Service Area Available</div>
-        </div>
-      </Popup>
-    </Marker>
-  );
+  const parseLine = (line) => {
+    const values = [];
+    let current = '';
+    let inQuotes = false;
+
+    for (let i = 0; i < line.length; i += 1) {
+      const char = line[i];
+      if (char === '"') {
+        const next = line[i + 1];
+        if (inQuotes && next === '"') {
+          current += '"';
+          i += 1;
+        } else {
+          inQuotes = !inQuotes;
+        }
+      } else if (char === ',' && !inQuotes) {
+        values.push(current);
+        current = '';
+      } else {
+        current += char;
+      }
+    }
+    values.push(current);
+    return values.map((value) => value.trim());
+  };
+
+  const headers = parseLine(lines[0]);
+  const rows = [];
+
+  for (let i = 1; i < lines.length; i += 1) {
+    const values = parseLine(lines[i]);
+    if (values.every((value) => value === '')) continue;
+
+    const row = {};
+    headers.forEach((header, index) => {
+      row[header] = values[index] ?? '';
+    });
+    rows.push(row);
+  }
+
+  return rows;
 }
 
-// User location marker component
+function mapHospitalTypeToCostLevel(hospitalType) {
+  const type = String(hospitalType || '').toLowerCase();
+  if (type.includes('private') || type.includes('corporate')) return 'high';
+  if (type.includes('public') || type.includes('government')) return 'low';
+  return 'medium';
+}
+
+function normalizeMasterHospitals(csvText) {
+  return parseCSVRows(csvText)
+    .map((row) => {
+      const latitude = toFiniteNumber(row.latitude);
+      const longitude = toFiniteNumber(row.longitude);
+      if (latitude == null || longitude == null) return null;
+
+      return {
+        name: row.hospital_name || 'Hospital',
+        location: row.location || 'N/A',
+        distance_km: 'N/A',
+        rating: 'N/A',
+        cost_level: mapHospitalTypeToCostLevel(row.hospital_type),
+        insurance_supported: true,
+        coordinates: [latitude, longitude],
+        specialty: row.specialties_available || '',
+        hospital_type: row.hospital_type || 'Unknown',
+        doctors: [],
+      };
+    })
+    .filter(Boolean);
+}
+
+function toHospitalKey(hospital) {
+  const name = String(hospital?.name || '').toLowerCase().trim();
+  const location = String(hospital?.location || '').toLowerCase().trim();
+  return `${name}|${location}`;
+}
+
+function buildHospitalIcon(color) {
+  const svg = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="30" viewBox="0 0 22 30">
+      <path d="M11 1C5.5 1 1 5.5 1 11c0 5.8 10 18 10 18s10-12.2 10-18C21 5.5 16.5 1 11 1z"
+            fill="${color}" stroke="white" stroke-width="2"/>
+      <circle cx="11" cy="11" r="3.8" fill="white"/>
+    </svg>`;
+
+  const redPinIcon = new L.Icon({
+    iconUrl: `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`,
+    iconSize: [22, 30],
+    iconAnchor: [11, 30],
+    popupAnchor: [0, -30],
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+    shadowSize: [28, 28],
+    shadowAnchor: [8, 28],
+  });
+
+  return redPinIcon;
+}
+
 function UserLocationMarker({ coordinates }) {
   const userIcon = new L.Icon({
     iconUrl: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDQwIDQwIj48Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIxOCIgZmlsbD0iIzMzODhkZiIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIyIi8+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iOCIgZmlsbD0id2hpdGUiLz48L3N2Zz4=',
@@ -93,7 +169,7 @@ function UserLocationMarker({ coordinates }) {
       <Popup maxWidth={200}>
         <div style={{ textAlign: 'center', color: '#333' }}>
           <strong>📍 Your Location</strong>
-          <br/>
+          <br />
           {coordinates[0].toFixed(4)}, {coordinates[1].toFixed(4)}
         </div>
       </Popup>
@@ -101,49 +177,41 @@ function UserLocationMarker({ coordinates }) {
   );
 }
 
-// Hospital marker component
 function HospitalMarker({ hospital, index }) {
-  const colors = [
-    '#14B8A6', // Teal
-    '#0891B2', // Cyan
-    '#06B6D4', // Sky
-    '#0EA5E9', // Blue
-    '#3B82F6', // Purple
-  ];
-
+  const colors = ['#14B8A6', '#0891B2', '#06B6D4', '#0EA5E9', '#3B82F6'];
   const color = colors[index % colors.length];
+  const hospitalIcon = buildHospitalIcon(color);
+  const costLevel = hospital.cost_level || 'medium';
+  const costLabel = costLevel.charAt(0).toUpperCase() + costLevel.slice(1);
+  const distanceLabel =
+    hospital.distance_km == null || hospital.distance_km === 'N/A'
+      ? 'N/A'
+      : `${hospital.distance_km} km`;
+  const ratingLabel = hospital.rating != null ? hospital.rating : 'N/A';
 
   return (
-    <CircleMarker
-      center={hospital.coordinates}
-      radius={18}
-      fill={true}
-      fillColor={color}
-      fillOpacity={0.95}
-      stroke={true}
-      color="white"
-      weight={3}
-      opacity={1}
-    >
+    <Marker position={hospital.coordinates} icon={hospitalIcon}>
       <Popup maxWidth={280}>
         <div className="hospital-popup">
           <div className="popup-header">
             <h4 className="popup-name">{hospital.name}</h4>
-            <div className="popup-rating">⭐ {hospital.rating}/5</div>
+            <div className="popup-rating">Rating: {ratingLabel}/5</div>
           </div>
 
           <div className="popup-content">
             <div className="popup-row">
               <span className="popup-label">📍 Distance:</span>
-              <span className="popup-value">{hospital.distance_km} km</span>
+              <span className="popup-value">{distanceLabel}</span>
+            </div>
+
+            <div className="popup-row">
+              <span className="popup-label">📌 Location:</span>
+              <span className="popup-value">{hospital.location || 'N/A'}</span>
             </div>
 
             <div className="popup-row">
               <span className="popup-label">💰 Cost:</span>
-              <span className="popup-value popup-cost-{hospital.cost_level}">
-                {hospital.cost_level.charAt(0).toUpperCase() +
-                  hospital.cost_level.slice(1)}
-              </span>
+              <span className={`popup-value popup-cost-${costLevel}`}>{costLabel}</span>
             </div>
 
             <div className="popup-row">
@@ -171,38 +239,93 @@ function HospitalMarker({ hospital, index }) {
           </div>
         </div>
       </Popup>
-    </CircleMarker>
+    </Marker>
   );
 }
 
-export default function HospitalMap({ hospitals, user_location }) {
+export default function HospitalMap({ hospitals = [], user_location }) {
   const [searchTerm, setSearchTerm] = useState('');
-  const [filteredHospitals, setFilteredHospitals] = useState(hospitals);
-  const [showAreas, setShowAreas] = useState(true);
-  
-  // Use user location if available, otherwise default to Pune center
-  const puneCenter = user_location 
-    ? [user_location.latitude, user_location.longitude]
+  const masterHospitals = useMemo(() => normalizeMasterHospitals(hospitalsCsvRaw), []);
+  const mergedHospitals = useMemo(() => {
+    const merged = new Map();
+
+    masterHospitals.forEach((hospital) => {
+      merged.set(toHospitalKey(hospital), hospital);
+    });
+
+    hospitals.forEach((hospital) => {
+      const key = toHospitalKey(hospital);
+      const existing = merged.get(key);
+      const hasCoordinates =
+        hospital.coordinates &&
+        Array.isArray(hospital.coordinates) &&
+        toFiniteNumber(hospital.coordinates[0]) != null &&
+        toFiniteNumber(hospital.coordinates[1]) != null;
+
+      if (existing) {
+        merged.set(key, {
+          ...existing,
+          ...hospital,
+          location: hospital.location || existing.location,
+          coordinates: hasCoordinates ? hospital.coordinates : existing.coordinates,
+        });
+        return;
+      }
+
+      if (hasCoordinates) {
+        merged.set(key, hospital);
+      }
+    });
+
+    return Array.from(merged.values());
+  }, [hospitals, masterHospitals]);
+
+  const filteredHospitals = useMemo(() => {
+    const term = searchTerm.toLowerCase().trim();
+    if (!term) return mergedHospitals;
+
+    return mergedHospitals.filter((hospital) =>
+      hospital.name.toLowerCase().includes(term) ||
+      String(hospital.specialty || '').toLowerCase().includes(term) ||
+      String(hospital.location || '').toLowerCase().includes(term)
+    );
+  }, [mergedHospitals, searchTerm]);
+
+  const locationCount = useMemo(
+    () =>
+      new Set(
+        mergedHospitals
+          .map((hospital) => String(hospital.location || '').toLowerCase().trim())
+          .filter(Boolean)
+      ).size,
+    [mergedHospitals]
+  );
+
+  const userLatitude = toFiniteNumber(user_location?.latitude);
+  const userLongitude = toFiniteNumber(user_location?.longitude);
+  const hasUserCoordinates =
+    userLatitude != null &&
+    userLongitude != null;
+
+  const puneCenter = hasUserCoordinates
+    ? [userLatitude, userLongitude]
     : [18.5204, 73.8567];
 
-  useEffect(() => {
-    const filtered = hospitals.filter(hospital =>
-      hospital.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      hospital.specialty?.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setFilteredHospitals(filtered);
-  }, [searchTerm, hospitals]);
-
   const validHospitals = filteredHospitals.filter(
-    h => h.coordinates && Array.isArray(h.coordinates)
+    (hospital) =>
+      hospital.coordinates &&
+      Array.isArray(hospital.coordinates) &&
+      toFiniteNumber(hospital.coordinates[0]) != null &&
+      toFiniteNumber(hospital.coordinates[1]) != null
   );
+  const hasRenderableMapData = validHospitals.length > 0 || hasUserCoordinates;
 
   return (
     <div className="hospital-map-container">
       <div className="map-header">
         <h3 className="map-title">🗺️ Hospital Network Map</h3>
         <p className="map-subtitle">
-          {validHospitals.length} hospitals | {Object.keys(PUNE_SERVICE_AREAS).length} service areas
+          {validHospitals.length} hospitals shown | {locationCount} locations
         </p>
       </div>
 
@@ -210,21 +333,12 @@ export default function HospitalMap({ hospitals, user_location }) {
         <div className="map-search">
           <input
             type="text"
-            placeholder="🔍 Search hospitals or specialties..."
+            placeholder="🔍 Search hospitals, specialty, or location..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="search-input"
           />
         </div>
-
-        <label className="toggle-areas">
-          <input
-            type="checkbox"
-            checked={showAreas}
-            onChange={(e) => setShowAreas(e.target.checked)}
-          />
-          <span>Show Service Areas</span>
-        </label>
       </div>
 
       <div className="map-legend">
@@ -233,16 +347,16 @@ export default function HospitalMap({ hospitals, user_location }) {
           <span>Hospitals</span>
         </div>
         <div className="legend-item">
-          <div className="legend-dot legend-area"></div>
-          <span>Service Areas</span>
+          <div className="legend-dot legend-user"></div>
+          <span>Your Location</span>
         </div>
       </div>
 
-      {validHospitals.length > 0 || showAreas ? (
+      {hasRenderableMapData ? (
         <MapContainer
           center={puneCenter}
           zoom={12}
-          scrollWheelZoom={true}
+          scrollWheelZoom
           className="hospital-map"
           style={{ borderRadius: '12px' }}
         >
@@ -250,24 +364,16 @@ export default function HospitalMap({ hospitals, user_location }) {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          <MapBounds hospitals={validHospitals} areas={Object.values(PUNE_SERVICE_AREAS)} />
+          <MapBounds
+            hospitals={validHospitals}
+            userCoordinates={hasUserCoordinates ? [userLatitude, userLongitude] : null}
+            searchTerm={searchTerm}
+          />
 
-          {/* Service areas layer (rendered first, behind hospitals) */}
-          {showAreas &&
-            Object.entries(PUNE_SERVICE_AREAS).map(([areaName, coordinates], idx) => (
-              <ServiceAreaMarker
-                key={`area-${idx}`}
-                areaName={areaName}
-                coordinates={coordinates}
-              />
-            ))}
-
-          {/* User location marker */}
-          {user_location && (
-            <UserLocationMarker coordinates={[user_location.latitude, user_location.longitude]} />
+          {hasUserCoordinates && (
+            <UserLocationMarker coordinates={[userLatitude, userLongitude]} />
           )}
 
-          {/* Hospitals layer (rendered on top) */}
           {validHospitals.map((hospital, index) => (
             <HospitalMarker key={`hosp-${index}`} hospital={hospital} index={index} />
           ))}
@@ -280,7 +386,7 @@ export default function HospitalMap({ hospitals, user_location }) {
 
       <div className="map-info">
         <p className="info-text">
-          💡 <strong>Tip:</strong> Colored hospital pins show our medical partners. Red pins mark all service areas in Pune. Click any pin for details.
+          💡 <strong>Tip:</strong> Only hospital pins and your location pin are shown. Click a hospital pin for details.
         </p>
       </div>
     </div>

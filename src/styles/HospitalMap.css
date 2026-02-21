@@ -127,14 +127,8 @@
   background: #14B8A6;
 }
 
-.legend-area {
-  background: #ef4444;
-  width: 14px;
-  height: 18px;
-  border-radius: 50% 50% 50% 0;
-  border: 2px solid white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  transform: rotate(-45deg);
+.legend-user {
+  background: #3388df;
 }
 
 .hospital-map {

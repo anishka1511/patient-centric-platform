@@ -12,19 +12,12 @@ const postJson = async (path, payload) => {
 
   if (!response.ok) {
     const message = await response.text();
-    throw new Error(message || `API request failed with status ${response.status}`);
+    throw new Error(`API request failed (${response.status}): ${message}`);
   }
 
   return response.json();
 };
 
 export const analyzeSymptoms = async (payload) => {
-  try {
-    return await postJson('/api/assess', payload);
-  } catch (error) {
-    if (!String(error?.message || '').includes('404')) {
-      throw error;
-    }
-    return postJson('/api/analyze', payload);
-  }
+  return postJson('/api/assess', payload);
 };

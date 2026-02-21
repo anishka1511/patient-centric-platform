@@ -4,13 +4,16 @@ import '../styles/SymptomForm.css';
 
 export default function SymptomForm({ onSubmit }) {
   const [symptoms, setSymptoms] = useState('');
-  const [location, setLocation] = useState('');
+  const [locationMode, setLocationMode] = useState('region');
+  const [regionName, setRegionName] = useState('');
+  const [coordinateInput, setCoordinateInput] = useState('');
   const [locating, setLocating] = useState(false);
   const [locationError, setLocationError] = useState('');
   const [isListening, setIsListening] = useState(false);
   const [speechError, setSpeechError] = useState('');
   const recognitionRef = useRef(null);
   const baseTranscriptRef = useRef('');
+  const coordinatesPattern = /^\[?\s*(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)\s*\]?$/;
 
   useEffect(() => {
     // Initialize speech recognition if available
@@ -97,7 +100,7 @@ export default function SymptomForm({ onSubmit }) {
     
     try {
       const coords = await getUserLocation();
-      setLocation(`[${coords.latitude.toFixed(4)}, ${coords.longitude.toFixed(4)}]`);
+      setCoordinateInput(`[${coords.latitude.toFixed(4)}, ${coords.longitude.toFixed(4)}]`);
     } catch (error) {
       setLocationError(error.message);
     } finally {
@@ -105,12 +108,32 @@ export default function SymptomForm({ onSubmit }) {
     }
   };
 
+  const handleModeChange = (mode) => {
+    setLocationMode(mode);
+    setLocationError('');
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (symptoms.trim() && location.trim()) {
-      onSubmit({ symptoms, location });
+    const trimmedSymptoms = symptoms.trim();
+    if (!trimmedSymptoms) return;
+
+    const trimmedRegion = regionName.trim();
+    const trimmedCoordinates = coordinateInput.trim();
+
+    if (locationMode === 'coordinates' && trimmedCoordinates && !coordinatesPattern.test(trimmedCoordinates)) {
+      setLocationError('Please enter coordinates in format: [latitude, longitude]');
+      return;
+    }
+
+    const locationValue = locationMode === 'region' ? trimmedRegion : trimmedCoordinates;
+
+    if (trimmedSymptoms) {
+      onSubmit({ symptoms: trimmedSymptoms, locationMode, locationValue });
       setSymptoms('');
-      setLocation('');
+      if (locationMode === 'coordinates') {
+        setCoordinateInput('');
+      }
     }
   };
 
@@ -144,24 +167,51 @@ export default function SymptomForm({ onSubmit }) {
 
       <div className="form-group">
         <label htmlFor="location">Your Location</label>
+        <div className="location-mode-buttons" role="group" aria-label="Location input mode">
+          <button
+            type="button"
+            className={`mode-button ${locationMode === 'region' ? 'active' : ''}`}
+            onClick={() => handleModeChange('region')}
+          >
+            Region Name
+          </button>
+          <button
+            type="button"
+            className={`mode-button ${locationMode === 'coordinates' ? 'active' : ''}`}
+            onClick={() => handleModeChange('coordinates')}
+          >
+            Coordinates
+          </button>
+        </div>
+
         <div className="location-input-wrapper">
           <input
             id="location"
             type="text"
             className="form-input"
-            placeholder="e.g., Pune, Mumbai or Zip Code"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
+            placeholder={
+              locationMode === 'region'
+                ? 'Enter area name (e.g., Kothrud, Shivajinagar)'
+                : 'Enter coordinates [latitude, longitude]'
+            }
+            value={locationMode === 'region' ? regionName : coordinateInput}
+            onChange={(e) =>
+              locationMode === 'region'
+                ? setRegionName(e.target.value)
+                : setCoordinateInput(e.target.value)
+            }
           />
-          <button 
-            type="button"
-            className={`location-button ${locating ? 'loading' : ''}`}
-            onClick={handleUseCurrentLocation}
-            disabled={locating}
-            title="Use your current location"
-          >
-            {locating ? '📍 Detecting...' : '📍 Use Current Location'}
-          </button>
+          {locationMode === 'coordinates' && (
+            <button
+              type="button"
+              className={`location-button ${locating ? 'loading' : ''}`}
+              onClick={handleUseCurrentLocation}
+              disabled={locating}
+              title="Use your current location"
+            >
+              {locating ? '📍 Detecting...' : '📍 Use Current Location'}
+            </button>
+          )}
         </div>
         {locationError && <div className="location-error">❌ {locationError}</div>}
       </div>

@@ -278,6 +278,35 @@ select.form-input option {
   animation: slideDown 0.3s ease;
 }
 
+.location-mode-buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.mode-button {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 2px solid var(--border-color);
+  background: var(--glass-bg);
+  color: var(--text-secondary);
+  font-weight: 700;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.mode-button:hover {
+  border-color: var(--accent-color);
+  color: var(--text-primary);
+}
+
+.mode-button.active {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+  background: linear-gradient(135deg, rgba(20, 184, 166, 0.12) 0%, rgba(20, 184, 166, 0.05) 100%);
+}
+
 @keyframes pulse {
   0%, 100% {
     opacity: 1;

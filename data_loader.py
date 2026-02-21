@@ -12,47 +12,51 @@ DEFAULT_TOP_K = 10
 NEARBY_MAP = {
     "akurdi": ["nigdi-pradhikaran", "pimpri-chinchwad", "ravet", "thergaon"],
     "alandi road": ["vishrantwadi", "dhanori", "yerwada", "lohegaon"],
-    "amnora park town": ["hadapsar", "magarpatta city", "sasanenagar", "kharadi"],
+    "amnora park town": ["hadapsar", "magarpatta city", "sasanenagar", "kharadi", "mundhwa", "keshav nagar"],
+    "amanora park town": ["hadapsar", "magarpatta city", "sasanenagar", "kharadi", "mundhwa", "keshav nagar"],
     "anandnagar": ["sinhagad road", "vadgaon budruk", "manik bag", "hingne"],
     "aundh": ["baner", "pashan", "wakad", "balewadi", "pimple nilakh"],
     "balewadi": ["baner", "wakad", "aundh", "mahalunge", "pimple nilakh"],
     "baner": ["baner road", "aundh", "balewadi", "pashan", "wakad", "mahalunge"],
     "baner pashan link road": ["baner", "pashan", "balewadi"],
-    "baner road": ["baner", "aundh", "balewadi"],
+    "baner road": ["baner", "aundh", "balewadi", "pashan", "wakad"],
     "bavdhan": ["kothrud", "warje", "paud road", "pashan"],
     "bhosari": ["moshi", "pimpri-chinchwad", "chikhali", "dhanori"],
-    "bibvewadi": ["market yard", "dhankawadi", "parvati gaon", "kondhwa"],
+    "bibvewadi": ["market yard", "dhankawadi", "parvati gaon", "kondhwa", "swargate", "mukund nagar"],
     "bibwewadi kondhwa road": ["bibvewadi", "kondhwa", "market yard"],
     "budhwar peth": ["shaniwar peth", "kasba peth", "sadashiv peth", "camp"],
-    "camp": ["wanowrie", "wanwadi", "koregaon park", "kasba peth"],
-    "chikhali": ["moshi", "bhosari", "talawade"],
-    "deccan gymkhana": ["fc road", "jm road", "erandwane", "shivajinagar"],
+    "bund garden": ["koregaon park", "camp", "yerwada", "kalyani nagar", "dhole patil road", "viman nagar"],
+    "camp": ["wanowrie", "wanwadi", "koregaon park", "kasba peth", "dhole patil road", "rasta peth"],
+    "chakan": ["moshi", "bhosari", "chikhali", "akurdi", "nigdi-pradhikaran"],
+    "chikhali": ["moshi", "bhosari", "talawade", "akurdi", "nigdi-pradhikaran"],
     "dhankawadi": ["katraj", "bibvewadi", "parvati gaon"],
-    "dhanori": ["vishrantwadi", "lohegaon", "yerwada", "bhosari"],
-    "erandwane": ["kothrud", "deccan gymkhana", "karve nagar", "law college road"],
-    "fc road": ["jm road", "deccan gymkhana", "shivajinagar"],
+    "dhanori": ["vishrantwadi", "lohegaon", "yerwada", "bhosari", "viman nagar", "kharadi"],
+    "deccan gymkhana": ["fc road", "jm road", "erandwane", "shivajinagar", "prabhat road", "sadashiv peth"],
+    "dhole patil road": ["camp", "koregaon park", "bund garden", "kasba peth", "rasta peth", "shivajinagar", "kalyani nagar", "viman nagar", "wadgaon sheri"],
+    "erandwane": ["kothrud", "deccan gymkhana", "karve nagar", "law college road", "prabhat road", "senapati bapat marg"],
+    "fc road": ["jm road", "deccan gymkhana", "shivajinagar", "model colony", "senapati bapat marg"],
     "hadapsar": ["magarpatta city", "kharadi", "sasanenagar", "wanowrie"],
     "hinjewadi": ["wakad", "mahalunge", "marunji"],
-    "jm road": ["fc road", "shivajinagar", "deccan gymkhana"],
-    "junnar": [],
+    "jm road": ["fc road", "shivajinagar", "deccan gymkhana", "model colony", "senapati bapat marg"],
+    "junnar": ["chakan", "moshi", "bhosari"],
     "kalyani nagar": ["viman nagar", "yerwada", "wadgaon sheri", "koregaon park"],
     "karve nagar": ["kothrud", "warje", "erandwane"],
-    "kasba peth": ["budhwar peth", "shaniwar peth", "camp"],
-    "katraj": ["dhankawadi", "ambegaon", "parvati gaon"],
-    "keshav nagar": ["mundhwa", "kharadi", "magarpatta city"],
+    "kasba peth": ["budhwar peth", "shaniwar peth", "camp", "rasta peth", "mangalvar peth", "sadashiv peth"],
+    "katraj": ["dhankawadi", "ambegaon", "parvati gaon", "bibvewadi", "swargate", "market yard"],
+    "keshav nagar": ["mundhwa", "kharadi", "magarpatta city", "hadapsar", "wadgaon sheri"],
     "kharadi": ["viman nagar", "hadapsar", "wagholi", "magarpatta city", "keshav nagar"],
     "kondhwa": ["bibvewadi", "nibm", "mohamadwadi", "lulla nagar"],
-    "koregaon park": ["kalyani nagar", "yerwada", "camp"],
+    "koregaon park": ["kalyani nagar", "yerwada", "camp", "bund garden", "dhole patil road", "viman nagar"],
     "kothrud": ["karve nagar", "paud road", "warje", "shivajinagar", "bavdhan"],
-    "law college road": ["erandwane", "prabhat road", "deccan gymkhana"],
+    "law college road": ["erandwane", "prabhat road", "deccan gymkhana", "kothrud", "model colony"],
     "lohegaon": ["viman nagar", "dhanori", "wagholi"],
-    "lonavala": [],
-    "lulla nagar": ["wanowrie", "kondhwa", "salunke vihar"],
-    "magarpatta city": ["hadapsar", "kharadi", "amanora park town"],
+    "lonavala": ["hinjewadi", "wakad", "pimpri-chinchwad", "ravet"],
+    "lulla nagar": ["wanowrie", "kondhwa", "salunke vihar", "nibm", "mohamadwadi", "wanwadi"],
+    "magarpatta city": ["hadapsar", "kharadi", "amnora park town", "mundhwa", "keshav nagar"],
     "mahalunge": ["balewadi", "baner", "hinjewadi"],
     "market yard": ["bibvewadi", "swargate", "mukund nagar"],
-    "model colony": ["shivajinagar", "senapati bapat marg", "jm road"],
-    "mohamadwadi": ["kondhwa", "undri", "nibm"],
+    "model colony": ["shivajinagar", "senapati bapat marg", "jm road", "fc road", "deccan gymkhana", "law college road"],
+    "mohamadwadi": ["kondhwa", "undri", "nibm", "wanowrie", "hadapsar"],
     "moshi": ["bhosari", "chikhali", "pimpri-chinchwad"],
     "mukund nagar": ["swargate", "market yard", "parvati gaon"],
     "nagar road": ["kalyani nagar", "viman nagar", "yerwada"],
@@ -61,45 +65,42 @@ NEARBY_MAP = {
     "nibm": ["kondhwa", "undri", "wanowrie"],
     "nigdi-pradhikaran": ["akurdi", "ravet", "pimpri-chinchwad"],
     "parvati gaon": ["dhankawadi", "mukund nagar", "bibvewadi"],
-    "pashan": ["baner", "aundh", "bavdhan"],
+    "pashan": ["baner", "aundh", "bavdhan", "balewadi", "wakad", "baner road"],
     "paud road": ["kothrud", "warje", "bavdhan"],
     "pimple nilakh": ["wakad", "aundh", "balewadi", "pimple saudagar"],
     "pimple saudagar": ["wakad", "pimple nilakh", "thergaon"],
     "pimpri-chinchwad": ["akurdi", "bhosari", "thergaon", "ravet"],
     "porwal road": ["lohegaon", "dhanori"],
-    "prabhat road": ["law college road", "deccan gymkhana"],
-    "ravet": ["akurdi", "nigdi-pradhikaran", "thergaon"],
-    "sadashiv peth": ["budhwar peth", "shaniwar peth", "navi peth"],
-    "salunke vihar": ["wanowrie", "lulla nagar", "kondhwa"],
+    "prabhat road": ["law college road", "deccan gymkhana", "kothrud", "shivajinagar"],
+    "ravet": ["akurdi", "nigdi-pradhikaran", "thergaon", "wakad", "pimpri-chinchwad"],
+    "sadashiv peth": ["budhwar peth", "shaniwar peth", "navi peth", "narayan peth", "tilak road", "swargate"],
+    "salunke vihar": ["wanowrie", "lulla nagar", "kondhwa", "nibm", "wanwadi"],
     "sasanenagar": ["hadapsar", "magarpatta city"],
-    "senapati bapat marg": ["model colony", "shivajinagar"],
-    "shaniwar peth": ["budhwar peth", "sadashiv peth", "kasba peth"],
-    "shankar shet road": ["swargate", "mukund nagar"],
-    "shivajinagar": ["deccan gymkhana", "model colony", "fc road", "kothrud"],
-    "sinhagad road": ["vadgaon budruk", "anandnagar", "nanded city"],
-    "sopan baug": ["wanowrie", "koregaon park"],
-    "swargate": ["market yard", "mukund nagar", "shankar shet road"],
-    "thergaon": ["wakad", "ravet", "pimpri-chinchwad"],
-    "undri": ["kondhwa", "mohamadwadi", "nibm"],
-    "vadgaon budruk": ["sinhagad road", "nanded city"],
+    "senapati bapat marg": ["model colony", "shivajinagar", "fc road", "jm road", "deccan gymkhana"],
+    "shaniwar peth": ["budhwar peth", "sadashiv peth", "kasba peth", "narayan peth", "tilak road", "rasta peth"],
+    "shankar shet road": ["swargate", "mukund nagar", "market yard", "parvati gaon", "bibvewadi"],
+    "shivajinagar": ["deccan gymkhana", "model colony", "fc road", "kothrud", "senapati bapat marg", "law college road", "prabhat road"],
+    "sinhagad road": ["vadgaon budruk", "anandnagar", "nanded city", "dhayari", "karve nagar", "warje"],
+    "sopan baug": ["wanowrie", "koregaon park", "camp", "wanwadi", "magarpatta city"],
+    "swargate": ["market yard", "mukund nagar", "shankar shet road", "bibvewadi", "parvati gaon"],
+    "thergaon": ["wakad", "ravet", "pimpri-chinchwad", "pimple saudagar", "bhosari"],
+    "undri": ["kondhwa", "mohamadwadi", "nibm", "wanowrie", "mohammadwadi", "hadapsar"],
+    "vadgaon budruk": ["sinhagad road", "nanded city", "dhayari", "anandnagar", "karve nagar"],
     "viman nagar": ["kalyani nagar", "kharadi", "lohegaon", "yerwada"],
     "vishrantwadi": ["dhanori", "yerwada", "alandi road"],
     "wadgaon sheri": ["kalyani nagar", "viman nagar", "kharadi"],
-    "wagholi": ["kharadi", "lohegaon"],
+    "wagholi": ["kharadi", "lohegaon", "viman nagar", "wadgaon sheri"],
     "wakad": ["hinjewadi", "baner", "balewadi", "pimpri-chinchwad", "pimple nilakh"],
-    "wanowrie": ["wanwadi", "camp", "lulla nagar", "sopan baug"],
-    "wanwadi": ["wanowrie", "camp", "salunke vihar"],
-    "warje": ["kothrud", "karve nagar", "paud road"],
-    "yerwada": ["kalyani nagar", "viman nagar", "dhanori"],
+    "wanowrie": ["wanwadi", "camp", "lulla nagar", "sopan baug", "nibm", "mohamadwadi", "salunke vihar"],
+    "wanwadi": ["wanowrie", "camp", "salunke vihar", "lulla nagar", "kondhwa", "sopan baug", "nibm"],
+    "warje": ["kothrud", "karve nagar", "paud road", "bavdhan", "sinhagad road", "dhayari"],
+    "yerwada": ["kalyani nagar", "viman nagar", "dhanori", "bund garden", "nagar road", "wadgaon sheri"],
     # Previously unmapped locations
     "bhugaon": ["bavdhan", "warje", "kothrud"],
     "bt kawade road": ["kharadi", "viman nagar", "wadgaon sheri"],
-    "bund garden": ["koregaon park", "camp", "yerwada"],
-    "chakan": ["moshi", "bhosari"],
     "chandan nagar": ["kharadi", "viman nagar", "wadgaon sheri"],
     "dapodi": ["khadki", "aundh", "pimpri-chinchwad"],
     "dhayari": ["sinhagad road", "warje", "kothrud"],
-    "dhole patil road": ["camp", "koregaon park", "bund garden", "kasba peth", "rasta peth", "shivajinagar"],
     "ganga dham": ["market yard", "bibvewadi", "swargate"],
     "gultekdi": ["market yard", "swargate", "bibvewadi"],
     "khadki": ["dapodi", "aundh", "shivajinagar"],
@@ -107,14 +108,14 @@ NEARBY_MAP = {
     "manik bag": ["kothrud", "karve nagar", "erandwane"],
     "mangalvar peth": ["rasta peth", "kasba peth", "budhwar peth", "camp", "dhole patil road"],
     "marunji": ["hinjewadi", "mahalunge", "wakad"],
-    "mohammadwadi": ["kondhwa", "undri", "nibm"],
+    "mohammadwadi": ["kondhwa", "undri", "nibm", "wanowrie", "hadapsar"],
     "mundhwa": ["keshav nagar", "kharadi", "hadapsar"],
     "narayan peth": ["sadashiv peth", "shaniwar peth", "budhwar peth"],
     "parvati paytha": ["parvati gaon", "swargate", "mukund nagar"],
     "rahatani": ["pimple saudagar", "thergaon", "wakad"],
     "rasta peth": ["kasba peth", "budhwar peth", "camp", "mangalvar peth"],
     "shukrawar peth": ["shaniwar peth", "budhwar peth", "sadashiv peth"],
-    "tilak road": ["sadashiv peth", "shaniwar peth", "deccan gymkhana"],
+    "tilak road": ["sadashiv peth", "shaniwar peth", "deccan gymkhana", "narayan peth", "swargate", "rasta peth"],
 }
 
 
@@ -603,6 +604,8 @@ def recommend_doctors(input_data: dict):
     2. Try exact specialty + nearby locations (via NEARBY_MAP)
     3. Try general_physician + exact location
     4. Try general_physician + nearby locations
+    5. If specialty results exist but are limited, supplement with general_physician
+       using the same exact-location-then-nearby ordering.
     
     Args:
         input_data (dict): Dictionary containing:
@@ -643,6 +646,7 @@ def recommend_doctors(input_data: dict):
     fallback_location = None
     fallback_type = None
     original_specialty = specialty
+    supplemented_with_general_physician = False
 
     if filtered_df.empty:
         # No exact specialty match - this could be valid if it genuinely doesn't exist
@@ -714,8 +718,51 @@ def recommend_doctors(input_data: dict):
 
         if not gp_location_filtered.empty:
             filtered_df = gp_location_filtered
+            fallback_applied = True
             if fallback_type != "general_physician_nearby":
                 fallback_type = "general_physician"
+    # If specialty matches are available but limited, supplement with general physicians
+    # using the same distance logic (exact location first, then nearby in order).
+    elif len(filtered_df) < DEFAULT_TOP_K and "general physician" not in specialty_variants:
+        gp_df = df[df['specialty'].str.lower() == "general physician"]
+        needed_count = DEFAULT_TOP_K - len(filtered_df)
+        gp_batches = []
+        gp_nearby_used = False
+
+        # Try exact location first
+        gp_exact = gp_df[gp_df['location'].str.lower() == location]
+        if not gp_exact.empty and needed_count > 0:
+            gp_exact_limited = gp_exact.head(needed_count)
+            gp_batches.append(gp_exact_limited)
+            needed_count -= len(gp_exact_limited)
+            fallback_applied = True
+            fallback_type = "general_physician"
+
+        # Then try nearby locations in order
+        if needed_count > 0:
+            nearby_locations = NEARBY_MAP.get(location, [])
+            for nearby in nearby_locations:
+                nearby_gp = gp_df[gp_df['location'].str.lower() == nearby]
+                if nearby_gp.empty:
+                    continue
+
+                nearby_gp_limited = nearby_gp.head(needed_count)
+                gp_batches.append(nearby_gp_limited)
+                needed_count -= len(nearby_gp_limited)
+                gp_nearby_used = True
+                fallback_applied = True
+
+                if fallback_location is None:
+                    fallback_location = nearby
+
+                if needed_count <= 0:
+                    break
+
+        if gp_batches:
+            filtered_df = pd.concat([filtered_df] + gp_batches, ignore_index=True)
+            supplemented_with_general_physician = True
+            if gp_nearby_used:
+                fallback_type = "general_physician_nearby"
     
     # Handle no matches
     if filtered_df.empty:
@@ -736,6 +783,18 @@ def recommend_doctors(input_data: dict):
     
     # Rank doctors based on severity
     recommended = rank_doctors(filtered_df, location, severity=severity, top_k=DEFAULT_TOP_K)
+
+    # Keep requested specialty doctors first, then GP supplements.
+    if supplemented_with_general_physician:
+        specialty_first = [
+            doctor for doctor in recommended
+            if str(doctor.get("specialty", "")).lower() != "general physician"
+        ]
+        gp_supplements = [
+            doctor for doctor in recommended
+            if str(doctor.get("specialty", "")).lower() == "general physician"
+        ]
+        recommended = specialty_first + gp_supplements
     
     # Return structured response
     return {
@@ -745,7 +804,8 @@ def recommend_doctors(input_data: dict):
             "fallback_applied": fallback_applied,
             "fallback_location": fallback_location,
             "fallback_type": fallback_type,
-            "original_specialty": original_specialty
+            "original_specialty": original_specialty,
+            "supplemented_with_general_physician": supplemented_with_general_physician
         }
     }
 

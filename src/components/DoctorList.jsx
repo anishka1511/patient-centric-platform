@@ -1,37 +1,19 @@
 import '../styles/DoctorList.css';
 
-// Helper function to convert percentage/numeric rating to stars (1-5)
-function convertRatingToStars(ratingValue) {
-  if (!ratingValue) return 3;
-  
-  // Handle both percentage strings (e.g., "86%") and numeric values
-  let percentage = 0;
-  if (typeof ratingValue === 'string') {
-    percentage = parseInt(ratingValue.replace('%', '')) || 0;
-  } else if (typeof ratingValue === 'number') {
-    percentage = ratingValue;
-  }
-  
-  return Math.round((percentage / 100) * 5 * 2) / 2; // Round to nearest 0.5, scale to 1-5
-}
+// Helper function to normalize rating to 0-5 numeric scale
+function formatDoctorRating(ratingValue) {
+  if (ratingValue == null || ratingValue === '') return 'N/A';
 
-// Helper function to render star rating
-function renderStars(rating) {
-  const stars = Math.round(rating);
-  const halfStar = rating % 1 !== 0;
-  let starDisplay = '';
-  
-  for (let i = 0; i < Math.floor(rating); i++) {
-    starDisplay += '★';
-  }
-  if (halfStar) {
-    starDisplay += '⭐';
-  }
-  for (let i = Math.floor(rating) + (halfStar ? 1 : 0); i < 5; i++) {
-    starDisplay += '☆';
-  }
-  
-  return starDisplay;
+  const numeric =
+    typeof ratingValue === 'string'
+      ? Number(ratingValue.replace('%', '').trim())
+      : Number(ratingValue);
+
+  if (!Number.isFinite(numeric)) return 'N/A';
+
+  const ratingOnFive = numeric > 5 ? numeric / 20 : numeric;
+  const clampedRating = Math.max(0, Math.min(5, ratingOnFive));
+  return clampedRating.toFixed(1);
 }
 
 // Helper function to format phone number
@@ -55,7 +37,7 @@ function parseCost(costStr) {
   if (!costStr) return 'On Request';
   
   // Handle different formats and decode Unicode
-  let cost = costStr.replace(/[\u200B-\u200D\uFEFF]/g, ''); // Remove zero-width chars
+  let cost = String(costStr).replace(/[\u200B-\u200D\uFEFF]/g, ''); // Remove zero-width chars
   
   // Try to extract just the rupee amount
   if (cost.includes('₹')) {
@@ -71,23 +53,13 @@ function parseCost(costStr) {
   return cost;
 }
 
-export default function DoctorList({ hospitals, specialty }) {
-  if (!hospitals || hospitals.length === 0) {
-    return (
-      <div className="doctor-list-container">
-        <div className="empty-state">
-          <p>No doctors available for {specialty}.</p>
-        </div>
-      </div>
-    );
-  }
-
+export default function DoctorList({ hospitals = [], doctors = [], specialty }) {
   // Extract all doctors from all hospitals
-  const allDoctors = [];
+  const doctorsFromHospitals = [];
   hospitals.forEach((hospital) => {
     if (hospital.doctors && Array.isArray(hospital.doctors)) {
       hospital.doctors.forEach((doctor) => {
-        allDoctors.push({
+        doctorsFromHospitals.push({
           ...doctor,
           hospital_name: hospital.name,
           hospital_distance: hospital.distance_km,
@@ -98,6 +70,21 @@ export default function DoctorList({ hospitals, specialty }) {
       });
     }
   });
+
+  const sourceDoctors = doctors.length > 0 ? doctors : doctorsFromHospitals;
+  const seenDoctors = new Set();
+  const allDoctors = sourceDoctors
+    .filter((doctor) => {
+      const key = [
+        doctor?.name || '',
+        doctor?.specialty || '',
+        doctor?.location || '',
+        doctor?.phone || doctor?.contact_number || ''
+      ].join('|');
+      if (seenDoctors.has(key)) return false;
+      seenDoctors.add(key);
+      return true;
+    });
 
   if (allDoctors.length === 0) {
     return (
@@ -110,7 +97,7 @@ export default function DoctorList({ hospitals, specialty }) {
   }
 
   // Sort by availability (Available Today first)
-  const sortedDoctors = allDoctors.sort((a, b) => {
+  const sortedDoctors = [...allDoctors].sort((a, b) => {
     const aAvailable = a.availability?.includes('Available Today') ? 0 : 1;
     const bAvailable = b.availability?.includes('Available Today') ? 0 : 1;
     return aAvailable - bAvailable;
@@ -140,12 +127,14 @@ export default function DoctorList({ hospitals, specialty }) {
               <div className="doctor-stats">
                 <div className="stat-item">
                   <span className="stat-label">Experience</span>
-                  <span className="stat-value">{doctor.experience_years} yrs</span>
+                  <span className="stat-value">
+                    {doctor.experience_years != null ? `${doctor.experience_years} yrs` : 'N/A'}
+                  </span>
                 </div>
                 <div className="stat-item">
                   <span className="stat-label">Rating</span>
-                  <span className="stat-value star-rating">
-                    {renderStars(convertRatingToStars(doctor.rating))}
+                  <span className="stat-value">
+                    {formatDoctorRating(doctor.rating)}
                   </span>
                 </div>
                 <div className="stat-item">
@@ -154,20 +143,26 @@ export default function DoctorList({ hospitals, specialty }) {
                 </div>
               </div>
 
-              <div className="hospital-info-section">
-                <p className="hospital-info-label">🏥 Hospital</p>
-                <p className="hospital-info-name">{doctor.hospital_name}</p>
-                <div className="hospital-metrics">
-                  <span className="metric">📍 {doctor.hospital_distance} km away</span>
-                  <span className="metric">⭐ {doctor.hospital_rating}/5</span>
-                  <span className={`metric cost-${doctor.hospital_cost}`}>
-                    {doctor.hospital_cost.charAt(0).toUpperCase() + doctor.hospital_cost.slice(1)}
-                  </span>
+              {doctor.hospital_name && (
+                <div className="hospital-info-section">
+                  <p className="hospital-info-label">🏥 Hospital</p>
+                  <p className="hospital-info-name">{doctor.hospital_name}</p>
+                  <div className="hospital-metrics">
+                    <span className="metric">
+                      📍 {doctor.hospital_distance ?? 'N/A'} {Number.isFinite(Number(doctor.hospital_distance)) ? 'km away' : ''}
+                    </span>
+                    <span className="metric">Hospital Rating: {doctor.hospital_rating ?? 'N/A'}/5</span>
+                    {doctor.hospital_cost && (
+                      <span className={`metric cost-${doctor.hospital_cost}`}>
+                        {doctor.hospital_cost.charAt(0).toUpperCase() + doctor.hospital_cost.slice(1)}
+                      </span>
+                    )}
+                  </div>
+                  {doctor.hospital_insurance && (
+                    <span className="insurance-tag">✓ Insurance Accepted</span>
+                  )}
                 </div>
-                {doctor.hospital_insurance && (
-                  <span className="insurance-tag">✓ Insurance Accepted</span>
-                )}
-              </div>
+              )}
 
               {doctor.location && (
                 <div className="location-info">
