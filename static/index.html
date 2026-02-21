@@ -150,6 +150,21 @@
             font-weight: 600;
             color: #555;
         }
+
+        .json-output {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            padding: 10px;
+            margin-top: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            white-space: pre-wrap;
+            word-break: break-word;
+            overflow-x: auto;
+            overflow-y: auto;
+            max-height: 260px;
+        }
         
         .loading {
             display: none;
@@ -245,6 +260,14 @@
             <div class="result-item">
                 <span class="result-label">📍 Your Location:</span>
                 <span id="userLocation"></span>
+            </div>
+            <div class="result-item" id="scrapingInputContainer" style="display: none;">
+                <span class="result-label">Scraping Input (JSON):</span>
+                <pre id="scrapingInputJson" class="json-output"></pre>
+            </div>
+            <div class="result-item" id="scrapingOutputContainer" style="display: none;">
+                <span class="result-label">Scraping Output (JSON):</span>
+                <pre id="scrapingOutputJson" class="json-output"></pre>
             </div>
         </div>
     </div>
@@ -368,6 +391,10 @@
 
         function displayResults(data) {
             const result = document.getElementById('result');
+            const scrapingInputContainer = document.getElementById('scrapingInputContainer');
+            const scrapingInputJson = document.getElementById('scrapingInputJson');
+            const scrapingOutputContainer = document.getElementById('scrapingOutputContainer');
+            const scrapingOutputJson = document.getElementById('scrapingOutputJson');
             
             // Handle different response types
             if (data.category === 'IRRELEVANT' || data.category === 'INSUFFICIENT_INFO') {
@@ -421,6 +448,23 @@
                 } else {
                     result.className = 'result success';
                 }
+            }
+
+            // Show JSON only when a valid scraping input was generated and used.
+            if (data.scraping_input) {
+                scrapingInputJson.textContent = JSON.stringify(data.scraping_input, null, 2);
+                scrapingInputContainer.style.display = 'block';
+
+                const outputPayload = data.scraping_recommendations || {
+                    message: 'No scraping output available.'
+                };
+                scrapingOutputJson.textContent = JSON.stringify(outputPayload, null, 2);
+                scrapingOutputContainer.style.display = 'block';
+            } else {
+                scrapingInputJson.textContent = '';
+                scrapingInputContainer.style.display = 'none';
+                scrapingOutputJson.textContent = '';
+                scrapingOutputContainer.style.display = 'none';
             }
             
             // Display location

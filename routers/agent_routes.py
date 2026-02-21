@@ -24,12 +24,31 @@ router = APIRouter(prefix="/api", tags=["symptom-assessment"])
 
 
 def _run_scraping_enrichment(
+    scraping_input: Optional[Dict[str, Any]]
+) -> Optional[Dict[str, Any]]:
+    """
+    Run scraping recommendation engine with validated input.
+    """
+    if not scraping_input:
+        return None
+
+    try:
+        from data_loader import generate_recommendation_response
+        return generate_recommendation_response(scraping_input)
+    except Exception as exc:
+        logger.error(f"Scraping enrichment failed: {exc}", exc_info=True)
+        return {
+            "error": "Scraping enrichment failed.",
+            "details": str(exc),
+            "input": scraping_input
+        }
+
+def _build_valid_scraping_input(
     assessment_result: Dict[str, Any],
     location_dict: Optional[Dict[str, Any]]
 ) -> Optional[Dict[str, Any]]:
     """
-    Convert assessment output to scraping input format and run recommendation engine.
-    Returns None for non-actionable categories.
+    Build scraping input only when assessment is actionable and required inputs exist.
     """
     category = assessment_result.get("category")
     if category in {"INSUFFICIENT_INFO", "IRRELEVANT"}:
@@ -42,21 +61,9 @@ def _run_scraping_enrichment(
     specialty = payload.get("specialty")
 
     if latitude is None or longitude is None or not specialty:
-        return {
-            "error": "Missing required scraping inputs: severity, latitude/longitude, specialty.",
-            "input": payload
-        }
+        return None
 
-    try:
-        from data_loader import generate_recommendation_response
-        return generate_recommendation_response(payload)
-    except Exception as exc:
-        logger.error(f"Scraping enrichment failed: {exc}", exc_info=True)
-        return {
-            "error": "Scraping enrichment failed.",
-            "details": str(exc),
-            "input": payload
-        }
+    return payload
 
 
 @router.post("/assess", response_model=SymptomAssessmentResponse)
@@ -128,7 +135,8 @@ async def assess_symptoms(
             assessment_result
         )
 
-        scraping_recommendations = _run_scraping_enrichment(assessment_result, location_dict)
+        scraping_input = _build_valid_scraping_input(assessment_result, location_dict)
+        scraping_recommendations = _run_scraping_enrichment(scraping_input)
         
         # Handle INSUFFICIENT_INFO case - format clarifying questions
         if assessment_result.get("category") == "INSUFFICIENT_INFO":
@@ -146,6 +154,7 @@ async def assess_symptoms(
                 safety_advice=None,
                 session_id=session_id,
                 user_location=location_dict,
+                scraping_input=scraping_input,
                 scraping_recommendations=scraping_recommendations,
                 disclaimer=agent_orchestrator.get_health_disclaimer()
             )
@@ -164,6 +173,7 @@ async def assess_symptoms(
                 safety_advice=None,
                 session_id=session_id,
                 user_location=location_dict,
+                scraping_input=scraping_input,
                 scraping_recommendations=scraping_recommendations,
                 disclaimer=agent_orchestrator.get_health_disclaimer()
             )
@@ -179,6 +189,7 @@ async def assess_symptoms(
                 safety_advice=assessment_result.get("safety_advice"),
                 session_id=session_id,
                 user_location=location_dict,
+                scraping_input=scraping_input,
                 scraping_recommendations=scraping_recommendations,
                 disclaimer=agent_orchestrator.get_health_disclaimer()
             )
