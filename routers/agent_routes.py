@@ -106,7 +106,27 @@ async def assess_symptoms(
         if request.location:
             # User provided location manually
             location_dict = request.location.model_dump()
-            location_dict["source"] = "user_provided"
+            has_lat_lng = (
+                location_dict.get("latitude") is not None and
+                location_dict.get("longitude") is not None
+            )
+
+            # If user entered only region/city name, map it to known coordinates
+            # so UI map can plot the region point.
+            if not has_lat_lng and location_dict.get("city"):
+                try:
+                    from data_loader import get_coordinates_for_location
+                    mapped_coords = get_coordinates_for_location(location_dict.get("city"))
+                    if mapped_coords:
+                        location_dict["latitude"] = mapped_coords["latitude"]
+                        location_dict["longitude"] = mapped_coords["longitude"]
+                        location_dict["city"] = mapped_coords["matched_location"]
+                        location_dict["source"] = "user_provided_region_mapped"
+                except Exception as map_error:
+                    logger.warning(f"Region-to-coordinate mapping failed: {map_error}")
+
+            if not location_dict.get("source"):
+                location_dict["source"] = "user_provided"
             logger.info(f"Using user-provided location: {location_dict.get('city')}")
         else:
             # Auto-detect location from IP

@@ -224,6 +224,14 @@ LOCATION_COORDS = {
     "yerwada": (18.5453, 73.8867),
 }
 
+# Common spelling/format aliases mapped to canonical LOCATION_COORDS keys.
+LOCATION_ALIASES = {
+    "amanora park town": "amnora park town",
+    "shivaji nagar": "shivajinagar",
+    "mangalwar peth": "mangalvar peth",
+    "bibwewadi": "bibvewadi",
+}
+
 
 def validate_location_coordinates():
     """
@@ -297,6 +305,127 @@ def convert_coordinates_to_location(latitude: float, longitude: float, max_dista
         return nearest_location
     else:
         return None
+
+
+def _canonical_location_key(location_name: str) -> str:
+    """
+    Normalize location text for tolerant region-name matching.
+    """
+    text = str(location_name or "").strip().lower()
+    return "".join(ch for ch in text if ch.isalnum())
+
+
+def normalize_location_name(location_name: str) -> str:
+    """
+    Normalize user-provided region to a canonical location key when possible.
+    """
+    normalized = str(location_name or "").strip().lower()
+    if not normalized:
+        return ""
+
+    if normalized in LOCATION_COORDS:
+        return normalized
+
+    if normalized in LOCATION_ALIASES:
+        return LOCATION_ALIASES[normalized]
+
+    canonical_input = _canonical_location_key(normalized)
+    if not canonical_input:
+        return normalized
+
+    for key in LOCATION_COORDS.keys():
+        if _canonical_location_key(key) == canonical_input:
+            return key
+
+    for alias, target in LOCATION_ALIASES.items():
+        if _canonical_location_key(alias) == canonical_input:
+            return target
+
+    return normalized
+
+
+def get_coordinates_for_location(location_name: str):
+    """
+    Resolve a region name to LOCATION_COORDS.
+
+    Accepts direct key matches and tolerant canonical matches
+    (e.g., spaces/hyphens/commas/punctuation differences).
+    """
+    normalized = normalize_location_name(location_name)
+    if not normalized:
+        return None
+
+    direct = LOCATION_COORDS.get(normalized)
+    if direct:
+        return {
+            "latitude": float(direct[0]),
+            "longitude": float(direct[1]),
+            "matched_location": normalized,
+        }
+
+    return None
+
+
+def _haversine_distance_km(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
+    """
+    Calculate Haversine distance between two coordinates in kilometers.
+    """
+    from math import radians, sin, cos, sqrt, atan2
+
+    earth_radius_km = 6371.0
+
+    lat1_rad, lon1_rad, lat2_rad, lon2_rad = map(radians, [lat1, lon1, lat2, lon2])
+    dlat = lat2_rad - lat1_rad
+    dlon = lon2_rad - lon1_rad
+
+    a = sin(dlat / 2) ** 2 + cos(lat1_rad) * cos(lat2_rad) * sin(dlon / 2) ** 2
+    c = 2 * atan2(sqrt(a), sqrt(1 - a))
+    return earth_radius_km * c
+
+
+def _get_ordered_nearby_locations(
+    user_location: str,
+    candidate_locations=None
+) -> list:
+    """
+    Build ordered nearby locations:
+    1) Existing NEARBY_MAP order (preserved)
+    2) Remaining candidate locations sorted by Haversine distance from LOCATION_COORDS
+    """
+    base_location = str(user_location).strip().lower()
+    ordered = [loc for loc in NEARBY_MAP.get(base_location, []) if loc != base_location]
+    seen = set(ordered)
+
+    base_coords = LOCATION_COORDS.get(base_location)
+    if base_coords is None:
+        return ordered
+
+    if candidate_locations is None:
+        location_pool = set(LOCATION_COORDS.keys())
+    else:
+        location_pool = {
+            str(loc).strip().lower()
+            for loc in candidate_locations
+            if str(loc).strip()
+        }
+
+    location_pool.discard(base_location)
+
+    distance_ranked = []
+    for candidate in location_pool:
+        if candidate in seen:
+            continue
+        candidate_coords = LOCATION_COORDS.get(candidate)
+        if candidate_coords is None:
+            continue
+        distance_km = _haversine_distance_km(
+            base_coords[0], base_coords[1], candidate_coords[0], candidate_coords[1]
+        )
+        distance_ranked.append((distance_km, candidate))
+
+    distance_ranked.sort(key=lambda item: item[0])
+    ordered.extend([candidate for _, candidate in distance_ranked])
+    return ordered
 
 
 def _convert_to_json_serializable(value):
@@ -472,9 +601,31 @@ def _compute_location_score(locations, user_location):
     Returns:
         pd.Series: Location scores (1.0 for match, 0.5 otherwise).
     """
-    return locations.str.lower().eq(user_location.lower()).astype(float).where(
-        locations.str.lower().eq(user_location.lower()), 0.5
-    )
+    user_location_key = str(user_location).strip().lower()
+    user_coords = LOCATION_COORDS.get(user_location_key)
+
+    # Keep legacy behavior when user location has no known coordinates.
+    if user_coords is None:
+        return locations.str.lower().eq(user_location_key).astype(float).where(
+            locations.str.lower().eq(user_location_key), 0.5
+        )
+
+    def score_from_distance(location_value):
+        location_key = str(location_value).strip().lower()
+        if location_key == user_location_key:
+            return 1.0
+
+        candidate_coords = LOCATION_COORDS.get(location_key)
+        if candidate_coords is None:
+            return 0.5
+
+        distance_km = _haversine_distance_km(
+            user_coords[0], user_coords[1], candidate_coords[0], candidate_coords[1]
+        )
+        # Smooth decay: nearest regions get higher score, far regions converge lower.
+        return max(0.2, 1.0 / (1.0 + distance_km / 5.0))
+
+    return locations.apply(score_from_distance)
 
 
 def _generate_reason(rating_score, consultation_fee, location_score, percentile_25):
@@ -622,8 +773,28 @@ def recommend_doctors(input_data: dict):
     """
     # Extract parameters
     specialty = input_data.get("specialty", "").strip().lower()
-    location = input_data.get("location", "").strip().lower()
+    location_input = input_data.get("location", "")
     severity = input_data.get("severity", "medium").strip().lower()
+
+    # Support both location-name and coordinates input.
+    if isinstance(location_input, dict):
+        latitude = location_input.get("latitude")
+        longitude = location_input.get("longitude")
+        if latitude is None or longitude is None:
+            raise ValueError("Location coordinates must include both latitude and longitude.")
+
+        try:
+            latitude = float(latitude)
+            longitude = float(longitude)
+        except (TypeError, ValueError):
+            raise ValueError("Invalid latitude or longitude values.")
+
+        detected_location = convert_coordinates_to_location(latitude, longitude)
+        if not detected_location:
+            raise ValueError("No known region found near the provided coordinates.")
+        location = detected_location
+    else:
+        location = normalize_location_name(location_input)
     
     # Validate inputs
     if not specialty or not location:
@@ -659,7 +830,8 @@ def recommend_doctors(input_data: dict):
         # If no exact results, try nearby locations in order and accumulate
         # until we collect at least DEFAULT_TOP_K candidates.
         if location_filtered.empty:
-            nearby_locations = NEARBY_MAP.get(location, [])
+            available_specialty_locations = set(filtered_df['location'].str.lower().unique())
+            nearby_locations = _get_ordered_nearby_locations(location, available_specialty_locations)
             nearby_batches = []
             collected_count = 0
 
@@ -693,7 +865,8 @@ def recommend_doctors(input_data: dict):
 
         # If no GPs in exact location, try nearby and accumulate
         if gp_location_filtered.empty:
-            nearby_locations = NEARBY_MAP.get(location, [])
+            available_gp_locations = set(gp_df['location'].str.lower().unique())
+            nearby_locations = _get_ordered_nearby_locations(location, available_gp_locations)
             nearby_gp_batches = []
             collected_gp_count = 0
 
@@ -740,7 +913,8 @@ def recommend_doctors(input_data: dict):
 
         # Then try nearby locations in order
         if needed_count > 0:
-            nearby_locations = NEARBY_MAP.get(location, [])
+            available_gp_locations = set(gp_df['location'].str.lower().unique())
+            nearby_locations = _get_ordered_nearby_locations(location, available_gp_locations)
             for nearby in nearby_locations:
                 nearby_gp = gp_df[gp_df['location'].str.lower() == nearby]
                 if nearby_gp.empty:
@@ -1380,7 +1554,7 @@ def generate_recommendation_response(input_data: dict):
         location_source = "coordinates"
     else:
         # Location provided as string
-        location = str(location_input).strip().lower()
+        location = normalize_location_name(location_input)
         if not location:
             return {"error": "Location is required."}
         location_source = "name"
