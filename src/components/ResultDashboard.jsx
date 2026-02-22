@@ -80,9 +80,7 @@ export default function ResultDashboard({ result, symptoms, onBackClick }) {
           </div>
         )}
 
-        {result.hospitals && result.hospitals.length > 0 && (
-          <HospitalMap hospitals={result.hospitals} user_location={result.user_location} />
-        )}
+        <HospitalMap hospitals={result.hospitals || []} user_location={result.user_location} />
 
         <DoctorList
           hospitals={result.hospitals}

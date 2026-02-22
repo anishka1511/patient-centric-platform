@@ -55,12 +55,17 @@ def _build_valid_scraping_input(
         return None
 
     payload = build_scraping_input(assessment_result, location_dict)
-    coords = payload.get("location", {})
-    latitude = coords.get("latitude")
-    longitude = coords.get("longitude")
+    location_value = payload.get("location")
     specialty = payload.get("specialty")
 
-    if latitude is None or longitude is None or not specialty:
+    has_valid_coordinates = (
+        isinstance(location_value, dict)
+        and location_value.get("latitude") is not None
+        and location_value.get("longitude") is not None
+    )
+    has_valid_region_name = isinstance(location_value, str) and bool(location_value.strip())
+
+    if (not has_valid_coordinates and not has_valid_region_name) or not specialty:
         return None
 
     return payload

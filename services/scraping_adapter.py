@@ -54,12 +54,30 @@ def build_scraping_input(
     """
     loc = location or {}
 
+    latitude = loc.get("latitude")
+    longitude = loc.get("longitude")
+    city = (loc.get("city") or "").strip()
+
+    # Support both coordinate and region-name flows:
+    # - coordinates: {"latitude": ..., "longitude": ...}
+    # - region name: "kothrud"
+    normalized_location: Any
+    if latitude is not None and longitude is not None:
+        normalized_location = {
+            "latitude": latitude,
+            "longitude": longitude,
+        }
+    elif city:
+        normalized_location = city
+    else:
+        normalized_location = {
+            "latitude": None,
+            "longitude": None,
+        }
+
     payload = {
         "severity": map_urgency_to_severity(assessment_result.get("urgency_level")),
-        "location": {
-            "latitude": loc.get("latitude"),
-            "longitude": loc.get("longitude"),
-        },
+        "location": normalized_location,
         "specialty": normalize_specialty(
             assessment_result.get("recommended_specialty")
         ),
