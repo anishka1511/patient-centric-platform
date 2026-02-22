@@ -1,5 +1,7 @@
 import { useRef, useState } from 'react';
 import SymptomForm from '../components/SymptomForm';
+import KnownCareForm from '../components/KnownCareForm';
+import CarePathSelector from '../components/CarePathSelector';
 import LoadingScreen from '../components/LoadingScreen';
 import ResultDashboard from '../components/ResultDashboard';
 import { analyzeSymptoms } from '../services/api';
@@ -66,6 +68,12 @@ const parseLocationFromMode = (locationMode, locationValue) => {
   }
 
   return { city: input };
+};
+
+const KNOWN_INPUT_LABELS = {
+  diagnosis: 'Diagnosis',
+  specialist: 'Specialist',
+  procedure: 'Procedure / Surgery',
 };
 
 const formatCostEstimate = (scrapingOutput) => {
@@ -332,14 +340,17 @@ export default function Home() {
     `session_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`
   );
   const [loading, setLoading] = useState(false);
+  const [activeView, setActiveView] = useState('entry');
   const [result, setResult] = useState(null);
-  const [symptoms, setSymptoms] = useState(null);
+  const [inputSummary, setInputSummary] = useState(null);
+  const [inputLabel, setInputLabel] = useState('Your Symptoms');
   const [error, setError] = useState('');
 
   const handleSymptomSubmit = async ({ symptoms: userSymptoms, locationMode, locationValue }) => {
     setLoading(true);
     setError('');
-    setSymptoms(userSymptoms);
+    setInputLabel('Your Symptoms');
+    setInputSummary(userSymptoms);
 
     try {
       const payload = {
@@ -363,10 +374,53 @@ export default function Home() {
     }
   };
 
+  const handleKnownInputSubmit = async ({
+    inputType,
+    knownInput,
+    details,
+    locationMode,
+    locationValue,
+  }) => {
+    setLoading(true);
+    setError('');
+    setInputLabel('Your Medical Input');
+    setInputSummary(
+      `${KNOWN_INPUT_LABELS[inputType] || 'Known Input'}: ${knownInput}${details ? `\nNotes: ${details}` : ''}`
+    );
+
+    try {
+      const payload = {
+        message: `Known ${inputType}: ${knownInput}${details ? `. Additional context: ${details}` : ''}.`,
+        session_id: sessionIdRef.current,
+      };
+
+      const parsedLocation = parseLocationFromMode(locationMode, locationValue);
+      if (parsedLocation) {
+        payload.location = parsedLocation;
+      }
+
+      const response = await analyzeSymptoms(payload);
+      setResult(normalizeAssessmentResponse(response));
+    } catch (apiError) {
+      const message = String(apiError?.message || 'Unable to assess this input right now.');
+      setError(message);
+      setResult(null);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSelectPath = (path) => {
+    setActiveView(path);
+    setError('');
+  };
+
   const handleBackClick = () => {
     setResult(null);
-    setSymptoms(null);
+    setInputSummary(null);
+    setInputLabel('Your Symptoms');
     setError('');
+    setActiveView('entry');
   };
 
   if (loading) {
@@ -376,11 +430,29 @@ export default function Home() {
   return (
     <div className="home">
       {result ? (
-        <ResultDashboard result={result} symptoms={symptoms} onBackClick={handleBackClick} />
+        <ResultDashboard
+          result={result}
+          symptoms={inputSummary}
+          inputLabel={inputLabel}
+          onBackClick={handleBackClick}
+        />
       ) : (
         <>
-          {error && <div className="home-error">{error}</div>}
-          <SymptomForm onSubmit={handleSymptomSubmit} />
+          {activeView === 'entry' && <CarePathSelector onSelectPath={handleSelectPath} />}
+
+          {activeView === 'guided' && (
+            <>
+              {error && <div className="home-error">{error}</div>}
+              <SymptomForm onSubmit={handleSymptomSubmit} onBack={handleBackClick} />
+            </>
+          )}
+
+          {activeView === 'known' && (
+            <>
+              {error && <div className="home-error">{error}</div>}
+              <KnownCareForm onSubmit={handleKnownInputSubmit} onBack={handleBackClick} />
+            </>
+          )}
         </>
       )}
     </div>

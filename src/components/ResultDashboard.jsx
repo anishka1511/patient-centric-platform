@@ -20,7 +20,7 @@ const formatLocation = (location) => {
   return 'Not detected';
 };
 
-export default function ResultDashboard({ result, symptoms, onBackClick }) {
+export default function ResultDashboard({ result, symptoms, inputLabel = 'Your Symptoms', onBackClick }) {
   const normalizedUrgency = String(result?.urgency || '').toLowerCase();
   const showHospitalCards =
     Boolean(result?.emergency_flag) ||
@@ -42,7 +42,7 @@ export default function ResultDashboard({ result, symptoms, onBackClick }) {
       <div className="result-container">
         {symptoms && (
           <div className="symptoms-display">
-            <h3 className="symptoms-title">Your Symptoms</h3>
+            <h3 className="symptoms-title">{inputLabel}</h3>
             <p className="symptoms-text">{symptoms}</p>
           </div>
         )}

@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { getUserLocation } from '../services/geolocation';
 import '../styles/SymptomForm.css';
 
-export default function SymptomForm({ onSubmit }) {
+export default function SymptomForm({ onSubmit, onBack }) {
   const [symptoms, setSymptoms] = useState('');
   const [locationMode, setLocationMode] = useState('region');
   const [regionName, setRegionName] = useState('');
@@ -139,6 +139,12 @@ export default function SymptomForm({ onSubmit }) {
 
   return (
     <form className="symptom-form" onSubmit={handleSubmit}>
+      {onBack && (
+        <button type="button" className="form-back-button" onClick={onBack}>
+          Back to Path Selection
+        </button>
+      )}
+
       <h1 className="form-title">Healthcare Decision AI</h1>
       <p className="form-subtitle">Describe your symptoms and location to find nearby hospitals</p>
 

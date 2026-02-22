@@ -191,7 +191,9 @@ CRITICAL CLASSIFICATION RULES:
    Examples: "pain", "sick", "ill", "unwell" without location/context
 3. Single body part words without symptom = INSUFFICIENT_INFO
    Examples: "head", "chest", "stomach", "back", "leg" without describing what's wrong
-4. Only mark as VALID_MEDICAL if there's a SPECIFIC symptom mentioned
+4. Specialist/procedure/diagnosis inputs are VALID_MEDICAL
+   Examples: "dentist", "tooth filling", "cardiac arrest", "migraine diagnosis"
+5. Only mark as VALID_MEDICAL if there's a SPECIFIC symptom or known medical term
    Examples: "headache", "fever", "rash", "cough", "toothache", "chest pain"
 
 EMERGENCY INDICATORS:
@@ -228,6 +230,12 @@ Output: {"category": "INSUFFICIENT_INFO", "symptoms": [], "emergency": false, "m
 
 Input: "headache"
 Output: {"category": "VALID_MEDICAL", "symptoms": ["headache"], "emergency": false, "message": "Medical concern identified", "reason": "Specific symptom mentioned"}
+
+Input: "dentist"
+Output: {"category": "VALID_MEDICAL", "symptoms": ["dental concern"], "emergency": false, "message": "Medical concern identified", "reason": "Specialist request is actionable"}
+
+Input: "tooth filling"
+Output: {"category": "VALID_MEDICAL", "symptoms": ["tooth filling"], "emergency": false, "message": "Medical concern identified", "reason": "Procedure request is actionable"}
 
 Input: "mild headache"
 Output: {"category": "VALID_MEDICAL", "symptoms": ["mild headache"], "emergency": false, "message": "Medical concern identified", "reason": "Specific symptom with severity"}

@@ -29,9 +29,66 @@ def normalize_specialty(recommended_specialty: Optional[str]) -> str:
         return "general physician"
 
     replacements = {
+        # General medicine
         "general physician / primary care": "general physician",
         "primary care": "general physician",
+        "primary care physician": "general physician",
+        "general practitioner": "general physician",
+        "family physician": "general physician",
+        "internal medicine": "general physician",
         "emergency medicine": "general physician",
+        # Dentistry
+        "dentistry": "dentist",
+        "dental": "dentist",
+        "dental surgeon": "dentist",
+        "oral medicine": "dentist",
+        "oral surgery": "dentist",
+        # Cardiovascular
+        "cardiology": "cardiologist",
+        "cardiac specialist": "cardiologist",
+        # Skin
+        "dermatology": "dermatologist",
+        "skin specialist": "dermatologist",
+        # Endocrine
+        "endocrinology": "endocrinologist",
+        # Gastro
+        "gastroenterology": "gastroenterologist",
+        # Neurology (closest available in current dataset)
+        "neurologist": "internal medicine",
+        "neurology": "internal medicine",
+        # ENT
+        "ent": "ent specialist",
+        "ear nose throat": "ent specialist",
+        "otolaryngologist": "ent specialist",
+        # Orthopedics
+        "orthopaedic": "orthopedic",
+        "orthopedics": "orthopedic",
+        # Gynecology/OBGYN
+        "gynecologist": "gynac",
+        "gynaecologist": "gynac",
+        "gynecology": "gynac",
+        "obstetrician": "obsstetrician",
+        "obstetrics": "obsstetrician",
+        "obstetrics and gynaecology": "gynac",
+        "ob gyn": "gynac",
+        "obgyn": "gynac",
+        # Pediatrics
+        "paediatrician": "pediatrician",
+        "pediatrics": "pediatrician",
+        # Kidney and cancer
+        "nephrology": "nephrologist",
+        "oncology": "oncologist",
+        # Eye
+        "eye specialist": "ophthalmologist",
+        "ophthalmology": "ophthalmologist",
+        # Respiratory
+        "chest physician": "pulmonologist",
+        "pulmonology": "pulmonologist",
+        # Urinary and mental health
+        "urology": "urologist",
+        "psychiatry": "psychiatrist",
+        # Mental health
+        "mental health specialist": "psychiatrist",
     }
     if specialty in replacements:
         return replacements[specialty]

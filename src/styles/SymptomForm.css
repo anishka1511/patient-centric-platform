@@ -26,6 +26,26 @@
   grid-column: 2;
 }
 
+.form-back-button {
+  justify-self: start;
+  margin-bottom: 14px;
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.form-back-button:hover {
+  color: var(--text-primary);
+  border-color: var(--accent-color);
+  background: rgba(20, 184, 166, 0.08);
+}
+
 .symptom-form::before {
   content: '';
   position: absolute;

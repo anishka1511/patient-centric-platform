@@ -129,6 +129,26 @@ class InputClassifier:
         'constant', 'intermittent', 'occasional',
         'left', 'right', 'upper', 'lower', 'side',
     ]
+
+    # Known medical-intent terms where users may provide specialist/procedure/diagnosis
+    # directly instead of symptom descriptions.
+    KNOWN_MEDICAL_INTENT_TERMS = [
+        # Specialists
+        'dentist', 'dental', 'cardiologist', 'cardiology', 'dermatologist',
+        'ent specialist', 'orthopedic', 'gynecologist', 'gastroenterologist',
+        'neurologist', 'ophthalmologist', 'pulmonologist', 'urologist',
+        'endocrinologist', 'psychiatrist', 'oncologist', 'nephrologist',
+        'pediatrician', 'general physician', 'general doctor', 'primary care',
+        # Procedures / interventions
+        'tooth filling', 'root canal', 'dental filling', 'dental extraction',
+        'wisdom tooth', 'dental surgery', 'angioplasty', 'bypass surgery',
+        'brain surgery', 'appendectomy', 'biopsy', 'chemotherapy', 'radiation therapy',
+        'dialysis', 'cataract surgery', 'orthopedic surgery',
+        # Common diagnosis/conditions
+        'cardiac arrest', 'heart attack', 'migraine', 'asthma', 'diabetes',
+        'thyroid', 'pneumonia', 'depression', 'anxiety', 'kidney stone',
+        'tooth decay', 'cavity', 'gingivitis',
+    ]
     
     def classify_input(self, user_input: str) -> Tuple[str, str, List[str]]:
         """
@@ -161,6 +181,17 @@ class InputClassifier:
                 "EMERGENCY",
                 emergency_reason,
                 []  # No clarification needed - immediate triage
+            )
+
+        # PRIORITY 1.5: Known specialist/procedure/diagnosis should be actionable
+        # even when users do not provide symptom-style wording.
+        known_medical_term = self._extract_known_medical_term(user_input_lower)
+        if known_medical_term:
+            logger.info(f"Known medical-intent term detected: {known_medical_term}")
+            return (
+                "VALID_MEDICAL",
+                f"Known medical term identified: {known_medical_term}",
+                []
             )
         
         # PRIORITY 2: Check for irrelevant/non-medical input
@@ -315,7 +346,11 @@ class InputClassifier:
     
     def _has_medical_keywords(self, text: str) -> bool:
         """Check if text contains medical keywords"""
-        return any(keyword in text for keyword in self.MEDICAL_KEYWORDS)
+        return any(keyword in text for keyword in self.MEDICAL_KEYWORDS) or self._has_known_medical_intent(text)
+
+    def _has_known_medical_intent(self, text: str) -> bool:
+        """Check for specialist/procedure/diagnosis intent terms."""
+        return any(term in text for term in self.KNOWN_MEDICAL_INTENT_TERMS)
     
     def _has_context(self, text: str) -> bool:
         """Check if text contains contextual details"""
@@ -327,6 +362,13 @@ class InputClassifier:
             if keyword in text:
                 return keyword
         return "symptom"
+
+    def _extract_known_medical_term(self, text: str) -> str:
+        """Return first matched known medical-intent term, if any."""
+        for term in self.KNOWN_MEDICAL_INTENT_TERMS:
+            if term in text:
+                return term
+        return ""
 
 
 # Create singleton instance

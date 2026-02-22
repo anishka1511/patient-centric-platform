@@ -58,6 +58,10 @@ class AgentOrchestrator:
                 logger.info(f"Retrieved {len(conversation_history)} recent messages for context")
         
         try:
+            direct_specialty, direct_confidence, direct_terms = self.specialty_mapper.extract_specialty_from_text(
+                user_message
+            )
+
             # Step 1: LLM-based Input Classification + Symptom Extraction (combined)
             classification = self.llm_service.classify_input(user_message, history=conversation_history)
             
@@ -66,6 +70,16 @@ class AgentOrchestrator:
             llm_emergency = classification.get("emergency", False)
             
             logger.info(f"LLM classified as: {category} with {len(symptoms)} symptoms")
+
+            # Known specialist/procedure/diagnosis inputs must remain actionable.
+            if direct_specialty and category in {"IRRELEVANT", "INSUFFICIENT_INFO"}:
+                logger.info(
+                    f"Promoting category '{category}' to VALID_MEDICAL due to known term mapping: "
+                    f"{direct_specialty} ({', '.join(direct_terms[:3])})"
+                )
+                category = "VALID_MEDICAL"
+                if not symptoms:
+                    symptoms = [user_message]
             
             # Handle IRRELEVANT inputs (greetings, small talk)
             if category == "IRRELEVANT":
@@ -112,6 +126,12 @@ class AgentOrchestrator:
             
             # Step 3: LLM assessment (detailed analysis of symptoms)
             llm_assessment = self.llm_service.assess_symptoms(symptoms, history=conversation_history)
+
+            # Deterministic specialty override for known-input mode terms.
+            if direct_specialty:
+                llm_assessment["recommended_specialty"] = direct_specialty
+                if not llm_assessment.get("symptoms_identified"):
+                    llm_assessment["symptoms_identified"] = list(symptoms) if symptoms else [user_message]
             
             # Step 4: Override with emergency detection (LLM classification or rules)
             if (llm_emergency or rule_emergency) and not llm_assessment.get("emergency_flag"):
@@ -131,13 +151,20 @@ class AgentOrchestrator:
                 llm_assessment["urgency_level"] = rule_urgency
             
             # Step 5: Augment specialty recommendation
+            specialty_context = list(symptoms) if symptoms else []
+            if user_message not in specialty_context:
+                specialty_context.append(user_message)
             mapped_specialty, confidence = self.specialty_mapper.map_specialty(
-                symptoms, 
+                specialty_context,
                 llm_assessment.get("recommended_specialty")
             )
+
+            if direct_specialty:
+                mapped_specialty = direct_specialty
+                confidence = max(confidence, direct_confidence)
             
             # Use mapped specialty if confidence is high
-            if confidence > 0.7:
+            if confidence > 0.7 or bool(direct_specialty):
                 llm_assessment["recommended_specialty"] = mapped_specialty
             
             # Step 6: Determine care setting
@@ -156,7 +183,9 @@ class AgentOrchestrator:
                 "processing_notes": {
                     "rule_based_emergency": rule_emergency,
                     "rule_based_urgency": rule_urgency,
-                    "specialty_confidence": confidence
+                    "specialty_confidence": confidence,
+                    "direct_specialty_mapping": direct_specialty,
+                    "direct_mapping_terms": direct_terms
                 }
             }
             

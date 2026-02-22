@@ -1,0 +1,13 @@
+.known-care-form .form-subtitle {
+  max-width: 840px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.known-care-form .textarea {
+  min-height: 100px;
+}
+
+.known-submit-button {
+  margin-top: 14px;
+}
