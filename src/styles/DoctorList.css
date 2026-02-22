@@ -308,6 +308,9 @@
   padding: 14px 18px;
   border-top: 1px solid var(--border-color);
   background: var(--glass-bg);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
 }
 
 .book-button {
@@ -332,6 +335,30 @@
 }
 
 .book-button:active {
+  transform: translateY(0);
+}
+
+.review-button {
+  width: 100%;
+  padding: 12px;
+  background: transparent;
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.review-button:hover {
+  background: rgba(20, 184, 166, 0.1);
+  transform: translateY(-2px);
+}
+
+.review-button:active {
   transform: translateY(0);
 }
 

@@ -307,6 +307,7 @@ export default function DoctorList({ hospitals = [], doctors = [], specialty, us
 
               <div className="doctor-card-footer">
                 <button className="book-button">Book Appointment</button>
+                <button className="review-button">Review</button>
               </div>
             </div>
           );

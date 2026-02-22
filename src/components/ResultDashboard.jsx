@@ -34,11 +34,10 @@ export default function ResultDashboard({ result, symptoms, onBackClick }) {
 
   return (
     <div className="result-dashboard">
+      <UrgencyBanner urgency={result.urgency} emergency_flag={result.emergency_flag} />
       <button className="back-button" onClick={onBackClick}>
         New Search
       </button>
-
-      <UrgencyBanner urgency={result.urgency} emergency_flag={result.emergency_flag} />
 
       <div className="result-container">
         {symptoms && (
