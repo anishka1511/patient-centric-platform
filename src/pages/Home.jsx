@@ -13,6 +13,17 @@ const toNumber = (value) => {
   return Number.isFinite(parsed) ? parsed : null;
 };
 
+const normalizeDoctorRatingToTen = (value) => {
+  const numeric = toNumber(value);
+  if (numeric == null) return 8.0;
+
+  if (numeric <= 1) return Math.max(0, Math.min(10, numeric * 10));
+  if (numeric <= 5) return Math.max(0, Math.min(10, numeric * 2));
+  if (numeric <= 10) return Math.max(0, Math.min(10, numeric));
+  if (numeric <= 100) return Math.max(0, Math.min(10, numeric / 10));
+  return 8.0;
+};
+
 const normalizeUrgency = (value) => {
   const urgency = String(value || 'low').toLowerCase().trim();
   if (urgency === 'high' || urgency === 'medium' || urgency === 'low') {
@@ -78,7 +89,7 @@ const formatCostEstimate = (scrapingOutput) => {
   return 'Contact provider for pricing';
 };
 
-const mapDoctors = (rawDoctors) => {
+const mapDoctors = (rawDoctors, userLocation) => {
   if (!Array.isArray(rawDoctors)) return [];
 
   const seen = new Set();
@@ -95,25 +106,41 @@ const mapDoctors = (rawDoctors) => {
     if (seen.has(key)) return;
     seen.add(key);
 
-    const ratingScore = toNumber(doctor?.rating_score);
-    const normalizedRating =
-      ratingScore == null
-        ? 80
-        : Math.round(Math.max(0, Math.min(ratingScore <= 5 ? ratingScore * 20 : ratingScore, 100)));
     const fee = toNumber(doctor?.consultation_fee);
+    const latitude = toNumber(doctor?.latitude);
+    const longitude = toNumber(doctor?.longitude);
+
+    let distanceKm = toNumber(doctor?.distance_km);
+    if (
+      distanceKm == null &&
+      latitude != null &&
+      longitude != null &&
+      userLocation?.latitude != null &&
+      userLocation?.longitude != null
+    ) {
+      distanceKm = calculateDistance(
+        userLocation.latitude,
+        userLocation.longitude,
+        latitude,
+        longitude
+      );
+    }
+
+    const ratingOutOfTen = normalizeDoctorRatingToTen(doctor?.rating_score ?? doctor?.rating);
 
     mapped.push({
       name: doctor?.name || 'Doctor',
       specialty: doctor?.specialty || 'General Physician',
       experience_years: doctor?.experience_years ?? null,
       availability: 'Recommended',
-      rating: normalizedRating,
+      rating: Number(ratingOutOfTen.toFixed(1)),
       cost: fee == null ? 'On request' : `Rs.${Math.round(fee)}`,
       phone: doctor?.contact_number || 'Not available',
       location: doctor?.location || 'N/A',
       consultation_fee: fee,
-      latitude: toNumber(doctor?.latitude),
-      longitude: toNumber(doctor?.longitude),
+      distance_km: distanceKm == null ? null : Number(distanceKm.toFixed(1)),
+      latitude,
+      longitude,
     });
   });
 
@@ -181,7 +208,6 @@ const buildHospitalsFromRecommendations = (rawHospitals, mappedDoctors, userLoca
       insurance_supported: true,
       coordinates: hasCoordinates ? [latitude, longitude] : null,
       doctors: linkedDoctors,
-      specialty: hospital?.specialties_available || '',
       hospital_type: hospital?.hospital_type || 'Unknown',
     };
   });
@@ -220,9 +246,9 @@ const buildHospitalsFromDoctors = (mappedDoctors, userLocation) => {
       doctors.length > 0
         ? Number(
             (
-              doctors.reduce((sum, doctor) => sum + (toNumber(doctor.rating) || 80), 0) /
+              doctors.reduce((sum, doctor) => sum + (toNumber(doctor.rating) || 8), 0) /
               doctors.length /
-              20
+              2
             ).toFixed(1)
           )
         : 4.0;
@@ -250,7 +276,6 @@ const buildHospitalsFromDoctors = (mappedDoctors, userLocation) => {
           ? [firstWithCoords.latitude, firstWithCoords.longitude]
           : null,
       doctors: doctors.slice(0, 3),
-      specialty: doctors[0]?.specialty || '',
       hospital_type: 'Clinic Network',
     };
   });
@@ -268,7 +293,7 @@ const normalizeAssessmentResponse = (response) => {
   const optionalDoctors = Array.isArray(scrapingOutput?.optional_nearby_doctors?.recommended_doctors)
     ? scrapingOutput.optional_nearby_doctors.recommended_doctors
     : [];
-  const mappedDoctors = mapDoctors([...primaryDoctors, ...optionalDoctors]);
+  const mappedDoctors = mapDoctors([...primaryDoctors, ...optionalDoctors], response?.user_location);
 
   const hospitalsFromRecommendations = buildHospitalsFromRecommendations(
     scrapingOutput?.recommended_hospitals || [],

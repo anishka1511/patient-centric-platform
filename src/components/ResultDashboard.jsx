@@ -2,6 +2,7 @@ import UrgencyBanner from './UrgencyBanner';
 import DoctorList from './DoctorList';
 import CostPanel from './CostPanel';
 import HospitalMap from './HospitalMap';
+import HospitalList from './HospitalList';
 import '../styles/ResultDashboard.css';
 
 const formatLocation = (location) => {
@@ -20,6 +21,12 @@ const formatLocation = (location) => {
 };
 
 export default function ResultDashboard({ result, symptoms, onBackClick }) {
+  const normalizedUrgency = String(result?.urgency || '').toLowerCase();
+  const showHospitalCards =
+    Boolean(result?.emergency_flag) ||
+    normalizedUrgency === 'high' ||
+    normalizedUrgency === 'medium';
+
   const symptomsIdentified =
     result.symptoms_identified && result.symptoms_identified.length > 0
       ? result.symptoms_identified.join(', ')
@@ -80,12 +87,17 @@ export default function ResultDashboard({ result, symptoms, onBackClick }) {
           </div>
         )}
 
+        {showHospitalCards && (
+          <HospitalList hospitals={result.hospitals || []} specialty={result.specialty} />
+        )}
+
         <HospitalMap hospitals={result.hospitals || []} user_location={result.user_location} />
 
         <DoctorList
           hospitals={result.hospitals}
           doctors={result.doctors}
           specialty={result.specialty}
+          user_location={result.user_location}
         />
 
         <CostPanel cost_estimate={result.cost_estimate} />

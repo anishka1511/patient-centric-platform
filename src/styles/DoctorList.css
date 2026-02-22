@@ -15,6 +15,11 @@
 
 .doctors-header {
   margin-bottom: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  flex-wrap: wrap;
 }
 
 .doctors-main-title {
@@ -34,6 +39,37 @@
   color: var(--text-secondary);
   margin: 0;
   font-weight: 500;
+}
+
+.doctor-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 190px;
+}
+
+.doctor-controls label {
+  font-size: 11px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  font-weight: 700;
+}
+
+.doctor-controls select {
+  appearance: none;
+  border: 1px solid var(--border-color);
+  background: var(--card-bg);
+  color: var(--text-primary);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.doctor-controls select:focus {
+  outline: none;
+  border-color: var(--primary-color);
 }
 
 .doctors-grid {
@@ -256,6 +292,12 @@
   font-weight: 600;
 }
 
+.location-distance {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
 .contact-value {
   font-family: 'Courier New', monospace;
   letter-spacing: 0.5px;
@@ -320,6 +362,10 @@
 
   .availability-badge {
     align-self: flex-start;
+  }
+
+  .doctor-controls {
+    width: 100%;
   }
 }
 

@@ -1,6 +1,7 @@
 import pandas as pd
 from pathlib import Path
 import json
+import re
 
 # Module-level cache to ensure file loads only once
 _cached_data = None
@@ -688,9 +689,12 @@ def rank_doctors(df, user_location, severity="medium", top_k=5):
     # Create a copy to avoid modifying original data
     df = df.copy()
     
+    user_location_key = str(user_location).strip().lower()
+
     # Compute scores
     df['cost_score'] = _compute_cost_score(df['consultation_fee'])
     df['location_score'] = _compute_location_score(df['location'], user_location)
+    df['exact_location_match'] = df['location'].str.lower().eq(user_location_key)
     
     # Determine weights based on severity
     if severity == "high":
@@ -712,8 +716,11 @@ def rank_doctors(df, user_location, severity="medium", top_k=5):
     # Calculate 25th percentile of consultation fees for "Affordable" tag
     percentile_25 = df['consultation_fee'].quantile(0.25)
     
-    # Get top_k doctors sorted by final_score descending
-    top_doctors = df.nlargest(top_k, 'final_score')
+    # Prioritize exact-location matches as most relevant, then score quality.
+    top_doctors = df.sort_values(
+        by=['exact_location_match', 'final_score', 'rating_score', 'location_score', 'cost_score'],
+        ascending=[False, False, False, False, False]
+    ).head(top_k)
     
     # Format results as list of dictionaries
     results = []
@@ -735,7 +742,8 @@ def rank_doctors(df, user_location, severity="medium", top_k=5):
             'specialty': row['specialty'],
             'location': row['location'],
             'consultation_fee': int(_convert_to_json_serializable(row['consultation_fee'])),
-            'rating_score': round(float(_convert_to_json_serializable(row['rating_score'])), 2),
+            # Expose doctor rating on a user-friendly 0-10 scale.
+            'rating_score': round(float(_convert_to_json_serializable(row['rating_score'])) * 10, 1),
             'final_score': round(float(_convert_to_json_serializable(row['final_score'])), 4),
             'reason': reason,
             'contact_number': _get_valid_contact_number(row['contact_number']),
@@ -825,34 +833,36 @@ def recommend_doctors(input_data: dict):
         pass
     else:
         # First attempt: exact location match
-        location_filtered = filtered_df[filtered_df['location'].str.lower() == location]
+        exact_location_filtered = filtered_df[filtered_df['location'].str.lower() == location]
+        location_filtered = exact_location_filtered.copy()
 
-        # If no exact results, try nearby locations in order and accumulate
-        # until we collect at least DEFAULT_TOP_K candidates.
-        if location_filtered.empty:
+        # If exact-location matches are missing or limited, top up from nearby locations.
+        if len(location_filtered) < DEFAULT_TOP_K:
             available_specialty_locations = set(filtered_df['location'].str.lower().unique())
             nearby_locations = _get_ordered_nearby_locations(location, available_specialty_locations)
             nearby_batches = []
-            collected_count = 0
+            collected_count = len(location_filtered)
 
             for nearby in nearby_locations:
                 nearby_filtered = filtered_df[filtered_df['location'].str.lower() == nearby]
                 if nearby_filtered.empty:
                     continue
 
-                nearby_batches.append(nearby_filtered)
-                collected_count += len(nearby_filtered)
+                needed_count = DEFAULT_TOP_K - collected_count
+                nearby_limited = nearby_filtered.head(needed_count)
+                nearby_batches.append(nearby_limited)
+                collected_count += len(nearby_limited)
 
-                if not fallback_applied:
-                    fallback_applied = True
+                fallback_applied = True
+                if fallback_location is None:
                     fallback_location = nearby
-                    fallback_type = "nearby"
+                fallback_type = "nearby"
 
                 if collected_count >= DEFAULT_TOP_K:
                     break
 
             if nearby_batches:
-                location_filtered = pd.concat(nearby_batches, ignore_index=True)
+                location_filtered = pd.concat([location_filtered] + nearby_batches, ignore_index=True)
 
         filtered_df = location_filtered
     
@@ -861,25 +871,28 @@ def recommend_doctors(input_data: dict):
         gp_df = df[df['specialty'].str.lower() == "general physician"]
 
         # Try exact location first
-        gp_location_filtered = gp_df[gp_df['location'].str.lower() == location]
+        gp_exact_filtered = gp_df[gp_df['location'].str.lower() == location]
+        gp_location_filtered = gp_exact_filtered.copy()
 
-        # If no GPs in exact location, try nearby and accumulate
-        if gp_location_filtered.empty:
+        # If exact GP matches are missing or limited, top up from nearby locations.
+        if len(gp_location_filtered) < DEFAULT_TOP_K:
             available_gp_locations = set(gp_df['location'].str.lower().unique())
             nearby_locations = _get_ordered_nearby_locations(location, available_gp_locations)
             nearby_gp_batches = []
-            collected_gp_count = 0
+            collected_gp_count = len(gp_location_filtered)
 
             for nearby in nearby_locations:
                 nearby_gp = gp_df[gp_df['location'].str.lower() == nearby]
                 if nearby_gp.empty:
                     continue
 
-                nearby_gp_batches.append(nearby_gp)
-                collected_gp_count += len(nearby_gp)
+                needed_gp_count = DEFAULT_TOP_K - collected_gp_count
+                nearby_gp_limited = nearby_gp.head(needed_gp_count)
+                nearby_gp_batches.append(nearby_gp_limited)
+                collected_gp_count += len(nearby_gp_limited)
 
-                if not fallback_applied:
-                    fallback_applied = True
+                fallback_applied = True
+                if fallback_location is None:
                     fallback_location = nearby
                 fallback_type = "general_physician_nearby"
 
@@ -887,7 +900,7 @@ def recommend_doctors(input_data: dict):
                     break
 
             if nearby_gp_batches:
-                gp_location_filtered = pd.concat(nearby_gp_batches, ignore_index=True)
+                gp_location_filtered = pd.concat([gp_location_filtered] + nearby_gp_batches, ignore_index=True)
 
         if not gp_location_filtered.empty:
             filtered_df = gp_location_filtered
@@ -1231,6 +1244,200 @@ def hospital_recommendation_engine(location: str, specialty: str = None):
         }
 
 
+def _normalize_boolean_flag(value) -> bool:
+    """
+    Normalize CSV boolean-like values to strict bool.
+    """
+    if isinstance(value, bool):
+        return value
+    if pd.isna(value):
+        return False
+
+    text = str(value).strip().lower()
+    return text in {"1", "true", "yes", "y", "t"}
+
+
+def _prepare_hospitals_dataframe(hospitals_df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Add normalized columns used by hospital fallback/ranking logic.
+    """
+    prepared = hospitals_df.copy()
+    prepared["location_lower"] = prepared["location"].astype(str).str.strip().str.lower()
+    prepared["emergency_available_bool"] = prepared["emergency_available"].apply(_normalize_boolean_flag)
+    prepared["icu_available_bool"] = prepared["icu_available"].apply(_normalize_boolean_flag)
+    return prepared
+
+
+def _dedupe_preserve_order(values: list) -> list:
+    """
+    Deduplicate list entries while preserving input order.
+    """
+    seen = set()
+    ordered = []
+    for value in values:
+        key = str(value).strip().lower()
+        if not key or key in seen:
+            continue
+        seen.add(key)
+        ordered.append(key)
+    return ordered
+
+
+def _rank_and_format_hospital_results(
+    hospitals_df: pd.DataFrame,
+    requested_location: str,
+    ordered_locations: list = None,
+    top_k: int = DEFAULT_TOP_K
+) -> tuple[list, int]:
+    """
+    Rank and format hospital results using existing score model with optional
+    location-order priority for fallback scenarios.
+    """
+    if hospitals_df is None or hospitals_df.empty:
+        return [], 0
+
+    ranked_df = hospitals_df.copy()
+    requested_location = str(requested_location or "").strip().lower()
+
+    location_rank = {}
+    if ordered_locations:
+        location_rank = {loc: idx for idx, loc in enumerate(_dedupe_preserve_order(ordered_locations))}
+
+    if location_rank:
+        def _location_score_for(loc):
+            if loc == requested_location:
+                return 1.0
+            rank = location_rank.get(loc)
+            if rank is None:
+                return 0.4
+            return max(0.4, 0.95 - 0.04 * min(rank, 12))
+    else:
+        def _location_score_for(loc):
+            return 1.0 if loc == requested_location else 0.7
+
+    ranked_df["location_score"] = ranked_df["location_lower"].apply(_location_score_for)
+
+    def get_hospital_type_score(h_type):
+        h_type_lower = str(h_type).lower() if h_type else ""
+        if "private" in h_type_lower:
+            return 1.0
+        if "public" in h_type_lower or "government" in h_type_lower:
+            return 0.8
+        return 0.6
+
+    ranked_df["hospital_type_score"] = ranked_df["hospital_type"].apply(get_hospital_type_score)
+    ranked_df["emergency_score"] = ranked_df["emergency_available_bool"].apply(lambda x: 0.3 if x else 0.0)
+    ranked_df["icu_score"] = ranked_df["icu_available_bool"].apply(lambda x: 0.2 if x else 0.0)
+    ranked_df["score"] = (
+        0.5 * ranked_df["location_score"] +
+        0.3 * ranked_df["hospital_type_score"] +
+        0.1 * ranked_df["emergency_score"] +
+        0.1 * ranked_df["icu_score"]
+    )
+
+    if location_rank:
+        ranked_df["location_rank"] = ranked_df["location_lower"].apply(lambda loc: location_rank.get(loc, 9999))
+        top_hospitals = ranked_df.sort_values(
+            by=["score", "location_rank", "emergency_available_bool", "icu_available_bool"],
+            ascending=[False, True, False, False]
+        ).head(top_k)
+    else:
+        top_hospitals = ranked_df.nlargest(top_k, "score")
+
+    results = []
+    for _, row in top_hospitals.iterrows():
+        results.append({
+            "hospital_name": row["hospital_name"],
+            "location": row["location"],
+            "hospital_type": row["hospital_type"],
+            "emergency_available": bool(row["emergency_available_bool"]),
+            "icu_available": bool(row["icu_available_bool"]),
+            "specialties_available": row["specialties_available"],
+            "contact_number": _get_valid_contact_number(row["contact_number"]),
+            "latitude": float(_convert_to_json_serializable(row["latitude"])),
+            "longitude": float(_convert_to_json_serializable(row["longitude"])),
+            "score": round(float(_convert_to_json_serializable(row["score"])), 4)
+        })
+
+    return results, len(ranked_df)
+
+
+def _build_hospital_response_with_metadata(
+    hospitals_df: pd.DataFrame,
+    requested_location: str,
+    ordered_locations: list,
+    metadata: dict
+) -> dict:
+    """
+    Build a standardized hospital response payload from a dataframe.
+    """
+    recommended_hospitals, total_matches = _rank_and_format_hospital_results(
+        hospitals_df,
+        requested_location=requested_location,
+        ordered_locations=ordered_locations
+    )
+
+    return {
+        "care_setting": "hospital",
+        "recommended_hospitals": recommended_hospitals,
+        "total_matches": total_matches,
+        "metadata": metadata
+    }
+
+
+def _final_area_wise_hospital_candidates(
+    hospitals_df: pd.DataFrame,
+    ordered_locations: list
+) -> pd.DataFrame:
+    """
+    Build nearest area-wise hospital candidates (one preferred hospital per area),
+    then top up with remaining nearest hospitals if needed.
+    """
+    if hospitals_df.empty:
+        return hospitals_df
+
+    selected_batches = []
+    selected_indices = set()
+
+    for loc in ordered_locations:
+        loc_df = hospitals_df[hospitals_df["location_lower"] == loc]
+        if loc_df.empty:
+            continue
+
+        # Prefer emergency/ICU-capable hospital for each location.
+        loc_best = loc_df.sort_values(
+            by=["emergency_available_bool", "icu_available_bool"],
+            ascending=[False, False]
+        ).head(1)
+        selected_batches.append(loc_best)
+        selected_indices.update(loc_best.index.tolist())
+
+        if len(selected_batches) >= DEFAULT_TOP_K:
+            break
+
+    if selected_batches:
+        selected_df = pd.concat(selected_batches, ignore_index=False)
+    else:
+        selected_df = hospitals_df.head(0)
+
+    needed = DEFAULT_TOP_K - len(selected_df)
+    if needed > 0:
+        remaining_df = hospitals_df[~hospitals_df.index.isin(selected_indices)].copy()
+        if not remaining_df.empty:
+            location_rank = {loc: idx for idx, loc in enumerate(ordered_locations)}
+            remaining_df["location_rank"] = remaining_df["location_lower"].apply(
+                lambda loc: location_rank.get(loc, 9999)
+            )
+            top_up = remaining_df.sort_values(
+                by=["location_rank", "emergency_available_bool", "icu_available_bool"],
+                ascending=[True, False, False]
+            ).head(needed)
+            if not top_up.empty:
+                selected_df = pd.concat([selected_df, top_up], ignore_index=False)
+
+    return selected_df
+
+
 def recommend_hospitals(input_data: dict):
     """
     Recommend hospitals based on location, specialty, and emergency requirements.
@@ -1495,13 +1702,203 @@ def recommend_hospitals(input_data: dict):
         }
 
 
+def recommend_hospitals_with_guaranteed_fallback(input_data: dict):
+    """
+    Preserve current strict hospital logic as first pass, then progressively relax
+    filters so medium/high flows can return hospitals whenever dataset entries exist.
+    """
+    # First pass always uses the existing strict logic unchanged.
+    strict_results = recommend_hospitals(input_data)
+    strict_count = strict_results.get("total_matches", 0)
+    strict_metadata = strict_results.get("metadata", {}) or {}
+
+    location = str(input_data.get("location", "")).strip().lower()
+    specialty = str(input_data.get("specialty", "")).strip().lower()
+    severity = str(input_data.get("severity", "medium")).strip().lower()
+    strict_message = strict_results.get("message")
+
+    if strict_count > 0:
+        strict_results["metadata"] = {
+            **strict_metadata,
+            "strict_first_pass_applied": True,
+            "strict_result_empty": False,
+            "strict_message": strict_message,
+            "guaranteed_fallback_applied": False,
+            "guaranteed_fallback_stage": None,
+            "strict_emergency_unavailable": False
+        }
+        return strict_results
+
+    file_path = Path("data/hospitals.csv")
+    if not file_path.exists():
+        strict_results["metadata"] = {
+            **strict_metadata,
+            "strict_first_pass_applied": True,
+            "strict_result_empty": True,
+            "strict_message": strict_message,
+            "guaranteed_fallback_applied": False,
+            "guaranteed_fallback_stage": None,
+            "strict_emergency_unavailable": severity == "high"
+        }
+        return strict_results
+
+    try:
+        hospitals_df = pd.read_csv(file_path)
+    except Exception:
+        strict_results["metadata"] = {
+            **strict_metadata,
+            "strict_first_pass_applied": True,
+            "strict_result_empty": True,
+            "strict_message": strict_message,
+            "guaranteed_fallback_applied": False,
+            "guaranteed_fallback_stage": None,
+            "strict_emergency_unavailable": severity == "high"
+        }
+        return strict_results
+
+    if hospitals_df.empty:
+        strict_results["metadata"] = {
+            **strict_metadata,
+            "strict_first_pass_applied": True,
+            "strict_result_empty": True,
+            "strict_message": strict_message,
+            "guaranteed_fallback_applied": False,
+            "guaranteed_fallback_stage": None,
+            "strict_emergency_unavailable": severity == "high"
+        }
+        return strict_results
+
+    prepared_df = _prepare_hospitals_dataframe(hospitals_df)
+    available_locations = set(prepared_df["location_lower"].dropna().astype(str).str.strip().str.lower().unique())
+
+    nearby_seed = [loc for loc in NEARBY_MAP.get(location, []) if loc in available_locations]
+    ordered_exact_nearby = _dedupe_preserve_order([location] + nearby_seed)
+    scoped_df = prepared_df[prepared_df["location_lower"].isin(ordered_exact_nearby)].copy()
+
+    mapped_specialties = _map_specialty_to_hospital_format(specialty)
+    escaped_specialties = [re.escape(item) for item in mapped_specialties if item]
+    specialty_pattern = "|".join(escaped_specialties) if escaped_specialties else re.escape(specialty)
+
+    def _apply_specialty_filter(frame: pd.DataFrame) -> pd.DataFrame:
+        if frame.empty:
+            return frame
+        return frame[
+            frame["specialties_available"].astype(str).str.lower().str.contains(
+                specialty_pattern, na=False, regex=True
+            )
+        ]
+
+    staged_candidates = []
+
+    # Stage 1: Expanded strict scope across exact + nearby locations.
+    expanded_strict_df = _apply_specialty_filter(scoped_df)
+    if severity == "high":
+        expanded_strict_df = expanded_strict_df[expanded_strict_df["emergency_available_bool"]]
+    staged_candidates.append((
+        "expanded_strict_scope",
+        expanded_strict_df,
+        ordered_exact_nearby,
+        "Expanded strict filtering across exact and nearby locations."
+    ))
+
+    # Stage 2: Relax specialty, keep emergency requirement (high) or keep all (medium).
+    if severity == "high":
+        relaxed_specialty_df = scoped_df[scoped_df["emergency_available_bool"]]
+        staged_candidates.append((
+            "relaxed_specialty_emergency_only",
+            relaxed_specialty_df,
+            ordered_exact_nearby,
+            "Relaxed specialty filter while preserving emergency capability."
+        ))
+    else:
+        staged_candidates.append((
+            "relaxed_specialty",
+            scoped_df,
+            ordered_exact_nearby,
+            "Relaxed specialty filter across exact and nearby locations."
+        ))
+
+    # Stage 3 (high only): Relax emergency requirement if still empty.
+    if severity == "high":
+        staged_candidates.append((
+            "relaxed_emergency_and_specialty",
+            scoped_df,
+            ordered_exact_nearby,
+            "Relaxed emergency and specialty filters across exact and nearby locations."
+        ))
+
+    # Stage 4: Final nearest area-wise hospitals across dataset (guaranteed fallback).
+    ordered_all_locations = _dedupe_preserve_order(
+        [location] + _get_ordered_nearby_locations(location, available_locations)
+    )
+    if not ordered_all_locations:
+        ordered_all_locations = sorted(available_locations)
+
+    area_wise_df = _final_area_wise_hospital_candidates(prepared_df, ordered_all_locations)
+    staged_candidates.append((
+        "nearest_area_wise",
+        area_wise_df,
+        ordered_all_locations,
+        "Nearest area-wise hospitals from dataset."
+    ))
+
+    for stage_name, stage_df, stage_locations, stage_reason in staged_candidates:
+        if stage_df.empty:
+            continue
+
+        stage_locations_with_results = _dedupe_preserve_order(stage_df["location_lower"].tolist())
+        fallback_location = next(
+            (loc for loc in stage_locations if loc in stage_locations_with_results and loc != location),
+            None
+        )
+        fallback_applied = any(loc != location for loc in stage_locations_with_results)
+        emergency_filter_applied = severity == "high" and stage_name in {
+            "expanded_strict_scope",
+            "relaxed_specialty_emergency_only"
+        }
+
+        metadata = {
+            "fallback_applied": fallback_applied,
+            "fallback_location": fallback_location,
+            "emergency_filter_applied": emergency_filter_applied,
+            "specialty_requested": specialty,
+            "strict_first_pass_applied": True,
+            "strict_result_empty": True,
+            "strict_message": strict_message,
+            "guaranteed_fallback_applied": True,
+            "guaranteed_fallback_stage": stage_name,
+            "guaranteed_fallback_reason": stage_reason,
+            "strict_emergency_unavailable": severity == "high"
+        }
+
+        fallback_response = _build_hospital_response_with_metadata(
+            stage_df,
+            requested_location=location,
+            ordered_locations=stage_locations,
+            metadata=metadata
+        )
+        if fallback_response.get("total_matches", 0) > 0:
+            return fallback_response
+
+    strict_results["metadata"] = {
+        **strict_metadata,
+        "strict_first_pass_applied": True,
+        "strict_result_empty": True,
+        "strict_message": strict_message,
+        "guaranteed_fallback_applied": False,
+        "guaranteed_fallback_stage": None,
+        "strict_emergency_unavailable": severity == "high"
+    }
+    return strict_results
+
+
 def generate_recommendation_response(input_data: dict):
     """
     Generate a comprehensive recommendation response with severity-based routing.
     
     Routes requests based on severity level:
-    - "high": Hospital-only with strict emergency filtering (no fallback)
-    - "medium": Hospitals first, fallback to doctors if no hospitals available
+    - "high": Hospital-only with strict emergency filtering first, then guaranteed fallback
+    - "medium": Hospitals always included (strict first, guaranteed fallback) + optional/fallback doctors
     - "low": Doctor recommendations only for routine checkups
     
     Args:
@@ -1573,15 +1970,12 @@ def generate_recommendation_response(input_data: dict):
     
     # SEVERITY-BASED ROUTING
     if severity == "high":
-        # HIGH: Strict emergency filtering via hospital engine
-        hospital_results = recommend_hospitals(cleaned_input)
+        # HIGH: Strict logic first, then staged guaranteed fallback if strict is empty.
+        hospital_results = recommend_hospitals_with_guaranteed_fallback(cleaned_input)
         hospital_count = hospital_results.get("total_matches", 0)
+        hospital_metadata = hospital_results.get("metadata", {}) or {}
         
-        # Strict requirement: no fallback if no emergency hospitals found
-        if hospital_count == 0:
-            return {"error": "No emergency-capable hospital found in this area."}
-        
-        return {
+        response = {
             "care_setting": "hospital",
             "metadata": {
                 "query_specialty": specialty,
@@ -1589,26 +1983,36 @@ def generate_recommendation_response(input_data: dict):
                 "query_severity": severity,
                 "severity": severity,
                 "recommendation_type": "hospital_only",
-                "emergency_filter_applied": True,
+                "emergency_filter_applied": hospital_metadata.get("emergency_filter_applied", True),
+                "strict_emergency_unavailable": hospital_metadata.get(
+                    "strict_emergency_unavailable",
+                    hospital_metadata.get("strict_result_empty", False)
+                ),
+                "strict_result_empty": hospital_metadata.get("strict_result_empty", False),
+                "guaranteed_fallback_applied": hospital_metadata.get("guaranteed_fallback_applied", False),
+                "guaranteed_fallback_stage": hospital_metadata.get("guaranteed_fallback_stage"),
                 "location_source": location_source,
                 "detected_location": location if location_source == "coordinates" else None
             },
             "recommended_hospitals": hospital_results.get("recommended_hospitals", []),
             "total_hospitals_available": hospital_count
         }
+        if "message" in hospital_results:
+            response["message"] = hospital_results["message"]
+        return response
     
     elif severity == "medium":
-        # MEDIUM: Try hospitals first, fallback to doctors if empty
-        hospital_results = recommend_hospitals(cleaned_input)
+        # MEDIUM: Strict logic first, then staged guaranteed fallback.
+        hospital_results = recommend_hospitals_with_guaranteed_fallback(cleaned_input)
         hospital_count = hospital_results.get("total_matches", 0)
+        hospital_metadata = hospital_results.get("metadata", {}) or {}
+        doctor_recommendations = recommend_doctors(cleaned_input)
+        recommended_doctors = doctor_recommendations.get("recommended_doctors", [])
+        doctor_fallback_metadata = doctor_recommendations.get("metadata", {})
+        doctor_fallback_type = doctor_fallback_metadata.get("fallback_type")
         
         if hospital_count > 0:
             # Hospitals found - return hospital recommendations plus optional nearby doctors
-            doctor_recommendations = recommend_doctors(cleaned_input)
-            recommended_doctors = doctor_recommendations.get("recommended_doctors", [])
-            doctor_fallback_metadata = doctor_recommendations.get("metadata", {})
-            doctor_fallback_type = doctor_fallback_metadata.get("fallback_type")
-
             return {
                 "care_setting": "hospital",
                 "metadata": {
@@ -1618,6 +2022,9 @@ def generate_recommendation_response(input_data: dict):
                     "severity": severity,
                     "recommendation_type": "hospital_primary",
                     "optional_doctors_available": len(recommended_doctors) > 0,
+                    "strict_result_empty": hospital_metadata.get("strict_result_empty", False),
+                    "guaranteed_fallback_applied": hospital_metadata.get("guaranteed_fallback_applied", False),
+                    "guaranteed_fallback_stage": hospital_metadata.get("guaranteed_fallback_stage"),
                     "location_source": location_source,
                     "detected_location": location if location_source == "coordinates" else None
                 },
@@ -1635,14 +2042,11 @@ def generate_recommendation_response(input_data: dict):
             }
         else:
             # No hospitals found - fallback to doctors
-            doctor_recommendations = recommend_doctors(cleaned_input)
-            recommended_doctors = doctor_recommendations.get("recommended_doctors", [])
             cost_summary = _generate_cost_summary_from_recommendations(recommended_doctors)
             
             returned_count = len(recommended_doctors)
             total_matches = doctor_recommendations.get("total_matches", 0)
-            fallback_metadata = doctor_recommendations.get("metadata", {})
-            fallback_type = fallback_metadata.get("fallback_type")
+            fallback_type = doctor_fallback_metadata.get("fallback_type")
             
             metadata = {
                 "query_specialty": specialty,
@@ -1652,23 +2056,30 @@ def generate_recommendation_response(input_data: dict):
                 "recommendation_type": "doctor_fallback",
                 "total_doctors_available": total_matches,
                 "returned_count": returned_count,
-                "fallback_applied": fallback_metadata.get("fallback_applied", False),
-                "fallback_location": fallback_metadata.get("fallback_location"),
+                "fallback_applied": doctor_fallback_metadata.get("fallback_applied", False),
+                "fallback_location": doctor_fallback_metadata.get("fallback_location"),
                 "fallback_type": fallback_type,
+                "strict_result_empty": hospital_metadata.get("strict_result_empty", True),
+                "guaranteed_fallback_applied": hospital_metadata.get("guaranteed_fallback_applied", False),
+                "guaranteed_fallback_stage": hospital_metadata.get("guaranteed_fallback_stage"),
                 "location_source": location_source,
                 "detected_location": location if location_source == "coordinates" else None
             }
             
             if fallback_type == "general_physician":
-                metadata["original_specialty"] = fallback_metadata.get("original_specialty", specialty)
+                metadata["original_specialty"] = doctor_fallback_metadata.get("original_specialty", specialty)
             
             response = {
                 "care_setting": "clinic",
                 "metadata": metadata,
+                "recommended_hospitals": hospital_results.get("recommended_hospitals", []),
+                "total_hospitals_available": hospital_count,
                 "recommended_doctors": recommended_doctors,
                 "cost_summary": cost_summary
             }
             
+            if "message" in hospital_results:
+                response["hospital_message"] = hospital_results["message"]
             if "message" in doctor_recommendations:
                 response["message"] = doctor_recommendations["message"]
             

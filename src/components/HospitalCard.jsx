@@ -1,8 +1,7 @@
-import DoctorRecommendation from './DoctorRecommendation';
 import '../styles/HospitalCard.css';
 
 export default function HospitalCard({ hospital }) {
-  const { name, distance_km, rating, cost_level, insurance_supported, doctors } = hospital;
+  const { name, distance_km, rating, cost_level, insurance_supported } = hospital;
 
   const getCostBadgeClass = () => {
     switch (cost_level) {
@@ -50,8 +49,6 @@ export default function HospitalCard({ hospital }) {
             <span className="insurance-badge">✓ Insurance</span>
           )}
         </div>
-
-        <DoctorRecommendation doctors={doctors} />
       </div>
     </div>
   );

@@ -121,7 +121,6 @@ function normalizeMasterHospitals(csvText) {
         cost_level: mapHospitalTypeToCostLevel(row.hospital_type),
         insurance_supported: true,
         coordinates: [latitude, longitude],
-        specialty: row.specialties_available || '',
         hospital_type: row.hospital_type || 'Unknown',
         doctors: [],
       };
@@ -286,7 +285,6 @@ export default function HospitalMap({ hospitals = [], user_location }) {
 
     return mergedHospitals.filter((hospital) =>
       hospital.name.toLowerCase().includes(term) ||
-      String(hospital.specialty || '').toLowerCase().includes(term) ||
       String(hospital.location || '').toLowerCase().includes(term)
     );
   }, [mergedHospitals, searchTerm]);
@@ -333,7 +331,7 @@ export default function HospitalMap({ hospitals = [], user_location }) {
         <div className="map-search">
           <input
             type="text"
-            placeholder="🔍 Search hospitals, specialty, or location..."
+            placeholder="🔍 Search hospitals or location..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="search-input"
