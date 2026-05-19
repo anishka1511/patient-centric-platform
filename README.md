@@ -399,6 +399,99 @@ python3 -m pip install --upgrade pip
 python3 -m pip install -r requirements.txt
 ```
 
+## Hosting (Production)
+
+This project separates frontend (static SPA) and backend (FastAPI). Recommended deployment:
+
+- Frontend: AWS Amplify (static hosting, CI/CD from your repo branch)
+- Backend: Render (Web Service) or any Python host that supports `gunicorn`/`uvicorn`
+
+High-level steps
+
+1. Backend (Render)
+   - Create a Render **Web Service** pointing to this repository and branch.
+   - Build command: `pip install -r requirements.txt` (Render auto-installs when `requirements.txt` exists).
+   - Start command (recommended):
+     ```bash
+     gunicorn -k uvicorn.workers.UvicornWorker main:app --bind 0.0.0.0:$PORT
+     ```
+     or
+     ```bash
+     uvicorn main:app --host 0.0.0.0 --port $PORT
+     ```
+   - Health check: `/health`
+   - Add environment variables in Render Dashboard: `DATABASE_URL`, `OPENAI_API_KEY`, `SECRET_KEY`, `ALLOWED_ORIGINS` (comma-separated), `LOG_LEVEL`, etc.
+   - Provision a managed Postgres on Render (or AWS RDS) and set `DATABASE_URL` in the service env. Do NOT use local sqlite in production.
+
+2. Frontend (Amplify)
+   - Connect Amplify Console to the repo and branch.
+   - Build settings: install `npm ci`, build `npm run build`.
+   - Amplify serves `dist/` produced by Vite; set environment variable `VITE_API_BASE_URL` to your Render backend URL (e.g. `https://your-backend.onrender.com`).
+   - Add a single-page app rewrite rule that rewrites all routes to `/index.html` (200 rewrite) so client-side routing works.
+
+3. CORS & Domains
+   - Add your Amplify domain (and any custom domains) to the backend `ALLOWED_ORIGINS` env var.
+   - Frontend should use the absolute backend URL in production (set `VITE_API_BASE_URL`).
+
+Repository hints
+
+- Do commit:
+  - `vite.config.js`, `src/services/api.js` (or any code/config changes)
+  - `requirements.txt`, `package.json`, `package-lock.json`
+  - Optional infra file `render.yaml` and `amplify.yml` for reproducible deploy settings
+- Do NOT commit:
+  - Any `.env` files, secret keys, or local DB files. Add values via Render/Amplify env UI.
+
+Example `render.yaml` (optional)
+
+```yaml
+services:
+  - type: web
+    name: patient-centric-backend
+    env: python
+    plan: starter
+    repo: https://github.com/<your-org>/<repo>
+    branch: main
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn -k uvicorn.workers.UvicornWorker main:app --bind 0.0.0.0:$PORT
+    autoDeploy: true
+    healthCheckPath: /health
+databases:
+  - name: patient-centric-db
+    databaseName: patient_centric
+    plan: starter
+```
+
+Example Amplify `amplify.yml` (optional)
+
+```yaml
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - npm ci
+    build:
+      commands:
+        - npm run build
+  artifacts:
+    baseDirectory: dist
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*
+```
+
+Deployment checklist
+
+- Commit & push your code to a branch (include `render.yaml` / `amplify.yml` if you want infra-as-code).
+- Configure Render service and set environment variables and Postgres `DATABASE_URL`.
+- Configure Amplify, set `VITE_API_BASE_URL` to the Render service URL, add the SPA rewrite.
+- Deploy and monitor logs; verify `https://<your-backend>.onrender.com/health` returns `200`.
+
+If you want, I can add a `render.yaml` to this repo with your repo URL/branch filled in and update the README with exact values — tell me the repo path and branch to use and I'll commit it.
+
 ### Important dependency note
 
 `data_loader.py` uses `pandas`. If your environment does not have it:
