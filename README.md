@@ -434,6 +434,7 @@ High-level steps
    - Health check: `/health`
    - Add environment variables in Render Dashboard: `DATABASE_URL`, `OPENAI_API_KEY`, `SECRET_KEY`, `ALLOWED_ORIGINS` (comma-separated), `LOG_LEVEL`, etc.
    - Provision a managed Postgres on Render (or AWS RDS) and set `DATABASE_URL` in the service env. Do NOT use local sqlite in production.
+  - Optional Render flag: `SERVE_STATIC` (default `false`). Set `SERVE_STATIC=true` only if you want the backend to serve static UI from `static/` or `dist/`; otherwise keep it false so the backend serves APIs only and the frontend is hosted separately (recommended).
 
 2. Frontend (Amplify)
    - Connect Amplify Console to the repo and branch.

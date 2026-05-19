@@ -8,6 +8,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from datetime import datetime
 from pathlib import Path
+import os
 
 from config.settings import settings
 from config.logging_config import logger
@@ -36,17 +37,24 @@ app.add_middleware(
 )
 
 # Mount static files
+# Mount static files only when explicitly enabled (keep frontend separate in production)
+# Set environment variable SERVE_STATIC=true to enable serving the built UI from the backend.
 static_path = Path(__file__).parent / "static"
 frontend_dist_path = Path(__file__).parent / "dist"
 
-if static_path.exists():
-    app.mount("/static", StaticFiles(directory=str(static_path)), name="static")
-    logger.info(f"Static files mounted from {static_path}")
+SERVE_STATIC = os.getenv("SERVE_STATIC", "false").lower() == "true"
 
-frontend_assets_path = frontend_dist_path / "assets"
-if frontend_assets_path.exists():
-    app.mount("/assets", StaticFiles(directory=str(frontend_assets_path)), name="frontend-assets")
-    logger.info(f"Frontend assets mounted from {frontend_assets_path}")
+if SERVE_STATIC:
+    if static_path.exists():
+        app.mount("/static", StaticFiles(directory=str(static_path)), name="static")
+        logger.info(f"Static files mounted from {static_path}")
+
+    frontend_assets_path = frontend_dist_path / "assets"
+    if frontend_assets_path.exists():
+        app.mount("/assets", StaticFiles(directory=str(frontend_assets_path)), name="frontend-assets")
+        logger.info(f"Frontend assets mounted from {frontend_assets_path}")
+else:
+    logger.info("SERVE_STATIC not enabled; backend will serve APIs only. Set SERVE_STATIC=true to serve static UI from backend.")
 
 # Include routers - Both input-agents and orchestrator
 app.include_router(agent_routes.router)  # Symptom assessment routes
