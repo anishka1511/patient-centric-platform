@@ -348,7 +348,8 @@ Depends on severity and availability, but generally includes:
 ├── scripts/
 │   ├── setup_database.py
 │   ├── verify_database.py
-│   └── dev_macos.sh
+│   ├── dev_macos.sh
+│   └── dev_windows.ps1
 ├── .env.example
 └── requirements.txt
 ```
@@ -392,11 +393,22 @@ Key settings in `config/settings.py`:
 
 ## 1) Create venv and install
 
+### macOS / Linux
+
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 python3 -m pip install --upgrade pip
 python3 -m pip install -r requirements.txt
+```
+
+### Windows (PowerShell)
+
+```powershell
+py -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
 ```
 
 ## Hosting (Production)
@@ -502,18 +514,37 @@ python3 -m pip install pandas
 
 ## 2) Configure env
 
+### macOS / Linux
+
 ```bash
 cp .env.example .env
 # edit values in .env
 ```
 
+### Windows (PowerShell)
+
+```powershell
+Copy-Item .env.example .env
+# edit values in .env
+```
+
 ## 3) Initialize DB
+
+### macOS / Linux
 
 ```bash
 python3 scripts/setup_database.py
 ```
 
+### Windows (PowerShell)
+
+```powershell
+python scripts/setup_database.py
+```
+
 ## 4) Run server
+
+### macOS / Linux
 
 ```bash
 python3 main.py
@@ -529,6 +560,18 @@ or mac helper:
 
 ```bash
 ./scripts/dev_macos.sh
+```
+
+### Windows (PowerShell)
+
+```powershell
+python main.py
+```
+
+or Windows helper:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\dev_windows.ps1
 ```
 
 ---
