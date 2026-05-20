@@ -1,11 +1,6 @@
 from fastapi import APIRouter
-import sys
-from pathlib import Path
 
-# Add parent directory to path to import data_loader
-sys.path.insert(0, str(Path(__file__).parent.parent.parent))
-
-from data_loader import generate_recommendation_response
+from backend.data_loader import generate_recommendation_response
 
 # Create router
 router = APIRouter()

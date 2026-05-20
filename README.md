@@ -2,6 +2,29 @@
 
 Production-oriented FastAPI backend for symptom assessment, urgency triage, care navigation, and downstream recommendation enrichment.
 
+## Repo Layout (May 2026)
+
+- Backend: `backend/`
+- Frontend (Vite/React): `frontend/`
+
+### Quick Local Run
+
+Backend:
+
+```bash
+# from patient-centric-platform/
+python3 -m pip install -r backend/requirements.txt
+python3 -m uvicorn backend.main:app --host 127.0.0.1 --port 8000
+```
+
+Frontend:
+
+```bash
+cd frontend
+npm ci
+npm run dev
+```
+
 This repo currently contains **two backend flows**:
 
 1. `POST /api/assess` (primary flow)
@@ -31,9 +54,10 @@ A built-in web UI (`/`) calls `/api/assess` and now displays:
 7. [Project Structure](#project-structure)
 8. [Configuration](#configuration)
 9. [Local Setup & Run](#local-setup--run)
-10. [Frontend Behavior](#frontend-behavior)
-11. [Troubleshooting](#troubleshooting)
-12. [Known Gaps / Notes](#known-gaps--notes)
+10. [Cloud Deployment (Amplify + Render)](#cloud-deployment-amplify--render)
+11. [Frontend Behavior](#frontend-behavior)
+12. [Troubleshooting](#troubleshooting)
+13. [Known Gaps / Notes](#known-gaps--notes)
 
 ---
 
@@ -358,7 +382,7 @@ Depends on severity and availability, but generally includes:
 
 ## Configuration
 
-Example env (`.env.example`):
+Example env (`backend/.env.example`):
 
 ```env
 OPENAI_API_KEY=your_api_key_here
@@ -367,8 +391,9 @@ DATABASE_URL=sqlite:///./healthcare_agent.db
 API_PORT=8000
 API_HOST=0.0.0.0
 LOG_LEVEL=INFO
+SERVE_STATIC=false
 SECRET_KEY=your-secret-key-here
-ALLOWED_ORIGINS=http://localhost:8000
+ALLOWED_ORIGINS=http://localhost:3000,http://localhost:8000
 MAX_REQUESTS_PER_MINUTE=10
 ```
 
@@ -383,6 +408,7 @@ Key settings in `config/settings.py`:
   - `DATABASE_URL`
 - API:
   - `API_HOST`, `API_PORT`, `LOG_LEVEL`
+  - `SERVE_STATIC` (`false` by default)
 - geolocation:
   - `IPINFO_API_KEY`
   - `ENABLE_AUTO_LOCATION`
@@ -390,6 +416,8 @@ Key settings in `config/settings.py`:
 ---
 
 ## Local Setup & Run
+
+Run all backend commands from repository root: `patient-centric-platform/`
 
 ## 1) Create venv and install
 
@@ -399,7 +427,7 @@ Key settings in `config/settings.py`:
 python3 -m venv .venv
 source .venv/bin/activate
 python3 -m pip install --upgrade pip
-python3 -m pip install -r requirements.txt
+python3 -m pip install -r backend/requirements.txt
 ```
 
 ### Windows (PowerShell)
@@ -518,8 +546,8 @@ python3 -m pip install pandas
 ### macOS / Linux
 
 ```bash
-cp .env.example .env
-# edit values in .env
+cp backend/.env.example backend/.env
+# edit values in backend/.env
 ```
 
 ### Windows (PowerShell)
@@ -534,7 +562,7 @@ Copy-Item .env.example .env
 ### macOS / Linux
 
 ```bash
-python3 scripts/setup_database.py
+python3 backend/scripts/setup_database.py
 ```
 
 ### Windows (PowerShell)
@@ -548,19 +576,19 @@ python scripts/setup_database.py
 ### macOS / Linux
 
 ```bash
-python3 main.py
+python3 -m uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
 or
 
 ```bash
-python3 -m uvicorn main:app --reload --host 0.0.0.0 --port 8000
+python3 -m backend.main
 ```
 
 or mac helper:
 
 ```bash
-./scripts/dev_macos.sh
+./backend/scripts/dev_macos.sh
 ```
 
 ### Windows (PowerShell)
@@ -577,9 +605,44 @@ powershell -ExecutionPolicy Bypass -File .\scripts\dev_windows.ps1
 
 ---
 
+## Cloud Deployment (Amplify + Render)
+
+### Frontend (AWS Amplify)
+
+- Config file: repo-root `amplify.yml` (already set for `frontend/` app root).
+- Build: `npm ci && npm run build`
+- Output directory: `dist/`
+- Environment variable to set in Amplify:
+  - `VITE_API_BASE_URL=https://<your-render-backend>.onrender.com`
+- SPA rewrite rule in Amplify:
+  - Source: `/<*>`
+  - Target: `/index.html`
+  - Type: `200 (Rewrite)`
+
+### Backend (Render)
+
+- Recommended Render root directory: `backend`
+- Build command:
+  - `pip install --upgrade pip setuptools wheel && pip install -r requirements.txt`
+- Start command:
+  - `gunicorn -k uvicorn.workers.UvicornWorker main:app --bind 0.0.0.0:$PORT`
+- Fallback start command:
+  - `uvicorn main:app --host 0.0.0.0 --port $PORT`
+- Required environment variables in Render:
+  - `DATABASE_URL`
+  - `OPENAI_API_KEY`
+  - `SECRET_KEY`
+  - `ALLOWED_ORIGINS` (must include Amplify domain)
+  - `LOG_LEVEL` (for example `INFO`)
+  - `SERVE_STATIC=false` (set `true` only if backend should serve frontend assets)
+- Python runtime pin:
+  - `.python-version` is set to `3.11.9`
+
+---
+
 ## Frontend Behavior
 
-`static/index.html` calls `POST /api/assess`.
+When `SERVE_STATIC=true`, backend static UI (`backend/static/index.html`) calls `POST /api/assess`.
 
 For actionable cases, it now displays below disease detection results:
 
@@ -653,4 +716,3 @@ Expect:
 - core assessment fields
 - `scraping_input` (non-null)
 - `scraping_recommendations` (non-null/error object)
-
