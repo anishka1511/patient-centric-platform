@@ -21,11 +21,7 @@ const formatLocation = (location) => {
 };
 
 export default function ResultDashboard({ result, symptoms, inputLabel = 'Your Symptoms', onBackClick }) {
-  const normalizedUrgency = String(result?.urgency || '').toLowerCase();
-  const showHospitalCards =
-    Boolean(result?.emergency_flag) ||
-    normalizedUrgency === 'high' ||
-    normalizedUrgency === 'medium';
+  const showHospitalCards = Array.isArray(result?.hospitals) && result.hospitals.length > 0;
 
   const symptomsIdentified =
     result.symptoms_identified && result.symptoms_identified.length > 0

@@ -240,6 +240,23 @@ const mapDoctors = (rawDoctors, userLocation) => {
   return mapped;
 };
 
+const dedupeDoctors = (doctors) => {
+  if (!Array.isArray(doctors) || doctors.length === 0) return [];
+
+  const seen = new Set();
+  return doctors.filter((doctor) => {
+    const key = [
+      doctor?.name || '',
+      doctor?.specialty || '',
+      extractDoctorLocation(doctor),
+      doctor?.phone || doctor?.contact_number || '',
+    ].join('|');
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+};
+
 const buildHospitalsFromRecommendations = (rawHospitals, mappedDoctors, userLocation) => {
   if (!Array.isArray(rawHospitals) || rawHospitals.length === 0) return [];
 
@@ -494,10 +511,14 @@ const normalizeAssessmentResponse = (response) => {
   const optionalDoctors = Array.isArray(scrapingOutput?.optional_nearby_doctors?.recommended_doctors)
     ? scrapingOutput.optional_nearby_doctors.recommended_doctors
     : [];
-  const mappedDoctors =
-    mappedFromClosest.doctors.length > 0
-      ? mappedFromClosest.doctors
-      : mapDoctors([...primaryDoctors, ...optionalDoctors], response?.user_location);
+  const mappedDoctorsFromRecommendations = mapDoctors(
+    [...primaryDoctors, ...optionalDoctors],
+    response?.user_location
+  );
+  const mappedDoctors = dedupeDoctors([
+    ...mappedDoctorsFromRecommendations,
+    ...mappedFromClosest.doctors,
+  ]);
 
   const hospitalsFromRecommendations = buildHospitalsFromRecommendations(
     scrapingOutput?.recommended_hospitals || [],
