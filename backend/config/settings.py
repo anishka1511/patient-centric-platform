@@ -22,6 +22,7 @@ class Settings(BaseSettings):
     api_port: int = 8000
     api_host: str = "0.0.0.0"
     log_level: str = "INFO"
+    serve_static: bool = False
     
     # Security
     secret_key: str
@@ -52,7 +53,7 @@ class Settings(BaseSettings):
     @property
     def allowed_origins_list(self) -> List[str]:
         """Parse allowed origins into a list"""
-        return [origin.strip() for origin in self.allowed_origins.split(",")]
+        return [origin.strip() for origin in self.allowed_origins.split(",") if origin.strip()]
     
     @property
     def is_development(self) -> bool:

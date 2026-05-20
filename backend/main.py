@@ -2,12 +2,19 @@
 Healthcare Symptom Assessment Agent - Main Application
 FastAPI application for AI-powered symptom assessment and care navigation
 """
+import sys
+from pathlib import Path
+
+# Ensure absolute imports like `backend.*` work when running from backend/ as `main:app`.
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from datetime import datetime
-from pathlib import Path
 
 from backend.config.settings import settings
 from backend.config.logging_config import logger
@@ -35,18 +42,21 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Mount static files
+# Static paths (used only when serve_static=true)
 static_path = Path(__file__).parent / "static"
 frontend_dist_path = Path(__file__).resolve().parent.parent / "frontend" / "dist"
 
-if static_path.exists():
-    app.mount("/static", StaticFiles(directory=str(static_path)), name="static")
-    logger.info(f"Static files mounted from {static_path}")
+if settings.serve_static:
+    if static_path.exists():
+        app.mount("/static", StaticFiles(directory=str(static_path)), name="static")
+        logger.info(f"Static files mounted from {static_path}")
 
-frontend_assets_path = frontend_dist_path / "assets"
-if frontend_assets_path.exists():
-    app.mount("/assets", StaticFiles(directory=str(frontend_assets_path)), name="frontend-assets")
-    logger.info(f"Frontend assets mounted from {frontend_assets_path}")
+    frontend_assets_path = frontend_dist_path / "assets"
+    if frontend_assets_path.exists():
+        app.mount("/assets", StaticFiles(directory=str(frontend_assets_path)), name="frontend-assets")
+        logger.info(f"Frontend assets mounted from {frontend_assets_path}")
+else:
+    logger.info("Static file serving disabled (SERVE_STATIC=false)")
 
 # Include routers - Both input-agents and orchestrator
 app.include_router(agent_routes.router)  # Symptom assessment routes
@@ -118,22 +128,23 @@ async def root():
     """
     Serve the web interface
     """
-    frontend_index_path = frontend_dist_path / "index.html"
-    if frontend_index_path.exists():
-        return FileResponse(frontend_index_path)
+    if settings.serve_static:
+        frontend_index_path = frontend_dist_path / "index.html"
+        if frontend_index_path.exists():
+            return FileResponse(frontend_index_path)
 
-    index_path = Path(__file__).parent / "static" / "index.html"
-    if index_path.exists():
-        return FileResponse(index_path)
-    else:
-        return {
-            "name": settings.app_name,
-            "version": settings.app_version,
-            "status": "running",
-            "message": "Web interface not found. Visit /docs for API documentation.",
-            "docs": "/docs",
-            "health": "/health"
-        }
+        index_path = Path(__file__).parent / "static" / "index.html"
+        if index_path.exists():
+            return FileResponse(index_path)
+
+    return {
+        "name": settings.app_name,
+        "version": settings.app_version,
+        "status": "running",
+        "message": "Frontend is hosted separately. Visit /docs for API documentation.",
+        "docs": "/docs",
+        "health": "/health"
+    }
 
 # API Info endpoint
 @app.get("/api-info", tags=["system"])
