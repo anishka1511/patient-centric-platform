@@ -2,6 +2,29 @@
 
 Production-oriented FastAPI backend for symptom assessment, urgency triage, care navigation, and downstream recommendation enrichment.
 
+## Repo Layout (May 2026)
+
+- Backend: `backend/`
+- Frontend (Vite/React): `frontend/`
+
+### Quick Local Run
+
+Backend:
+
+```bash
+# from patient-centric-platform/
+python3 -m pip install -r backend/requirements.txt
+python3 -m uvicorn backend.main:app --host 127.0.0.1 --port 8000
+```
+
+Frontend:
+
+```bash
+cd frontend
+npm ci
+npm run dev
+```
+
 This repo currently contains **two backend flows**:
 
 1. `POST /api/assess` (primary flow)
@@ -390,13 +413,15 @@ Key settings in `config/settings.py`:
 
 ## Local Setup & Run
 
+Run all backend commands from repository root: `patient-centric-platform/`
+
 ## 1) Create venv and install
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 python3 -m pip install --upgrade pip
-python3 -m pip install -r requirements.txt
+python3 -m pip install -r backend/requirements.txt
 ```
 
 ### Important dependency note
@@ -410,32 +435,32 @@ python3 -m pip install pandas
 ## 2) Configure env
 
 ```bash
-cp .env.example .env
-# edit values in .env
+cp backend/.env.example backend/.env
+# edit values in backend/.env
 ```
 
 ## 3) Initialize DB
 
 ```bash
-python3 scripts/setup_database.py
+python3 backend/scripts/setup_database.py
 ```
 
 ## 4) Run server
 
 ```bash
-python3 main.py
+python3 -m uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
 or
 
 ```bash
-python3 -m uvicorn main:app --reload --host 0.0.0.0 --port 8000
+python3 -m backend.main
 ```
 
 or mac helper:
 
 ```bash
-./scripts/dev_macos.sh
+./backend/scripts/dev_macos.sh
 ```
 
 ---
@@ -516,4 +541,3 @@ Expect:
 - core assessment fields
 - `scraping_input` (non-null)
 - `scraping_recommendations` (non-null/error object)
-

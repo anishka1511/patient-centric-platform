@@ -1,0 +1,12 @@
+.review-summary {
+  font-size: 0.9rem;
+  color: #333;
+}
+.review-stats {
+  font-weight: 600;
+}
+.review-top {
+  font-style: italic;
+  color: #555;
+  margin-top: 4px;
+}
